@@ -34,9 +34,9 @@ export default function Footer() {
           {/* Brand & Agency Column */}
           <div className="lg:col-span-4">
             <Link href="/" className="flex items-center gap-3 group inline-flex">
-              <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-md">
+              <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-md overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/logo.png" alt="Spirit Adventures Logo" className="w-full h-full object-contain" />
+                <img src="/logohead.png" alt="Spirit Adventures Logo" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-black tracking-tight text-white font-sans">

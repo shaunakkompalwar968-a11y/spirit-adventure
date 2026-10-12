@@ -89,12 +89,9 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
         >
           {/* Brand Logo & Tagline */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center p-1.5 transition-transform duration-300 group-hover:scale-105 shadow-inner">
-              {/* Geometric Mountain Emblem like screenshot */}
-              <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-white stroke-white stroke-[2.2]" strokeLinecap="round" strokeLinejoin="round">
-                <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-                <path d="M4.14 15.08 7.5 10l3.5 5.5" />
-              </svg>
+            <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center p-1 transition-transform duration-300 group-hover:scale-105 shadow-inner overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logohead.png" alt="Spirit Adventure Emblem" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col">
               <span className="text-base lg:text-lg font-black tracking-wider text-white font-sans flex items-center gap-1">
@@ -382,11 +379,9 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
       <header className="md:hidden fixed top-0 left-0 right-0 z-40 px-4 py-3 bg-[#0c231b]/80 backdrop-blur-xl border-b border-white/10 flex items-center justify-between text-white shadow-lg">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center p-1 text-white">
-            <svg viewBox="0 0 24 24" fill="none" className="w-full h-full stroke-white stroke-[2.2]" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-              <path d="M4.14 15.08 7.5 10l3.5 5.5" />
-            </svg>
+          <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center p-0.5 overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logohead.png" alt="Spirit Adventure Emblem" className="w-full h-full object-contain" />
           </div>
           <span className="text-sm font-black tracking-wider text-white">
             SPIRIT ADVENTURE
