@@ -133,68 +133,57 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link 
-                  href="/packages/coorg" 
+                  href="/packages/wayanad-adventure" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Coorg Getaway
+                  3D/2N Wayanad Adventure
                 </Link>
               </li>
               <li>
                 <Link 
-                  href="/packages/goa" 
+                  href="/packages/coorg-wayanad" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Goa Beach Trip
+                  4D/3N Coorg & Wayanad
                 </Link>
               </li>
               <li>
                 <Link 
-                  href="/packages/hampi" 
+                  href="/packages/gokarna-dandeli-udupi" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Hampi & Gokarna
+                  4D/3N Gokarna & Dandeli
                 </Link>
               </li>
               <li>
                 <Link 
-                  href="/packages/ooty" 
+                  href="/packages/gokarna-murudeshwar-udupi-jogfalls" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Kodaikanal & Ooty
+                  4D/3N Murudeshwar & Jog Falls
                 </Link>
               </li>
               <li>
                 <Link 
-                  href="/packages/chikmagalur" 
+                  href="/packages/hampi-gokarna-dandeli" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Chikmagalur Trail
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/packages/dandeli" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
-                >
-                  Dandeli Rafting
+                  4D/3N Hampi & Gokarna
                 </Link>
               </li>
             </ul>
@@ -223,13 +212,13 @@ export default function Footer() {
               </li>
               <li>
                 <Link 
-                  href="/destinations" 
+                  href="/gallery" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Destinations
+                  Adventure Gallery
                 </Link>
               </li>
               <li>

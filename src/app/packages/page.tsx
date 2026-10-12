@@ -125,13 +125,13 @@ function PackagesCatalogContent() {
         <div className="relative z-10 max-w-4xl mx-auto text-center text-white">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 backdrop-blur-md border border-white/20 mb-4 text-[#0787E8]">
             <Compass className="w-3.5 h-3.5" />
-            <span className="text-white">Curated South India Escapes</span>
+            <span className="text-white">Official Spirit Adventures Circuits</span>
           </div>
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
-            Tour Packages & <span className="text-[#0787E8]">Getaways</span>
+            Tour Packages & <span className="text-[#0787E8]">Backpacking Trips</span>
           </h1>
           <p className="mt-4 text-base sm:text-lg text-[#F3F5F4] font-light max-w-2xl mx-auto leading-relaxed">
-            Every weekend departure includes AC pushback transportation from Hyderabad and Bangalore, verified estate stays, campfires, and dedicated tour coordinators.
+            Departures every Thursday & Friday from Hyderabad (Nampally, Begumpet, Lingampally, Kacheguda) with pickups in Bangalore & Chennai. Includes train tickets, resort stays & beach camping, watersports, and certified trip captains.
           </p>
         </div>
       </div>

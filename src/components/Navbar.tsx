@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Compass, 
   MapPin, 
+  Camera,
   Search, 
   Heart, 
   ArrowRight, 
@@ -23,7 +24,7 @@ import {
 } from 'lucide-react';
 import BookingModal from './BookingModal';
 import { TourPackage } from '@/types';
-import { FALLBACK_PACKAGES, FALLBACK_DESTINATIONS } from '@/data/fallbackData';
+import { FALLBACK_PACKAGES } from '@/data/fallbackData';
 
 interface NavbarProps {
   featuredPackages?: TourPackage[];
@@ -39,7 +40,6 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
   
   // Dropdown states for Desktop
   const [toursDropdownOpen, setToursDropdownOpen] = useState(false);
-  const [destinationsDropdownOpen, setDestinationsDropdownOpen] = useState(false);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
 
   // Search Modal state
@@ -182,63 +182,6 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
               </AnimatePresence>
             </div>
 
-            {/* Destinations Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setDestinationsDropdownOpen(true)}
-              onMouseLeave={() => setDestinationsDropdownOpen(false)}
-            >
-              <button
-                onClick={() => setDestinationsDropdownOpen(prev => !prev)}
-                className={`px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors ${
-                  pathname.startsWith('/destinations') 
-                    ? 'text-white font-bold' 
-                    : 'text-white/80 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                <span>Destinations</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${destinationsDropdownOpen ? 'rotate-180 text-[#F59E0B]' : ''}`} />
-              </button>
-
-              <AnimatePresence>
-                {destinationsDropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute top-full left-0 mt-2 w-64 rounded-2xl bg-[#0c231b]/95 backdrop-blur-xl border border-white/20 shadow-2xl p-3 z-50 space-y-1"
-                  >
-                    <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[#F59E0B] border-b border-white/10">
-                      South India Escapes
-                    </div>
-                    {FALLBACK_DESTINATIONS.map((dest) => (
-                      <Link
-                        key={dest.id}
-                        href={`/packages?destination=${dest.slug}`}
-                        onClick={() => setDestinationsDropdownOpen(false)}
-                        className="flex items-center justify-between p-2 rounded-xl hover:bg-white/10 transition-colors group/dest"
-                      >
-                        <span className="text-xs font-bold text-white group-dest:text-[#F59E0B]">
-                          {dest.name}
-                        </span>
-                        <span className="text-[10px] text-white/50">{dest.country.split(',')[0]}</span>
-                      </Link>
-                    ))}
-                    <div className="pt-2 border-t border-white/10">
-                      <Link
-                        href="/destinations"
-                        onClick={() => setDestinationsDropdownOpen(false)}
-                        className="block text-center text-xs font-bold text-[#F59E0B] hover:underline py-1"
-                      >
-                        Explore All Destinations →
-                      </Link>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
             {/* About Dropdown */}
             <div 
               className="relative"
@@ -292,11 +235,11 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
               </AnimatePresence>
             </div>
 
-            {/* Gallery (Links to Destinations View) */}
+            {/* Gallery */}
             <Link
-              href="/destinations"
+              href="/gallery"
               className={`px-3 py-1.5 rounded-full transition-colors ${
-                pathname === '/destinations' 
+                pathname === '/gallery' 
                   ? 'text-white font-bold' 
                   : 'text-white/80 hover:text-white hover:bg-white/10'
               }`}
@@ -477,19 +420,19 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
             </svg>
           </button>
 
-          {/* 4. Destinations */}
+          {/* 4. Gallery */}
           <Link
-            href="/destinations"
+            href="/gallery"
             className={`flex flex-col items-center justify-center gap-0.5 px-3 py-1 rounded-full transition-all ${
-              pathname.startsWith('/destinations') 
+              pathname.startsWith('/gallery') 
                 ? 'text-[#F59E0B]' 
                 : 'text-white/70 hover:text-white'
             }`}
           >
-            <div className={`p-1 rounded-full ${pathname.startsWith('/destinations') ? 'bg-[#F59E0B]/20 text-[#F59E0B]' : ''}`}>
-              <MapPin className="w-4 h-4" />
+            <div className={`p-1 rounded-full ${pathname.startsWith('/gallery') ? 'bg-[#F59E0B]/20 text-[#F59E0B]' : ''}`}>
+              <Camera className="w-4 h-4" />
             </div>
-            <span className="text-[10px] font-bold">Destinations</span>
+            <span className="text-[10px] font-bold">Gallery</span>
           </Link>
 
           {/* 5. Profile / Contact */}

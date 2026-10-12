@@ -2,7 +2,6 @@ import React from 'react';
 import HeroSection from '@/components/HeroSection';
 import TourPackagesSection from '@/components/TourPackagesSection';
 import AboutSection from '@/components/AboutSection';
-import DestinationsGrid from '@/components/DestinationsGrid';
 import MediaGalleryPreview from '@/components/MediaGalleryPreview';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import FAQSection from '@/components/FAQSection';
@@ -10,16 +9,14 @@ import CtaBanner from '@/components/CtaBanner';
 import { 
   fetchPackages, 
   fetchCategories, 
-  fetchDestinations, 
   fetchTestimonials, 
   fetchAgencyStats 
 } from '@/lib/api';
 
 export default async function HomePage() {
-  const [packages, categories, destinations, testimonials, stats] = await Promise.all([
+  const [packages, categories, testimonials, stats] = await Promise.all([
     fetchPackages(),
     fetchCategories(),
-    fetchDestinations(),
     fetchTestimonials(),
     fetchAgencyStats(),
   ]);
@@ -37,9 +34,6 @@ export default async function HomePage() {
 
       {/* About Us Section (D) */}
       <AboutSection stats={stats} />
-
-      {/* Destinations Explorer Grid */}
-      <DestinationsGrid destinations={destinations} />
 
       {/* Authentic Expedition Gallery & Reels Preview */}
       <MediaGalleryPreview />

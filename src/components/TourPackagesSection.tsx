@@ -47,10 +47,10 @@ export default function TourPackagesSection({
             className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight"
             style={{ color: '#183B2A' }}
           >
-            Handcrafted Mountain Journeys
+            Official Adventure & Backpacking Tours
           </h2>
           <p className="mt-4 text-base sm:text-lg text-[#426D4A] leading-relaxed">
-            From the soaring heights of the Everest amphitheater to the wild granite peaks of Patagonia, discover expeditions led by passionate mountain professionals.
+            Experience curated weekend getaways from Hyderabad, Bangalore & Chennai — featuring Chembra Peak treks, Dandeli Kali River rafting, Gokarna beach treks, Jog Falls, Mandalpatti 4x4 Jeep safaris, and Hampi UNESCO heritage.
           </p>
 
           {/* Category Filter Pills */}

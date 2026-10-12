@@ -3,104 +3,93 @@ import { Category, Destination, TourPackage, Testimonial, AgencyStats, GalleryIt
 export const FALLBACK_CATEGORIES: Category[] = [
   {
     id: 1,
-    name: "Wayanad & Coorg",
+    name: "Wayanad & Coorg Circuits",
     slug: "wayanad-coorg",
     icon: "Mountain",
-    description: "Misty Chembra Peak, 900 Kandi Glass Bridge, waterfalls, and coffee plantations."
+    description: "Chembra Peak, 900 Kandi Glass Bridge, Golden Temple, Mandalpatti & waterfalls."
   },
   {
     id: 2,
-    name: "Gokarna & Beaches",
-    slug: "gokarna-beaches",
+    name: "Gokarna & Coastal Backpacking",
+    slug: "coastal-escapes",
     icon: "Waves",
-    description: "Om Beach to Kudle trek, Murudeshwar Shiva Statue, Udupi temples, and coastal camping."
+    description: "Murudeshwar Shiva Statue, Udupi temples, Honnavar mangroves & Om to Kudle beach trek."
   },
   {
     id: 3,
-    name: "Dandeli & Water Sports",
+    name: "Dandeli & River Watersports",
     slug: "dandeli-adventure",
     icon: "Tent",
-    description: "Kali River whitewater rafting, kayaking, boating, zorbing, and jungle camping."
+    description: "Kali River rafting, kayaking, zorbing, river swimming, DJ rain dance & campfire nights."
   },
   {
     id: 4,
-    name: "Hampi & Heritage",
-    slug: "hampi-heritage",
+    name: "Hampi & UNESCO Heritage",
+    slug: "heritage-circuits",
     icon: "Compass",
-    description: "UNESCO stone ruins, Vijaya Vittala temple, boulder sunsets, and Hippie Island."
+    description: "Vijayanagara boulder empire, Vijaya Vittala Stone Chariot, Hippie Island & history."
   },
   {
     id: 5,
-    name: "Waterfalls & Nature",
-    slug: "waterfalls-nature",
+    name: "Customized & Group Holidays",
+    slug: "custom-trips",
     icon: "Footprints",
-    description: "Jog Falls, Vibhuti Falls, Soochipara Falls, and Honnavar mangrove backwaters."
+    description: "Tailor-made itineraries for families, couples, college batches, and corporate teams."
   }
 ];
 
 export const FALLBACK_DESTINATIONS: Destination[] = [
   {
     id: 1,
+    name: "Wayanad",
+    country: "Kerala, India",
+    slug: "wayanad",
+    image_url: "/assets/img/Testimonals/03.webp",
+    description: "Chembra Peak, 900 Kandi Glass Bridge, Banasura Sagar Dam, and Soochipara Falls.",
+    best_season: "September to May",
+    altitude: "700m - 2,100m",
+    treks_count: 3
+  },
+  {
+    id: 2,
     name: "Coorg (Kodagu)",
     country: "Karnataka, India",
     slug: "coorg",
-    image_url: "/assets/img/Testimonals/03.webp",
-    description: "The Scotland of India, renowned for aromatic coffee estates, Abbey Falls, and Raja's Seat.",
+    image_url: "/assets/img/Testimonals/01.webp",
+    description: "The Scotland of India, renowned for coffee estates, Abbey Falls, and Mandalpatti Peak.",
     best_season: "October to March",
     altitude: "900m - 1,750m",
     treks_count: 3
   },
   {
-    id: 2,
-    name: "Goa Coastline",
-    country: "Goa, India",
-    slug: "goa",
+    id: 3,
+    name: "Gokarna & Murudeshwar",
+    country: "Karnataka, India",
+    slug: "gokarna",
     image_url: "/assets/img/Testimonals/02.webp",
-    description: "Sun-kissed beaches, parasailing, historic Aguada Fort, and Mandovi sunset river cruises.",
-    best_season: "September to April",
+    description: "Om Beach to Kudle Beach cliff trek, Murudeshwar colossal Shiva statue, and Mirjan Fort.",
+    best_season: "October to April",
     altitude: "Sea Level",
     treks_count: 4
   },
   {
-    id: 3,
-    name: "Hampi & Gokarna",
+    id: 4,
+    name: "Hampi",
     country: "Karnataka, India",
     slug: "hampi",
     image_url: "/assets/img/Hampi.png",
-    description: "Vijayanagara boulder kingdom, monolithic temples, and pristine cliffs of Om Beach.",
-    best_season: "September to March",
+    description: "Vijayanagara boulder kingdom, monolithic Stone Chariot, and vibrant Hippie Island.",
+    best_season: "October to March",
     altitude: "450m",
     treks_count: 3
   },
   {
-    id: 4,
-    name: "Ooty & Kodaikanal",
-    country: "Tamil Nadu, India",
-    slug: "ooty",
-    image_url: "/assets/img/Testimonals/05.webp",
-    description: "Queen of Hill Stations, UNESCO Nilgiri toy train, Mysore Palace, and tea gardens.",
-    best_season: "Year-round",
-    altitude: "2,240m",
-    treks_count: 4
-  },
-  {
     id: 5,
-    name: "Chikmagalur",
-    country: "Karnataka, India",
-    slug: "chikmagalur",
-    image_url: "/assets/img/Testimonals/08.webp",
-    description: "Mullayanagiri peak trek, Baba Budangiri, and lush Western Ghats rainforests.",
-    best_season: "September to March",
-    altitude: "1,090m",
-    treks_count: 2
-  },
-  {
-    id: 6,
     name: "Dandeli",
     country: "Karnataka, India",
     slug: "dandeli",
     image_url: "/assets/img/Testimonals/12.webp",
-    description: "Kali River whitewater rafting, jungle camping, coracle boating, and hornbill sightings.",
+    description: "Kali River whitewater rafting, kayaking, zorbing, natural river jacuzzi, and campfires.",
     best_season: "October to May",
     altitude: "473m",
     treks_count: 2
@@ -110,21 +99,21 @@ export const FALLBACK_DESTINATIONS: Destination[] = [
 export const FALLBACK_PACKAGES: TourPackage[] = [
   {
     id: 1,
-    title: "Coorg Getaway",
-    slug: "coorg",
-    tagline: "The Scotland of India • Misty Valleys, Coffee Plantations & Waterfalls",
-    destination_name: "Coorg (Kodagu), Karnataka",
-    destination_slug: "coorg",
-    category_name: "Hill Stations & Coffee Trails",
-    category_slug: "hill-stations",
-    duration_days: 2,
-    difficulty: "Easy",
-    max_altitude: "1,750 m",
-    group_size: "2 - 15 Travelers",
-    price: 4999,
-    discount_price: 4499,
+    title: "3D 2N Wayanad Adventure Trip",
+    slug: "wayanad-adventure",
+    tagline: "Kuruvadweep Island, Chembra Peak Trek, 900 Kandi Glass Bridge & Wayanad Safari",
+    destination_name: "Wayanad, Kerala",
+    destination_slug: "wayanad",
+    category_name: "Wayanad & Coorg Circuits",
+    category_slug: "wayanad-coorg",
+    duration_days: 3,
+    difficulty: "Moderate",
+    max_altitude: "2,100 m",
+    group_size: "10 - 25 Backpackers",
+    price: 7499,
+    discount_price: 7499,
     rating: 4.9,
-    reviews_count: 184,
+    reviews_count: 186,
     is_featured: true,
     hero_image: "/assets/img/Testimonals/03.webp",
     gallery: [
@@ -132,74 +121,398 @@ export const FALLBACK_PACKAGES: TourPackage[] = [
       "/assets/img/Testimonals/01.webp",
       "/assets/img/Testimonals/08.webp"
     ],
-    overview: "Escape into the tranquil, emerald hills of Coorg (Kodagu). Known affectionately as the \"Scotland of India,\" Coorg offers refreshing mountain air, cascading silver waterfalls, and endless aromatic coffee and spice plantations. Our weekend package includes cozy estate accommodations, guided waterfall treks, authentic Kodava cuisine, and magical sunset viewpoints at Raja's Seat.",
+    overview: "Organized by Spirit Adventures. Depart from Hyderabad (EX-HYD) every Thursday & Friday. Hike Chembra Peak, step onto the 900 Kandi Glass Bridge, experience high-speed ziplining, marvel at Asia's largest earth dam at Banasura Sagar, explore peaceful Kuruvadweep river island, and immerse in Wayanad Wildlife Sanctuary jungle safari vibes with an en-route visit to Mysore Palace.",
     highlights: [
-      "Stay in authentic coffee estate resort nestled in Kodagu hills",
-      "Abbey Falls waterfall trek with hanging bridge views",
-      "Golden sunset over misty Western Ghats at Raja's Seat",
-      "Interaction with gentle giants at Dubare Elephant Camp",
-      "Namdroling Golden Temple Buddhist monastery tour at Bylakuppe",
-      "Campfire night with acoustic music and traditional Kodava feast"
+      "Kuruvadweep Island (Peaceful River Island Experience)",
+      "Banasura Sagar Dam (Asia's Largest Earth Dam View & Greenery)",
+      "Chembra Peak Trek (Start: 3:00 AM | Trek Begins: 7:00 AM | Return: 11:00 AM)",
+      "Soochipara Waterfalls & 900 Kandi Glass Bridge Experience",
+      "High-Speed Valley Zipline Adventure & Lakkidi View Point",
+      "Wayanad Wildlife Sanctuary (Jungle Safari Vibes)",
+      "Mysore Palace (En-route Visit)",
+      "Non-AC Sleeper Class Train Tickets (To & Fro) Included"
     ],
-    itinerary: [{"day": "Day 1", "title": "Arrival, Coffee Trails & Sunset Viewpoint", "meals": "Campfire Dinner Included", "activities": ["Scenic morning drive through Western Ghats into Madikeri; check-in at our boutique coffee estate resort.", "Guided walking tour through sprawling coffee and spice plantations; learn about coffee bean harvesting and roasting.", "Visit the thundering Abbey Falls nestled deep inside private estates; photograph the falls from the iconic hanging bridge.", "Witness a spectacular golden sunset at Raja's Seat overlooking endless rolling misty valleys.", "Warm evening campfire with music and an authentic Kodava dinner feast (Pandi Curry / Akki Roti / Vegetarian specialities)."]}, {"day": "Day 2", "title": "Gentle Giants, Golden Temple & Return Journey", "meals": "Breakfast Included", "activities": ["Enjoy freshly brewed South Indian filter coffee made from estate beans, followed by a buffet breakfast.", "Excursion to Dubare Elephant Camp on the Kaveri riverbanks; interact with gentle giants and witness river bathing.", "Tour the majestic Namdroling Monastery (Golden Temple) in Bylakuppe with 40-foot gilded Buddha statues.", "Shopping stop for authentic Coorg homemade chocolates, pure organic honey, and aromatic spices.", "Depart on return journey back to Hyderabad / Bangalore with unforgettable memories."]}],
-    included: ["Round-trip transportation in comfortable AC Pushback Coach / Tempo Traveller", "1 Night stay in certified boutique coffee estate resort / homestay", "1 Delicious Breakfast and 1 Campfire Dinner feast included", "Guided coffee and spice plantation walking tour with estate expert", "All scheduled sightseeing in Madikeri, Dubare, and Bylakuppe", "Evening campfire with acoustic music under starry skies", "All highway tolls, inter-state vehicle taxes, and driver charges", "24/7 dedicated Spirit Adventures tour coordinator on trip"],
-    excluded: ["Personal expenses, shopping, and laundry service", "Lunches during highway and sightseeing stops", "Monument and monastery camera entry passes (if applicable)", "River rafting or optional boating tickets at Dubare"],
-    upcoming_dates: ["Every Weekend (Fri Night)", "Oct 24, 2026", "Nov 07, 2026", "Nov 21, 2026", "Dec 12, 2026"]
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Nature & Scenic Views",
+        meals: "Local eateries stop",
+        activities: [
+          "Arrive in Wayanad; transfer to scenic hotel/homestay and freshen up.",
+          "Visit Kuruvadweep Island for a peaceful river island nature walk amidst dense bamboo groves.",
+          "Explore Banasura Sagar Dam (Asia's largest earth dam view) with calm waters & mountain landscapes.",
+          "Enjoy lush greenery, calm waters & scenic landscapes.",
+          "Overnight stay in Wayanad."
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Trekking & Adventure",
+        meals: "Breakfast & dinner stops",
+        activities: [
+          "Early morning 3:00 AM start for Chembra Peak.",
+          "Trek begins at 7:00 AM up Chembra Peak; pass scenic heart-shaped lake; return by 11:00 AM.",
+          "Visit the roaring Soochipara Waterfalls.",
+          "Thrilling 900 Kandi Glass Bridge walk suspended high above tea estates.",
+          "High-speed valley Zipline adventure.",
+          "Sunset stop at Lakkidi View Point (if time permits).",
+          "Overnight stay in Wayanad."
+        ]
+      },
+      {
+        day: "Day 3",
+        title: "Wildlife & Heritage",
+        meals: "En-route meals",
+        activities: [
+          "Early morning trip to Wayanad Wildlife Sanctuary (Jungle Safari Vibes).",
+          "Scenic forest route drive towards Mysore.",
+          "En-route visit to the grand Mysore Palace.",
+          "Board return journey train back to Hyderabad with unforgettable memories."
+        ]
+      }
+    ],
+    included: [
+      "Non-AC Sleeper Class Train Tickets (To & Fro - Hyderabad ↔ Wayanad/Mysore)",
+      "Local Transportation (Non AC)",
+      "Local Sightseeing as per itinerary",
+      "Accommodation (Sharing Basis)",
+      "Driver Charges & Bata",
+      "Tolls, Parking & Taxes",
+      "Trip Captain (if 10+ members)",
+      "Basic First Aid Support"
+    ],
+    excluded: [
+      "Food expenses",
+      "Entry Tickets at attractions & viewpoints",
+      "Private Rooms & AC Upgrades (3AC / 2AC / 1AC) available at extra cost",
+      "Anything Not Mentioned in Inclusions"
+    ],
+    upcoming_dates: ["Every Thursday & Friday", "Nov 06, 2026", "Nov 13, 2026", "Nov 20, 2026", "Dec 04, 2026"]
   },
   {
     id: 2,
-    title: "Goa Beach Trip",
-    slug: "goa",
-    tagline: "Sun, Sand & Portuguese Charm • Water Sports, Forts & Vibrant Nightlife",
-    destination_name: "Goa Coastline",
-    destination_slug: "goa",
-    category_name: "Beaches & Coastal Escapes",
-    category_slug: "beaches",
-    duration_days: 3,
-    difficulty: "Easy",
-    max_altitude: "Sea Level",
-    group_size: "2 - 20 Travelers",
-    price: 8500,
-    discount_price: 7999,
-    rating: 4.8,
-    reviews_count: 240,
+    title: "4D 3N Coorg & Wayanad Trip",
+    slug: "coorg-wayanad",
+    tagline: "Chembra Peak Trek, 900 Kandi Glass Bridge, Golden Temple, Mandalpatti & Abbey Falls",
+    destination_name: "Coorg & Wayanad",
+    destination_slug: "coorg-wayanad",
+    category_name: "Wayanad & Coorg Circuits",
+    category_slug: "wayanad-coorg",
+    duration_days: 4,
+    difficulty: "Moderate",
+    max_altitude: "2,100 m",
+    group_size: "10 - 25 Backpackers",
+    price: 8999,
+    discount_price: 8999,
+    rating: 4.9,
+    reviews_count: 242,
+    is_featured: true,
+    hero_image: "/assets/img/Testimonals/01.webp",
+    gallery: [
+      "/assets/img/Testimonals/01.webp",
+      "/assets/img/Testimonals/03.webp",
+      "/assets/img/Testimonals/08.webp"
+    ],
+    overview: "Organized by Spirit Adventures. Depart every Friday from Hyderabad (Board Mysore Express from Kacheguda at 7:00 PM), Bangalore, or Chennai. Discover Mysore Palace, Kuruvadweep Island, Banasura Sagar Dam, Chembra Peak trek, 900 Kandi Glass Bridge, Zipline, Golden Temple at Bylakuppe, Harangi Elephant Camp, and open 4x4 jeep safari to Mandalpatti Peak with Abbey Waterfalls.",
+    highlights: [
+      "Board Mysore Express from Kacheguda at 7:00 PM (HYD | BLR | CHE)",
+      "Mysore Palace, Kuruvadweep Island & Banasura Sagar Dam",
+      "Early Morning Chembra Peak Trek (7:00 AM to 11:00 AM)",
+      "Soochipara Waterfalls, 900 Kandi Glass Bridge & Zipline Adventure",
+      "Golden Temple (Namdroling), Chiklihole Reservoir & Harangi Dam",
+      "Harangi Elephant Camp interaction",
+      "4x4 Jeep ride to Mandalpatti Peak, Abbey Waterfalls & coffee plantations",
+      "Round-trip Non-AC Sleeper Class train tickets included"
+    ],
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Mysore & Wayanad Exploration",
+        meals: "En-route meal stops",
+        activities: [
+          "Board Mysore Express from Kacheguda at 7:00 PM; overnight train to Bangalore/Mysore.",
+          "Arrive morning; visit the regal Mysore Palace.",
+          "Travel to Wayanad; explore Kuruvadweep Island nature trail.",
+          "Visit Banasura Sagar Dam with panoramic reservoir vistas.",
+          "Overnight stay in Wayanad."
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Trekking & Adventure Day",
+        meals: "Breakfast & dinner stops",
+        activities: [
+          "Early morning start towards Chembra Peak trek (trek begins 7:00 AM, return by 11:00 AM).",
+          "Visit Soochipara Waterfalls.",
+          "Walk on the transparent 900 Kandi Glass Bridge above rainforest canopies.",
+          "Thrilling high-line valley zipline adventure.",
+          "Visit scenic Lakkidi View Point (if time permits).",
+          "Overnight stay."
+        ]
+      },
+      {
+        day: "Day 3",
+        title: "Coorg Sightseeing",
+        meals: "Local Kodava cuisine stops",
+        activities: [
+          "Scenic morning drive from Wayanad into the rolling coffee hills of Coorg.",
+          "Visit the grand Golden Temple (Namdroling Monastery) in Bylakuppe.",
+          "Visit serene Chiklihole Reservoir and Harangi Dam.",
+          "Interaction with elephants at Harangi Elephant Camp.",
+          "Overnight stay in Coorg."
+        ]
+      },
+      {
+        day: "Day 4",
+        title: "Coorg Hills & Waterfalls",
+        meals: "Lunch break",
+        activities: [
+          "4x4 open jeep safari to the top of Mandalpatti Peak.",
+          "Visit cascading Abbey Waterfalls surrounded by private estates.",
+          "Guided coffee and spice plantations walk.",
+          "Lunch break and return journey towards Bangalore / Mysore.",
+          "Overnight train journey back to Hyderabad."
+        ]
+      }
+    ],
+    included: [
+      "Non-AC Sleeper Class Train Tickets (Both Ways)",
+      "Accommodation on Sharing Basis",
+      "Local Transportation in private vehicle",
+      "Trip Captain Assistance throughout",
+      "Driver Charges & Bata",
+      "All Required Permits, Toll, Parking & Taxes",
+      "Basic First Aid Support"
+    ],
+    excluded: [
+      "Food Expenses during journey and stay",
+      "Entry Tickets & Tatkal Charges",
+      "GST (5%)",
+      "Anything Not Mentioned in Inclusions"
+    ],
+    upcoming_dates: ["Every Friday Departure", "Nov 06, 2026", "Nov 13, 2026", "Nov 20, 2026", "Nov 27, 2026"]
+  },
+  {
+    id: 3,
+    title: "4D 3N Gokarna & Dandeli & Udupi Trip",
+    slug: "gokarna-dandeli-udupi",
+    tagline: "Dandeli Kali River Watersports, Murudeshwar, Udupi Temples & Om to Kudle Beach Trek",
+    destination_name: "Gokarna, Dandeli & Udupi",
+    destination_slug: "gokarna-dandeli-udupi",
+    category_name: "Gokarna & Coastal Backpacking",
+    category_slug: "coastal-escapes",
+    duration_days: 4,
+    difficulty: "Moderate",
+    max_altitude: "Sea Level - 473 m",
+    group_size: "12 - 25 Backpackers",
+    price: 8999,
+    discount_price: 8999,
+    rating: 4.9,
+    reviews_count: 310,
     is_featured: true,
     hero_image: "/assets/img/Testimonals/02.webp",
     gallery: [
       "/assets/img/Testimonals/02.webp",
-      "/assets/img/Testimonals/07.webp",
-      "/assets/img/Testimonals/14.webp"
+      "/assets/img/Testimonals/12.webp",
+      "/assets/img/Testimonals/16.webp"
     ],
-    overview: "Feel the tropical breeze and soak in the vibrant coastal charm of Goa. From buzzing sandy shores in North Goa and exhilarating water sports to centuries-old Portuguese forts, Dudhsagar waterfalls, and laid-back sunset shacks, this 3 Days, 2 Nights holiday package provides the ultimate mix of thrill and beachside bliss.",
+    overview: "Organized by Spirit Adventures. Departures every Thursday & Friday (3:30 PM departure from Hyderabad: Nampally, Begumpet, Lingampally; also BLR | BZA | CHE). Experience 1 full day of meals and watersports in Dandeli: boating, kayaking, zorbing, 1.2 KM river rafting, zipline, rain dance, campfire and tent stay. Followed by Vibhuti Falls, Murudeshwar Shiva statue, beachside campfire camping at Nirvana Beach, Udupi Krishna Temple, Mirjan Fort, and cliff trek from Om Beach to Kudle Beach.",
     highlights: [
-      "3-Star Beachside Resort stay with swimming pool",
-      "Water sports combo: Parasailing, Jet Ski, and Banana rides",
-      "Visit Aguada Fort, Chapora Fort (Dil Chahta Hai point), and Sinquerim",
-      "Mandovi sunset river cruise with live DJ and Goan folk dance",
-      "Explore lively beach shacks and night markets at Baga & Calangute"
+      "Departures Every Thursday & Friday – 3:30 PM (HYD | BLR | BZA | CHE)",
+      "Boarding points: Nampally, Begumpet, Lingampally",
+      "Dandeli Resort: Boating, Kayaking, Zorbing, 1.2 KM River Rafting, Zipline & River Swimming",
+      "1 Day Dandeli Meals Included (Breakfast, Lunch & Campfire Dinner)",
+      "DJ Music, Rain Dance, Campfire Night Under the Stars & Camping Stay",
+      "Vibhuti Falls & Honnavar Mangroves walkway",
+      "Murudeshwar Temple & giant Shiva statue beside the Arabian Sea",
+      "Sunset at Nirvana Beach with beachside campfire & beach camping stay",
+      "Sri Mookambika Temple, Udupi Sri Krishna Temple & Maravanthe Beach",
+      "Mirjan Fort, Mahabaleshwar Temple & Beach Trek: Om Beach ➝ Kudle Beach"
     ],
-    itinerary: [{"day": "Day 1", "title": "Welcome to Goa & Baga Beach Sunset", "meals": "Dinner Included", "activities": ["Arrival in Goa; pickup and check-in to our 3-star beach resort. Refresh by the pool.", "Afternoon trip to Baga and Calangute beaches; relax on beach loungers with fresh coconut water.", "Thrilling water sports session (Parasailing, Jet Ski, and Banana rides).", "Explore vibrant beach shacks with live music, Goan seafood specials, and night market shopping."]}, {"day": "Day 2", "title": "Heritage Forts, Latin Quarters & River Cruise", "meals": "Breakfast Included", "activities": ["Buffet breakfast at resort followed by a visit to 17th-century Portuguese Fort Aguada and Lighthouse.", "Explore the UNESCO World Heritage Basilica of Bom Jesus and Se Cathedral in Old Goa.", "Stroll through the pastel-hued Portuguese Latin Quarter of Fontainhas in Panjim.", "Scenic evening Mandovi River Cruise with live Goan folk dance performances and DJ music."]}, {"day": "Day 3", "title": "Anjuna Cliffs, Bohemian Flea Markets & Departure", "meals": "Breakfast Included", "activities": ["Breakfast and resort checkout; morning visit to scenic Anjuna and Vagator cliffs.", "Visit Chapora Fort overlooking the Arabian Sea (famous \"Dil Chahta Hai\" viewpoint).", "Souvenir shopping at local Goan markets for cashew nuts, feni, and beachwear.", "Drop-off at airport or railway station for return journey."]}],
-    included: ["Round-trip airport / station transfers in AC vehicle", "2 Nights stay in 3-star beachside resort with swimming pool", "Daily morning buffet breakfast at resort", "Guided North Goa & South Goa sightseeing tours", "Evening Mandovi River Cruise ticket included", "Assistance with discounted group water sports combos", "All tolls, parking, and driver allowances"],
-    excluded: ["Airfare / Train tickets to and from Goa", "Optional water sports combo activity passes", "Lunches and specialty club dinners", "Personal bar expenses, laundry, and tips"],
-    upcoming_dates: ["Every Friday Departure", "Nov 06, 2026", "Nov 20, 2026", "Dec 18, 2026", "Dec 30, 2026"]
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Dandeli Adventure",
+        meals: "Breakfast, Delicious Lunch & Campfire Dinner Included",
+        activities: [
+          "Reach Hubli by 8:00 AM; transfer to Dandeli resort; check-in, freshen up & enjoy breakfast.",
+          "Adventure activities: Boating, Kayaking, Zorbing, River Rafting (1.2 KM), Zipline & River Swimming.",
+          "Delicious buffet lunch included.",
+          "Indoor & outdoor games, DJ music & rain dance.",
+          "Campfire night under the stars with dinner included.",
+          "Camping stay experience (rooms available on paid upgrade)."
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Beaches & Temples",
+        meals: "Local coastal eateries",
+        activities: [
+          "Early morning departure to crystal-clear Vibhuti Falls.",
+          "Explore Honnavar Mangroves boat trails.",
+          "Visit Murudeshwar Temple and giant Shiva statue.",
+          "Watch golden sunset at Nirvana Beach.",
+          "Beachside campfire and overnight beach camping stay."
+        ]
+      },
+      {
+        day: "Day 3",
+        title: "Udupi Temple Tour",
+        meals: "Udupi vegetarian delicacies",
+        activities: [
+          "Darshan at Sri Mookambika Temple.",
+          "Visit historic Udupi Sri Krishna Temple.",
+          "Drive along Maravanthe Beach where the Arabian Sea and Souparnika River run parallel.",
+          "Overnight stay."
+        ]
+      },
+      {
+        day: "Day 4",
+        title: "Gokarna Exploration",
+        meals: "Cliff cafe lunch",
+        activities: [
+          "Explore 16th-century historic Mirjan Fort.",
+          "Visit sacred Mahabaleshwar Temple.",
+          "Gokarna Main Beach visit.",
+          "Scenic cliffside beach trek: Om Beach ➝ Kudle Beach.",
+          "Return journey starts at 8:30 PM; reach Hyderabad by Tuesday 11:00 AM."
+        ]
+      }
+    ],
+    included: [
+      "Sleeper Class Train Tickets (Round Trip)",
+      "Local Transportation in private vehicle",
+      "Accommodation (Resort Stay & Beach Camping)",
+      "Meals in Dandeli (Breakfast, Lunch & Dinner Included on Day 1)",
+      "Trip Captain Support & First Aid Assistance",
+      "Kayaking, Boating, Zorbing & River Swimming in Dandeli"
+    ],
+    excluded: [
+      "Food during train journey & other days",
+      "Paid adventure activities (long-stretch rafting add-on)",
+      "Tatkal charges & GST (5%)",
+      "Private couple room upgrade (₹3,000/- per couple, subject to availability)"
+    ],
+    upcoming_dates: ["Every Thursday & Friday", "Nov 05, 2026", "Nov 12, 2026", "Nov 19, 2026", "Dec 03, 2026"]
   },
   {
-    id: 3,
-    title: "Hampi, Gokarna & Dandeli",
-    slug: "hampi",
-    tagline: "UNESCO Ruins, Sacred Coastlines & Whitewater Rapids • South India's Premier Circuit",
-    destination_name: "Hampi & Gokarna, Karnataka",
-    destination_slug: "hampi",
-    category_name: "Heritage & Historic Circuits",
-    category_slug: "heritage",
+    id: 4,
+    title: "4D 3N Gokarna & Murudeshwar & Udupi & Jog Falls",
+    slug: "gokarna-murudeshwar-udupi-jogfalls",
+    tagline: "Jog Falls, Vibuthi Falls, Murudeshwar Temple, Honnavar Mangroves & Om Beach Sunset",
+    destination_name: "Gokarna, Murudeshwar & Jog Falls",
+    destination_slug: "gokarna-murudeshwar-udupi-jogfalls",
+    category_name: "Gokarna & Coastal Backpacking",
+    category_slug: "coastal-escapes",
+    duration_days: 4,
+    difficulty: "Easy to Moderate",
+    max_altitude: "Sea Level - 450 m",
+    group_size: "12 - 25 Backpackers",
+    price: 8999,
+    discount_price: 8999,
+    rating: 4.8,
+    reviews_count: 215,
+    is_featured: true,
+    hero_image: "/assets/img/Testimonals/07.webp",
+    gallery: [
+      "/assets/img/Testimonals/07.webp",
+      "/assets/img/Testimonals/14.webp",
+      "/assets/img/Testimonals/16.webp"
+    ],
+    overview: "Organized by Spirit Adventures. Depart every Friday from Hyderabad (also BLR | CHE) on an overnight train journey towards Karnataka's coastal paradise. Stand before the world-famous Jog Falls (one of India's highest waterfalls), marvel at the 123-foot Shiva statue overlooking the Arabian Sea at Murudeshwar, explore Honnavar backwaters & mangrove forests, seek blessings at Udupi Sri Krishna Temple, and relax at Om Beach and Kudle Beach in Gokarna.",
+    highlights: [
+      "Board train from Hyderabad (Departure Every Friday | HYD | BLR | CHE)",
+      "Vibuthi Falls / Apsara Konda Falls & Mangrove Forest",
+      "Murudeshwar Temple & iconic Shiva statue beside the Arabian Sea",
+      "Sri Mookambika Temple & Shree Krishna Temple in Udupi",
+      "Sunset views along pristine Maravanthe Beach",
+      "Honavar Backwaters boat cruise & Mangrove Forest walkway",
+      "Jog Falls — one of India's highest plunge waterfalls",
+      "Mahabaleshwar Temple, Gokarna Main Beach, Om Beach & Kudle Beach",
+      "Non-AC Sleeper Class Train Tickets (Both Ways) Included"
+    ],
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Waterfalls & Murudeshwar",
+        meals: "Coastal breakfast & dinner stops",
+        activities: [
+          "Board train from Hyderabad; overnight journey towards Karnataka's coast.",
+          "Morning arrival; visit Vibuthi Falls / Apsara Konda Falls.",
+          "Explore the natural Mangrove Forest walkway.",
+          "Visit Murudeshwar Temple and the grand Shiva statue beside the Arabian Sea.",
+          "Overnight stay."
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Udupi Temple Tour & Beach",
+        meals: "Traditional Udupi meals",
+        activities: [
+          "Visit sacred Sri Mookambika Temple.",
+          "Darshan at Shree Krishna Temple – Udupi.",
+          "Sunset stop at Maravanthe Beach with panoramic water on both sides.",
+          "Overnight stay."
+        ]
+      },
+      {
+        day: "Day 3",
+        title: "Honnavar & Jog Falls",
+        meals: "En-route meal stops",
+        activities: [
+          "Scenic morning boat cruise across Honavar Backwaters.",
+          "Explore dense Mangrove Forest walkways.",
+          "Excursion to Jog Falls — one of India's highest waterfalls.",
+          "Overnight stay."
+        ]
+      },
+      {
+        day: "Day 4",
+        title: "Gokarna Beaches",
+        meals: "Beach cafe lunch break",
+        activities: [
+          "Visit sacred Mahabaleshwar Temple.",
+          "Gokarna Main Beach visit.",
+          "Spend leisurely afternoon hours on Om Beach and hike to Kudle Beach.",
+          "Lunch break and transfer to railway station.",
+          "Overnight journey back to Hyderabad."
+        ]
+      }
+    ],
+    included: [
+      "Non-AC Sleeper Class Train Tickets (Both Ways)",
+      "Accommodation on Sharing Basis",
+      "Local Transportation in private vehicle",
+      "Trip Captain Assistance",
+      "Driver Charges & Bata",
+      "All Required Permits, Toll, Parking & Taxes",
+      "Basic First Aid Support"
+    ],
+    excluded: [
+      "Food Expenses",
+      "Entry Tickets & Tatkal Charges",
+      "GST (5%)",
+      "Anything Not Mentioned in Inclusions"
+    ],
+    upcoming_dates: ["Every Friday Departure", "Nov 06, 2026", "Nov 13, 2026", "Nov 20, 2026", "Dec 04, 2026"]
+  },
+  {
+    id: 5,
+    title: "4D 3N Hampi & Gokarna & Dandeli Trip",
+    slug: "hampi-gokarna-dandeli",
+    tagline: "UNESCO Boulder Ruins, Hippie Island, Dandeli Adventure Camp & Gokarna Beach Trek",
+    destination_name: "Hampi, Gokarna & Dandeli",
+    destination_slug: "hampi-gokarna-dandeli",
+    category_name: "Hampi & UNESCO Heritage",
+    category_slug: "heritage-circuits",
     duration_days: 4,
     difficulty: "Moderate",
     max_altitude: "500 m",
-    group_size: "4 - 15 Travelers",
-    price: 9500,
+    group_size: "12 - 25 Backpackers",
+    price: 8999,
     discount_price: 8999,
     rating: 4.9,
-    reviews_count: 320,
+    reviews_count: 340,
     is_featured: true,
     hero_image: "/assets/img/Hampi.png",
     gallery: [
@@ -207,155 +520,85 @@ export const FALLBACK_PACKAGES: TourPackage[] = [
       "/assets/img/Testimonals/04.png",
       "/assets/img/Testimonals/12.webp"
     ],
-    overview: "The ultimate 3-in-1 adventure experience! Journey through the mystical boulder-strewn kingdom and monolithic temples of the Vijayanagara Empire in Hampi. Unwind on the serene, sacred cliffs of Om Beach in Gokarna, and conquer rushing whitewater rapids on the Kali River in Dandeli.",
+    overview: "Organized by Spirit Adventures (Contact / WhatsApp: 96665 67551). Package Price: ₹8,999/- + 5% GST (Ex-Hubballi: ₹7,899/- + GST | HYD/BZA/CHE: ₹8,699/- + GST | 3AC Upgrade: ₹10,499/- + GST). Departure cities: Hyderabad, Chennai, Vijayawada & more. Explore 7th-century Vijayanagara kingdom ruins and Hippie Island in Hampi, enjoy full adventure sports (boating, kayaking, zorbing, swimming), rain dance & campfire camping with meals in Dandeli, and trek the sacred cliffs from Om Beach to Kudle Beach in Gokarna.",
     highlights: [
-      "Explore 7th-century Virupaksha Temple & monolithic Vittala Stone Chariot",
-      "Sunset over boulder kingdom from sacred Hemakuta Hill",
-      "Relax on the peaceful sands and cafes of Om Beach, Gokarna",
-      "Whitewater rafting on the Kali River in Dandeli with safety gear",
-      "Campfire and starry sky dinner in Dandeli riverside forest camp"
-    ],
-    itinerary: [{"day": "Day 1", "title": "Monolithic Ruins & Sunset Over Hampi", "meals": "Dinner Included", "activities": ["Early morning arrival in Hampi; check-in and fresh-up.", "Explore the 7th-century Virupaksha Temple on the sacred banks of Tungabhadra River.", "Visit the world-famous Vittala Temple Complex, Stone Chariot, and musical granite pillars.", "Tour the Royal Enclosure, Lotus Mahal, and Elephant Stables.", "Hike up Hemakuta Hill for an unforgettable golden sunset over the stone boulder kingdom; campfire dinner."]}, {"day": "Day 2", "title": "Scenic Coastal Drive & Om Beach Gokarna", "meals": "Breakfast & Beachside Dinner", "activities": ["Scenic morning drive from Hampi to the Arabian Sea coastline of Gokarna.", "Visit the sacred Mahabaleshwar Temple with ancient Atmalinga heritage.", "Explore the naturally curved Om Beach; relax at cliffside cafes (Namaste Cafe).", "Trek along scenic headlands to Kudle Beach and Half Moon Beach.", "Sunset beach walk and campfire under starry coastal skies."]}, {"day": "Day 3", "title": "Dandeli River Rafting & Jungle Adventures", "meals": "Breakfast, Lunch & Barbecue Dinner", "activities": ["Morning drive into the dense teak and bamboo forests of Dandeli.", "Gear up with helmets and lifejackets for thrilling Kali River Whitewater Rafting (Grade 2 & 3 rapids).", "Enjoy kayaking, natural river jacuzzi, and river ziplining.", "Check-in to riverside jungle resort; rain dance and pool party.", "Jungle campfire with barbecue dinner and night stargazing."]}, {"day": "Day 4", "title": "Supa Dam Canyon & Return Journey", "meals": "Breakfast Included", "activities": ["Early morning jungle birdwatching and nature trail.", "Buffet breakfast at resort.", "Visit the grand Supa Dam canyon viewpoint and Syntheri Rocks monolith.", "Afternoon departure on AC coach back to Hyderabad / Bangalore."]}],
-    included: ["Round-trip transportation in sanitized AC Pushback Coach", "3 Nights comfortable stays (Hampi, Gokarna & Dandeli)", "3 Breakfasts, 1 Lunch & 3 Campfire Dinners", "Certified local history guide in Hampi", "Kali river water activities (Natural Jacuzzi & Kayaking included)", "Campfire nights with music in Hampi and Dandeli", "All inter-state vehicle permits, tolls, and parking charges", "24/7 dedicated Spirit Adventures tour coordinator"],
-    excluded: ["Long-stretch Whitewater river rafting ticket (available as add-on)", "Lunches in Hampi and Gokarna", "Camera and monument entry fees", "Personal adventure sports not listed in inclusions"],
-    upcoming_dates: ["Every Thursday Night Departure", "Nov 12, 2026", "Nov 26, 2026", "Dec 10, 2026", "Dec 24, 2026"]
-  },
-  {
-    id: 4,
-    title: "Kodaikanal, Ooty & Mysore",
-    slug: "ooty",
-    tagline: "The Queen of Hill Stations • Nilgiri Toy Train, Tea Plantations & Royal Palaces",
-    destination_name: "Ooty & Kodaikanal, Tamil Nadu",
-    destination_slug: "ooty",
-    category_name: "Hill Stations & Coffee Trails",
-    category_slug: "hill-stations",
-    duration_days: 6,
-    difficulty: "Easy",
-    max_altitude: "2,240 m",
-    group_size: "2 - 12 Travelers",
-    price: 14000,
-    discount_price: 12999,
-    rating: 4.9,
-    reviews_count: 290,
-    is_featured: true,
-    hero_image: "/assets/img/Testimonals/05.webp",
-    gallery: [
-      "/assets/img/Testimonals/05.webp",
-      "/assets/img/Testimonals/19.webp",
-      "/assets/img/Testimonals/15.webp"
-    ],
-    overview: "Traverse the regal splendor of the Wadiyars in Mysore and ascend into the cool, misty paradise of the Nilgiri Hills. Ride the historic UNESCO mountain railway in Ooty, stroll through endless rolling emerald tea gardens in Coonoor, walk among giant ancient pine forests, and watch the illuminated brilliance of Mysore Palace.",
-    highlights: [
-      "Magnificent Mysore Palace with golden bulb illumination",
-      "Ride the historic UNESCO Nilgiri Mountain Toy Train",
-      "Visit Doddabetta Peak, tea gardens, and Ooty Lake boating",
-      "Stroll along Kodaikanal Lake, Coaker's Walk, and Pillar Rocks",
-      "Stay in scenic heritage hillside resorts"
-    ],
-    itinerary: [{"day": "Day 1", "title": "Royal Mysore & Grand Palace Illumination", "meals": "Dinner Included", "activities": ["Morning departure from Bangalore/Hyderabad; reach historic Mysore.", "Visit Chamundi Hills and the sacred monolith Nandi Bull statue.", "Guided tour of the grand Mysore Palace; admire royal artifacts and golden throne.", "Marvel at the breathtaking spectacle of Mysore Palace illuminated with 100,000 golden bulbs.", "Stroll through the musical fountains of Brindavan Gardens."]}, {"day": "Day 2", "title": "Ascent to Ooty & Botanical Gardens", "meals": "Breakfast & Dinner", "activities": ["Drive through Bandipur and Mudumalai Tiger Reserves up the 36 hairpin bends into Ooty.", "Check-in to picturesque hill resort overlooking tea slopes.", "Visit Government Botanical Garden featuring over 1,000 exotic flower species.", "Evening boating on Ooty Lake surrounded by eucalyptus groves; chocolate tasting."]}, {"day": "Day 3", "title": "UNESCO Toy Train & Coonoor Tea Estates", "meals": "Breakfast & Campfire Dinner", "activities": ["Board the UNESCO World Heritage Nilgiri Mountain Railway (Toy Train) to Coonoor.", "Visit Dolphin's Nose viewpoint looking down on Catherine Falls and Lamb's Rock.", "Tour an authentic tea factory; learn orthodox tea manufacturing and enjoy tea tasting.", "Sunset at Doddabetta Peak (highest peak in the Nilgiris); resort campfire dinner."]}, {"day": "Day 4", "title": "Scenic Drive to Kodaikanal & Star Lake", "meals": "Breakfast & Dinner", "activities": ["Morning drive from Nilgiris through Palani hills to Kodaikanal (\"Princess of Hill Stations\").", "Check-in to cozy valley resort in Kodaikanal.", "Leisure walk and cycling around the perimeter of Kodaikanal Star-Shaped Lake.", "Visit Bryant Park; shop for homemade chocolates and herbal eucalyptus oils."]}, {"day": "Day 5", "title": "Pillar Rocks, Pine Forest & Coaker's Walk", "meals": "Breakfast & Dinner", "activities": ["Morning visit to the magnificent Pillar Rocks (400-foot sheer granite cliffs).", "Explore Guna Caves (Devil's Kitchen) and Moir Point.", "Walk through the fairy-tale Pine Forest; visit Silver Cascade and Bear Shola Falls.", "Evening walk along Coaker's Walk with breathtaking misty valley views below."]}, {"day": "Day 6", "title": "Chettiar Park & Journey Back", "meals": "Breakfast Included", "activities": ["Leisurely breakfast and visit to Chettiar Park with Kurinji flowers.", "Scenic descent from the hills with roadside viewpoints and fruit stalls.", "Return journey back to Bangalore / Hyderabad with lifelong memories."]}],
-    included: ["Round-trip transportation in premium AC coach", "5 Nights accommodation in 3-star hill and heritage resorts", "Daily breakfast and 5 gourmet dinners", "UNESCO Nilgiri Toy Train reservation assistance", "Guided tours of Mysore Palace and Tea Factory", "All interstate entry taxes, tolls, parking, and driver charges", "Dedicated Spirit Adventures tour coordinator"],
-    excluded: ["Personal boating charges at Ooty and Kodaikanal lakes", "Lunches and mid-day snacks", "Entry fees to amusement rides / private parks", "Room service and personal tips"],
-    upcoming_dates: ["Departures Every Saturday", "Nov 14, 2026", "Nov 28, 2026", "Dec 19, 2026", "Jan 09, 2027"]
-  },
-  {
-    id: 5,
-    title: "Chikmagalur Coffee Trail & Mullayanagiri",
-    slug: "chikmagalur-coffee-trail",
-    tagline: "Trek Karnataka's Highest Peak, Explore Baba Budangiri & Wake Up to Arabica Aromas",
-    destination_name: "Chikmagalur, Karnataka",
-    destination_slug: "chikmagalur",
-    category_name: "Hill Stations & Coffee Trails",
-    category_slug: "hill-stations",
-    duration_days: 3,
-    difficulty: "Moderate",
-    max_altitude: "1,930 m",
-    group_size: "2 - 15 Travelers",
-    price: 6500,
-    discount_price: 5999,
-    rating: 4.8,
-    reviews_count: 135,
-    is_featured: false,
-    hero_image: "/assets/img/Testimonals/08.webp",
-    gallery: [
-      "/assets/img/Testimonals/08.webp",
-      "/assets/img/Testimonals/01.webp",
-      "/assets/img/Testimonals/09.webp"
-    ],
-    overview: "Chikmagalur is the birthplace of Indian coffee. Trek to Mullayanagiri (the highest peak in Karnataka), witness rolling misty shola grasslands of Baba Budangiri, stand beneath cascading Jhari Waterfalls, and relax in heritage estate homestays with authentic Malnad feasts.",
-    highlights: [
-      "Trek to Mullayanagiri Peak (1,930m) for panoramic valley views",
-      "4x4 Jeep ride to remote Jhari (Buttermilk) Waterfalls",
-      "Visit historic Baba Budangiri hills and Manikyadhara Falls",
-      "Stay in authentic coffee estate homestay with plantation walk",
-      "Campfire and authentic Malnad feast"
+      "Package Price: ₹8,999 + 5% GST (Ex-Hubballi: ₹7,899+GST | HYD/BZA/CHE: ₹8,699+GST)",
+      "Contact / WhatsApp Hotline: 96665 67551",
+      "Hampi Heritage Tour: Shri Achyutaraaya Swami Temple, Vijaya Vittala Temple & Hippie Island",
+      "Dandeli Adventure Day: Boating, Kayaking, Zorbing, River Swimming, Rain Dance & Nature Walk",
+      "Campsite activities: Archery, Dart Board & Badminton with Lunch & Dinner included",
+      "Camping Tent Stay Experience in Dandeli (3/4 sharing)",
+      "Early Morning Vibuthi Waterfalls & optional Yana Caves",
+      "Honnavar Boating, Murudeshwar Temple & Mangrove Forest",
+      "Mahabaleshwar Temple, Mirjan Fort, Om Beach & Kudle Beach Trek"
     ],
     itinerary: [
-      { day: 1, title: "Scenic Drive & Coffee Plantation Check-in", description: "Drive arriving in Chikmagalur. Check-in to estate homestay, fresh up, and take a guided coffee estate walk. Evening campfire and dinner.", accommodation: "Estate Homestay", meals: "Breakfast, Dinner" },
-      { day: 2, title: "Mullayanagiri Peak Trek & Jhari Falls Jeep Drive", description: "Early morning trek to Mullayanagiri peak. Afternoon 4x4 jeep ride to Jhari Falls. Sunset at Baba Budangiri.", accommodation: "Estate Homestay", meals: "Breakfast, Dinner" },
-      { day: 3, title: "Belur Heritage Temple & Return Journey", description: "Visit the 12th-century Hoysala Chennakeshava Temple at Belur with exquisite stone carvings. Return drive.", accommodation: "N/A", meals: "Breakfast" }
+      {
+        day: "Day 1",
+        title: "Hampi Heritage Tour",
+        meals: "En-route breakfast and local lunch",
+        activities: [
+          "Reach Hubli by morning train; freshen up & start journey to Hampi.",
+          "Explore Shri Achyutaraaya Swami Temple.",
+          "Visit the iconic Vijaya Vittala Temple and the world-famous Stone Chariot.",
+          "Explore Hippie Island across the Tungabhadra River.",
+          "Night stay at Hubli hotel."
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Dandeli Adventure Day",
+        meals: "Breakfast, Lunch & Dinner Included",
+        activities: [
+          "Transfer to Dandeli; breakfast included.",
+          "Adventure activities: Boating, Kayaking, Zorbing & River Swimming.",
+          "Team games: Archery, Dart Board & Badminton.",
+          "Rain Dance & nature walk.",
+          "Campfire under the stars with night music and dinner included.",
+          "Camping tent stay experience."
+        ]
+      },
+      {
+        day: "Day 3",
+        title: "Gokarna Sightseeing",
+        meals: "Coastal eateries stops",
+        activities: [
+          "Early morning 6:00 AM start to Vibuthi Waterfalls.",
+          "Optional visit to massive limestone Yana Caves.",
+          "Honnavar boating experience and Mangrove Forest boardwalk.",
+          "Visit Murudeshwar Temple overlooking the Arabian Sea.",
+          "Overnight stay at Gokarna."
+        ]
+      },
+      {
+        day: "Day 4",
+        title: "Gokarna Exploration",
+        meals: "Beach cafe lunch break",
+        activities: [
+          "Early morning visit to Mahabaleshwar Temple.",
+          "Explore historical Mirjan Fort.",
+          "Relax at Om Beach.",
+          "Scenic cliffside trek from Om Beach to Kudle Beach.",
+          "Drop at railway station; board train by 8:30 PM."
+        ]
+      }
     ],
     included: [
-      "2 Nights accommodation in scenic coffee estate homestay",
-      "Breakfast on all days, 2 campfire dinners with local Malnad cuisine",
-      "AC Pushback transportation for all transfers",
-      "4x4 Jeep transfer to Jhari waterfalls",
-      "Plantation walk and all tolls, parking"
+      "Sleeper Class Train Tickets (Up & Down)",
+      "Local Transportation & Local Tempo Transfers",
+      "1 Day Dandeli Food (Breakfast, Lunch & Dinner Included)",
+      "3 Water Activities in Dandeli (Boating, Kayaking, Zorbing, River Swimming)",
+      "Camping Accommodation (3/4 Sharing)",
+      "First Aid Assistance",
+      "Trip Organizer Support (Spirit Adventures Coordinator)"
     ],
     excluded: [
-      "Lunches during transit and sightseeing",
-      "Personal shopping (coffee beans, spices)"
+      "Food Expenses during train journey",
+      "Paid Adventure Activities (1.2 KM river rafting add-on, zipline)",
+      "Couple room upgrades & 3AC train upgrade",
+      "Anything Not Mentioned in Inclusions"
     ],
-    upcoming_dates: ["Every Friday Night", "Nov 06, 2026", "Nov 20, 2026", "Dec 04, 2026", "Dec 18, 2026"]
-  },
-  {
-    id: 6,
-    title: "Dandeli River Rafting & Jungle Camp",
-    slug: "dandeli-rafting",
-    tagline: "Whitewater Rapids on Kali River, Coracle Rides, Jungle Safari & Riverside Campfire",
-    destination_name: "Dandeli, Karnataka",
-    destination_slug: "dandeli",
-    category_name: "River Rafting & Wildlife",
-    category_slug: "adventure-wildlife",
-    duration_days: 2,
-    difficulty: "Moderate",
-    max_altitude: "473 m",
-    group_size: "2 - 20 Travelers",
-    price: 4500,
-    discount_price: 3999,
-    rating: 4.9,
-    reviews_count: 160,
-    is_featured: false,
-    hero_image: "/assets/img/Testimonals/12.webp",
-    gallery: [
-      "/assets/img/Testimonals/12.webp",
-      "/assets/img/Testimonals/11.webp",
-      "/assets/img/Testimonals/17.webp"
-    ],
-    overview: "Experience heart-pounding whitewater rafting on the Kali River. Dandeli is South India's premier adventure hub offering natural jacuzzi baths, river kayaking, tranquil coracle rides, wildlife jungle treks, and campfire barbecue under starry canopies.",
-    highlights: [
-      "Certified Kali River whitewater rafting with safety life jackets",
-      "Coracle boating and natural river jacuzzi experience",
-      "Overnight stay in riverside tented camp or cottage resort",
-      "Campfire night with music, barbecue, and team games",
-      "Morning jungle walk for birdwatching and hornbill sightings"
-    ],
-    itinerary: [
-      { day: 1, title: "Arrival in Dandeli & Kali River Watersports", description: "Reach Dandeli campsite; check-in and fresh up with welcome drinks. Head to Kali River for thrilling whitewater rafting, coracle ride, and river jacuzzi. Evening campfire with music and dinner.", accommodation: "Riverside Adventure Camp", meals: "Lunch, High Tea, Campfire Dinner" },
-      { day: 2, title: "Jungle Walk, Supa Dam & Return Journey", description: "Early morning guided jungle walk. Breakfast at camp. Visit Supa Dam viewpoint and local timber craft shops before starting return journey.", accommodation: "N/A", meals: "Breakfast" }
-    ],
-    included: [
-      "1 Night stay in adventure camp / resort on sharing basis",
-      "All meals: 1 Lunch, 1 Dinner, 1 Breakfast, evening tea",
-      "Kali River rafting session with certified instructor and equipment",
-      "Coracle ride, kayaking, and natural jacuzzi bath",
-      "Campfire with music and games",
-      "All taxes and parking"
-    ],
-    excluded: [
-      "Personal expenses and tips",
-      "Optional night jungle jeep safari"
-    ],
-    upcoming_dates: ["Every Weekend", "Oct 24, 2026", "Nov 07, 2026", "Nov 21, 2026", "Dec 05, 2026"]
+    upcoming_dates: ["Every Thursday & Friday Departure", "Nov 05, 2026", "Nov 12, 2026", "Nov 19, 2026", "Dec 03, 2026"]
   }
 ];
 

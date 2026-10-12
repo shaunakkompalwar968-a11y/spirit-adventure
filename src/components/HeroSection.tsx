@@ -170,13 +170,12 @@ export default function HeroSection() {
                   onChange={(e) => setSelectedDestination(e.target.value)}
                   className="w-full bg-transparent text-xs font-bold text-white focus:outline-none cursor-pointer"
                 >
-                  <option value="" className="bg-[#0C231B] text-white">Search destinations</option>
-                  <option value="coorg" className="bg-[#0C231B] text-white">Coorg (Kodagu)</option>
-                  <option value="goa" className="bg-[#0C231B] text-white">Goa Beaches & Water Sports</option>
-                  <option value="hampi" className="bg-[#0C231B] text-white">Hampi, Gokarna & Dandeli</option>
-                  <option value="ooty" className="bg-[#0C231B] text-white">Kodaikanal, Ooty & Mysore</option>
-                  <option value="chikmagalur" className="bg-[#0C231B] text-white">Chikmagalur Coffee Trail</option>
-                  <option value="dandeli" className="bg-[#0C231B] text-white">Dandeli River Rafting</option>
+                  <option value="" className="bg-[#0C231B] text-white">Choose Tour Circuit</option>
+                  <option value="wayanad" className="bg-[#0C231B] text-white">Wayanad Adventure Trip (3D/2N)</option>
+                  <option value="coorg-wayanad" className="bg-[#0C231B] text-white">Coorg & Wayanad Circuit (4D/3N)</option>
+                  <option value="gokarna-dandeli-udupi" className="bg-[#0C231B] text-white">Gokarna, Dandeli & Udupi (4D/3N)</option>
+                  <option value="gokarna-murudeshwar-udupi-jogfalls" className="bg-[#0C231B] text-white">Gokarna, Murudeshwar & Jog Falls (4D/3N)</option>
+                  <option value="hampi-gokarna-dandeli" className="bg-[#0C231B] text-white">Hampi, Gokarna & Dandeli (4D/3N)</option>
                 </select>
               </div>
             </div>
