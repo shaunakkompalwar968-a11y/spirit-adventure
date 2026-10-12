@@ -133,6 +133,50 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link 
+                  href="/packages/manali-kullu-kasol" 
+                  className="transition-colors"
+                  style={{ color: '#E5EFE5' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                >
+                  Manali, Kullu & Kasol (₹9,999)
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/packages/isha-ooty-coonoor" 
+                  className="transition-colors"
+                  style={{ color: '#E5EFE5' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                >
+                  Isha, Ooty & Coonoor (₹8,999)
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/packages/munnar-alleppey" 
+                  className="transition-colors"
+                  style={{ color: '#E5EFE5' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                >
+                  Munnar & Alleppey Houseboat
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/packages/gokarna-dandeli-udupi" 
+                  className="transition-colors"
+                  style={{ color: '#E5EFE5' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                >
+                  Gokarna, Dandeli & Udupi
+                </Link>
+              </li>
+              <li>
+                <Link 
                   href="/packages/wayanad-adventure" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
@@ -151,39 +195,6 @@ export default function Footer() {
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
                   4D/3N Coorg & Wayanad
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/packages/gokarna-dandeli-udupi" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
-                >
-                  4D/3N Gokarna & Dandeli
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/packages/gokarna-murudeshwar-udupi-jogfalls" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
-                >
-                  4D/3N Murudeshwar & Jog Falls
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/packages/hampi-gokarna-dandeli" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
-                >
-                  4D/3N Hampi & Gokarna
                 </Link>
               </li>
             </ul>

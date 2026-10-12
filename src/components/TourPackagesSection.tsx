@@ -50,7 +50,7 @@ export default function TourPackagesSection({
             Official Adventure & Backpacking Tours
           </h2>
           <p className="mt-4 text-base sm:text-lg text-[#426D4A] leading-relaxed">
-            Experience curated weekend getaways from Hyderabad, Bangalore & Chennai — featuring Chembra Peak treks, Dandeli Kali River rafting, Gokarna beach treks, Jog Falls, Mandalpatti 4x4 Jeep safaris, and Hampi UNESCO heritage.
+            Experience curated weekend getaways and Himalayan expeditions from Hyderabad, Bangalore & Chennai — featuring Chembra Peak treks, Dandeli river rafting, Gokarna beach treks, Isha Foundation & Nilgiri toy train, Munnar & Alleppey houseboats, and Manali snow adventures.
           </p>
 
           {/* Category Filter Pills */}

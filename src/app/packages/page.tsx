@@ -34,7 +34,7 @@ function PackagesCatalogContent() {
   const [selectedDestination, setSelectedDestination] = useState(searchParams.get('destination') || 'all');
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || 'all');
   const [selectedDifficulty, setSelectedDifficulty] = useState(searchParams.get('difficulty') || 'all');
-  const [maxPrice, setMaxPrice] = useState(20000);
+  const [maxPrice, setMaxPrice] = useState(40000);
   const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc' | 'duration'>('featured');
   
   const [selectedForBooking, setSelectedForBooking] = useState<TourPackage | null>(null);
@@ -104,7 +104,7 @@ function PackagesCatalogContent() {
     setSelectedDestination('all');
     setSelectedCategory('all');
     setSelectedDifficulty('all');
-    setMaxPrice(20000);
+    setMaxPrice(40000);
     setSortBy('featured');
   };
 
@@ -205,7 +205,7 @@ function PackagesCatalogContent() {
               <input
                 type="range"
                 min="3500"
-                max="20000"
+                max="40000"
                 step="500"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
@@ -228,7 +228,7 @@ function PackagesCatalogContent() {
                 </select>
               </div>
 
-              {(searchQuery || selectedDestination !== 'all' || selectedCategory !== 'all' || selectedDifficulty !== 'all' || maxPrice < 20000) && (
+              {(searchQuery || selectedDestination !== 'all' || selectedCategory !== 'all' || selectedDifficulty !== 'all' || maxPrice < 40000) && (
                 <button
                   onClick={handleResetFilters}
                   className="px-3.5 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-bold text-[#183B2A] flex items-center gap-1 transition-colors"

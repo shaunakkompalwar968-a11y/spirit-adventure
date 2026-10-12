@@ -176,6 +176,16 @@ export default function HeroSection() {
                   <option value="gokarna-dandeli-udupi" className="bg-[#0C231B] text-white">Gokarna, Dandeli & Udupi (4D/3N)</option>
                   <option value="gokarna-murudeshwar-udupi-jogfalls" className="bg-[#0C231B] text-white">Gokarna, Murudeshwar & Jog Falls (4D/3N)</option>
                   <option value="hampi-gokarna-dandeli" className="bg-[#0C231B] text-white">Hampi, Gokarna & Dandeli (4D/3N)</option>
+                  <option value="isha-ooty-coonoor" className="bg-[#0C231B] text-white">Isha Foundation, Ooty & Coonoor (4D/3N)</option>
+                  <option value="manali-kullu-kasol" className="bg-[#0C231B] text-white">Manali, Kullu & Kasol Snow Trip (4D/3N)</option>
+                  <option value="munnar-thekkady" className="bg-[#0C231B] text-white">Munnar & Thekkady Kerala Escape (4D/3N)</option>
+                  <option value="munnar-alleppey" className="bg-[#0C231B] text-white">Munnar & Alleppey Houseboat (4D/3N)</option>
+                  <option value="ooty-coonoor-mysore" className="bg-[#0C231B] text-white">Ooty, Coonoor & Mysore (4D/3N)</option>
+                  <option value="darjeeling-gangtok" className="bg-[#0C231B] text-white">Gangtok & Darjeeling Package (5D/4N)</option>
+                  <option value="coastal-karnataka-temples" className="bg-[#0C231B] text-white">Gokarna, Dandeli, Kukke & Dharmasthala (5D/4N)</option>
+                  <option value="kashmir-paradise" className="bg-[#0C231B] text-white">Kashmir Paradise Group Trip (5D/4N)</option>
+                  <option value="kerala-varkala-alleppey" className="bg-[#0C231B] text-white">Kerala Grand Escape: Munnar, Alleppey & Varkala (5D/4N)</option>
+                  <option value="manali-delhi-hyd" className="bg-[#0C231B] text-white">Manali, Kullu & Kasol (Ex-HYD via Delhi) (5D/4N)</option>
                 </select>
               </div>
             </div>
