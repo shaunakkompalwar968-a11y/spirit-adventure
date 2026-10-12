@@ -3,38 +3,38 @@ import { Category, Destination, TourPackage, Testimonial, AgencyStats, GalleryIt
 export const FALLBACK_CATEGORIES: Category[] = [
   {
     id: 1,
-    name: "Hill Stations & Coffee Trails",
-    slug: "hill-stations",
+    name: "Wayanad & Coorg",
+    slug: "wayanad-coorg",
     icon: "Mountain",
-    description: "Misty hills, tea & coffee plantations, cool waterfalls, and scenic viewpoints."
+    description: "Misty Chembra Peak, 900 Kandi Glass Bridge, waterfalls, and coffee plantations."
   },
   {
     id: 2,
-    name: "Beaches & Coastal Escapes",
-    slug: "beaches",
+    name: "Gokarna & Beaches",
+    slug: "gokarna-beaches",
     icon: "Waves",
-    description: "Golden sands, azure waters, water sports, Portuguese heritage, and beach shacks."
+    description: "Om Beach to Kudle trek, Murudeshwar Shiva Statue, Udupi temples, and coastal camping."
   },
   {
     id: 3,
-    name: "Heritage & Historic Circuits",
-    slug: "heritage",
-    icon: "Compass",
-    description: "UNESCO stone ruins, monolithic temples, royal palaces, and ancient architecture."
+    name: "Dandeli & Water Sports",
+    slug: "dandeli-adventure",
+    icon: "Tent",
+    description: "Kali River whitewater rafting, kayaking, boating, zorbing, and jungle camping."
   },
   {
     id: 4,
-    name: "River Rafting & Wildlife",
-    slug: "adventure-wildlife",
-    icon: "Tent",
-    description: "Whitewater river rapids, coracle rides, jungle safaris, and nature campfires."
+    name: "Hampi & Heritage",
+    slug: "hampi-heritage",
+    icon: "Compass",
+    description: "UNESCO stone ruins, Vijaya Vittala temple, boulder sunsets, and Hippie Island."
   },
   {
     id: 5,
-    name: "Customized & Group Holidays",
-    slug: "custom-trips",
+    name: "Waterfalls & Nature",
+    slug: "waterfalls-nature",
     icon: "Footprints",
-    description: "Tailor-made itineraries for families, couples, college batches, and corporate teams."
+    description: "Jog Falls, Vibhuti Falls, Soochipara Falls, and Honnavar mangrove backwaters."
   }
 ];
 
