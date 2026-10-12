@@ -201,6 +201,10 @@ export default function HeroSection() {
                   <option value="gokarna-dandeli-3d" className="bg-[#0C231B] text-white">Gokarna & Dandeli Express (3D/2N)</option>
                   <option value="gokarna-jogfalls-3d" className="bg-[#0C231B] text-white">Gokarna & Jog Falls Express (3D/2N)</option>
                   <option value="gokarna-udupi-3d" className="bg-[#0C231B] text-white">Gokarna & Udupi Express (3D/2N)</option>
+                  <option value="isha-ooty-3d" className="bg-[#0C231B] text-white">Ooty & Isha Foundation (3D/2N)</option>
+                  <option value="lonavala-andharban" className="bg-[#0C231B] text-white">Lonavala, Andharban & Devkund (3D/2N)</option>
+                  <option value="ooty-coonoor-3d" className="bg-[#0C231B] text-white">Ooty, Coonoor & Mysore (3D/2N)</option>
+                  <option value="pondicherry-mahabalipuram" className="bg-[#0C231B] text-white">Pondicherry & Mahabalipuram (3D/2N)</option>
                 </select>
               </div>
             </div>
