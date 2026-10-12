@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Star, 
   Clock, 
-  Mountain, 
   MapPin, 
   Users, 
   Calendar, 
@@ -18,9 +17,7 @@ import {
   PhoneCall, 
   ArrowLeft,
   Share2,
-  FileText,
-  Bus,
-  Sparkles
+  Bus
 } from 'lucide-react';
 import { FALLBACK_PACKAGES } from '@/data/fallbackData';
 import BookingModal from '@/components/BookingModal';
@@ -39,12 +36,12 @@ export default function PackageDetailPage({
 
   if (!pkg) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center p-8 bg-[#F3F5F4] text-center">
-        <h2 className="text-3xl font-black text-[#183B2A]">Tour Package Not Found</h2>
-        <p className="mt-2 text-sm text-[#426D4A]">The tour package you were looking for does not exist or has been updated.</p>
+      <div className="min-h-[70vh] flex flex-col items-center justify-center p-8 bg-slate-50 text-center">
+        <h2 className="text-3xl font-black text-[#0B1B3D]">Tour Package Not Found</h2>
+        <p className="mt-2 text-sm text-slate-600">The tour package you were looking for does not exist or has been updated.</p>
         <Link
           href="/packages"
-          className="mt-6 px-6 py-3 rounded-full bg-[#0787E8] text-white font-bold text-sm hover:bg-[#056DBB] transition-colors"
+          className="mt-6 px-6 py-3 rounded-full bg-gradient-to-r from-[#0066FF] to-[#0787E8] text-white font-bold text-sm shadow-md transition-transform hover:scale-105"
         >
           Back to Tour Packages
         </Link>
@@ -58,16 +55,16 @@ export default function PackageDetailPage({
     : [pkg.hero_image];
 
   return (
-    <div className="bg-[#F3F5F4] min-h-screen pb-24">
+    <div className="bg-slate-50 min-h-screen pb-24">
       {/* Top Breadcrumb Navigation */}
-      <div className="bg-white border-b border-gray-200 pt-28 pb-4 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white border-b border-slate-200 pt-28 pb-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between text-xs sm:text-sm">
-          <div className="flex items-center gap-2 text-[#426D4A] overflow-hidden">
+          <div className="flex items-center gap-2 text-slate-600 overflow-hidden">
             <Link href="/" className="hover:text-[#0787E8] transition-colors">Home</Link>
             <span>/</span>
             <Link href="/packages" className="hover:text-[#0787E8] transition-colors">Packages</Link>
             <span>/</span>
-            <span className="font-bold text-[#183B2A] truncate">{pkg.title}</span>
+            <span className="font-bold text-[#0B1B3D] truncate">{pkg.title}</span>
           </div>
 
           <Link
@@ -91,18 +88,18 @@ export default function PackageDetailPage({
           />
           <div 
             className="absolute inset-0"
-            style={{ backgroundColor: 'rgba(12, 35, 27, 0.45)' }}
+            style={{ backgroundColor: 'rgba(11, 27, 61, 0.60)' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#183B2A]/90 via-transparent to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1B3D]/95 via-transparent to-black/30" />
 
           {/* Badges on Top */}
           <div className="absolute top-6 left-6 right-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-[#183B2A]/90 backdrop-blur-md border border-white/20 shadow">
+              <span className="px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-[#0B1B3D]/90 backdrop-blur-md border border-white/20 shadow">
                 {pkg.category_name || 'Curated Weekend Trip'}
               </span>
-              <span className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#FF9D42] text-[#183B2A] flex items-center gap-1 shadow">
-                <Star className="w-3.5 h-3.5 fill-[#183B2A]" />
+              <span className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#FF9D42] text-slate-950 flex items-center gap-1 shadow">
+                <Star className="w-3.5 h-3.5 fill-slate-950" />
                 <span>{pkg.rating} ({pkg.reviews_count} reviews)</span>
               </span>
             </div>
@@ -127,14 +124,14 @@ export default function PackageDetailPage({
 
           {/* Content on Bottom */}
           <div className="absolute bottom-8 left-6 right-6 sm:left-10 sm:right-10 text-white">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0787E8] mb-2">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#38BDF8] mb-2">
               <MapPin className="w-4 h-4" />
               <span>{pkg.destination_name}</span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
               {pkg.title}
             </h1>
-            <p className="mt-2 text-sm sm:text-base text-[#F3F5F4] font-light max-w-3xl line-clamp-2">
+            <p className="mt-2 text-sm sm:text-base text-slate-200 font-light max-w-3xl line-clamp-2">
               {pkg.tagline}
             </p>
           </div>
@@ -163,44 +160,44 @@ export default function PackageDetailPage({
 
       {/* Overview Fast Facts Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200/80 grid grid-cols-2 sm:grid-cols-4 gap-6">
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 grid grid-cols-2 sm:grid-cols-4 gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-[#E5EFE5] flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
               <Clock className="w-6 h-6 text-[#0787E8]" />
             </div>
             <div>
-              <span className="text-xs text-[#426D4A] font-bold uppercase block">Duration</span>
-              <span className="text-base sm:text-lg font-black text-[#183B2A]">{pkg.duration_days} Days</span>
+              <span className="text-xs text-slate-500 font-bold uppercase block">Duration</span>
+              <span className="text-base sm:text-lg font-black text-[#0B1B3D]">{pkg.duration_days} Days</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-[#E5EFE5] flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
               <Bus className="w-6 h-6 text-[#0787E8]" />
             </div>
             <div>
-              <span className="text-xs text-[#426D4A] font-bold uppercase block">Pickups</span>
-              <span className="text-base sm:text-lg font-black text-[#183B2A]">Hyd & Blr</span>
+              <span className="text-xs text-slate-500 font-bold uppercase block">Pickups</span>
+              <span className="text-base sm:text-lg font-black text-[#0B1B3D]">Hyd & Blr</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-[#E5EFE5] flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
               <Users className="w-6 h-6 text-[#0787E8]" />
             </div>
             <div>
-              <span className="text-xs text-[#426D4A] font-bold uppercase block">Group Size</span>
-              <span className="text-base sm:text-lg font-black text-[#183B2A]">{pkg.group_size}</span>
+              <span className="text-xs text-slate-500 font-bold uppercase block">Group Size</span>
+              <span className="text-base sm:text-lg font-black text-[#0B1B3D]">{pkg.group_size}</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-[#E5EFE5] flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
               <ShieldCheck className="w-6 h-6 text-[#0787E8]" />
             </div>
             <div>
-              <span className="text-xs text-[#426D4A] font-bold uppercase block">Coordination</span>
-              <span className="text-base sm:text-lg font-black text-[#183B2A]">24/7 Trip Captain</span>
+              <span className="text-xs text-slate-500 font-bold uppercase block">Coordination</span>
+              <span className="text-base sm:text-lg font-black text-[#0B1B3D]">24/7 Trip Captain</span>
             </div>
           </div>
         </div>
@@ -212,25 +209,25 @@ export default function PackageDetailPage({
           {/* Left Column: Itinerary, Highlights, Inclusions */}
           <div className="lg:col-span-8 space-y-10">
             {/* Tour Overview */}
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200/80">
-              <h2 className="text-2xl font-black text-[#183B2A] mb-4">
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200/80">
+              <h2 className="text-2xl font-black text-[#0B1B3D] mb-4">
                 Tour Overview
               </h2>
-              <p className="text-base text-[#426D4A] leading-relaxed">
+              <p className="text-base text-slate-600 leading-relaxed">
                 {pkg.overview}
               </p>
 
               {/* Highlights Checklist */}
               {pkg.highlights && pkg.highlights.length > 0 && (
-                <div className="mt-8 pt-6 border-t border-gray-100">
-                  <h3 className="text-lg font-bold text-[#183B2A] mb-4">
+                <div className="mt-8 pt-6 border-t border-slate-100">
+                  <h3 className="text-lg font-bold text-[#0B1B3D] mb-4">
                     Trip Highlights
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {pkg.highlights.map((h, i) => (
                       <div key={i} className="flex items-start gap-2.5">
                         <CheckCircle2 className="w-5 h-5 text-[#0787E8] flex-shrink-0 mt-0.5" />
-                        <span className="text-sm text-[#183B2A] leading-snug">{h}</span>
+                        <span className="text-sm text-slate-800 leading-snug">{h}</span>
                       </div>
                     ))}
                   </div>
@@ -240,17 +237,17 @@ export default function PackageDetailPage({
 
             {/* Day-by-Day Itinerary Accordion */}
             {pkg.itinerary && pkg.itinerary.length > 0 && (
-              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200/80">
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200/80">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h2 className="text-2xl font-black text-[#183B2A]">
+                    <h2 className="text-2xl font-black text-[#0B1B3D]">
                       Detailed Day-by-Day Itinerary
                     </h2>
-                    <p className="text-xs text-[#426D4A] mt-1">
+                    <p className="text-xs text-slate-500 mt-1">
                       Designed with optimal relaxation, sightseeing spots & campfire fun.
                     </p>
                   </div>
-                  <span className="text-xs font-bold px-3 py-1 bg-[#E5EFE5] text-[#183B2A] rounded-full">
+                  <span className="text-xs font-bold px-3 py-1 bg-blue-50 text-[#0787E8] rounded-full">
                     {pkg.itinerary.length} Days Schedule
                   </span>
                 </div>
@@ -263,29 +260,29 @@ export default function PackageDetailPage({
                     return (
                       <div
                         key={dayNum}
-                        className="border border-gray-200 rounded-xl overflow-hidden transition-colors"
+                        className="border border-slate-200 rounded-xl overflow-hidden transition-colors"
                       >
                         <button
                           onClick={() => setActiveDayAccordion(isOpen ? null : dayNum)}
                           className={`w-full p-4 sm:p-5 flex items-center justify-between text-left transition-colors ${
-                            isOpen ? 'bg-[#E5EFE5]/50' : 'bg-white hover:bg-gray-50'
+                            isOpen ? 'bg-blue-50/50' : 'bg-white hover:bg-slate-50'
                           }`}
                         >
                           <div className="flex items-center gap-3">
-                            <span className="w-8 h-8 rounded-lg bg-[#0787E8] text-white flex items-center justify-center font-black text-xs">
+                            <span className="w-8 h-8 rounded-lg bg-gradient-to-r from-[#0066FF] to-[#0787E8] text-white flex items-center justify-center font-black text-xs">
                               {dayNum}
                             </span>
                             <div>
                               <span className="text-xs font-bold text-[#0787E8] uppercase tracking-wider block">
                                 {dayItem.day}
                               </span>
-                              <h3 className="text-sm sm:text-base font-bold text-[#183B2A]">
+                              <h3 className="text-sm sm:text-base font-bold text-[#0B1B3D]">
                                 {dayItem.title}
                               </h3>
                             </div>
                           </div>
                           <ChevronDown
-                            className={`w-5 h-5 text-[#183B2A] transition-transform duration-200 ${
+                            className={`w-5 h-5 text-slate-500 transition-transform duration-200 ${
                               isOpen ? 'transform rotate-180 text-[#0787E8]' : ''
                             }`}
                           />
@@ -298,14 +295,14 @@ export default function PackageDetailPage({
                               animate={{ height: 'auto', opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.2 }}
-                              className="p-5 border-t border-gray-200 bg-white"
+                              className="p-5 border-t border-slate-100 bg-white"
                             >
                               {dayItem.meals && (
-                                <div className="inline-block px-3 py-1 rounded-md bg-[#E5EFE5] text-[11px] font-bold text-[#183B2A] mb-3">
+                                <div className="inline-block px-3 py-1 rounded-md bg-blue-50 text-[11px] font-bold text-[#0787E8] mb-3">
                                   Included: {dayItem.meals}
                                 </div>
                               )}
-                              <ul className="space-y-2 text-xs sm:text-sm text-[#426D4A]">
+                              <ul className="space-y-2 text-xs sm:text-sm text-slate-600">
                                 {dayItem.activities?.map((act, actIdx) => (
                                   <li key={actIdx} className="flex items-start gap-2">
                                     <span className="text-[#0787E8] font-bold mt-0.5">•</span>
@@ -326,12 +323,12 @@ export default function PackageDetailPage({
             {/* Inclusions & Exclusions */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Included */}
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200/80">
-                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100">
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80">
+                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                  <h3 className="text-lg font-black text-[#183B2A]">What's Included</h3>
+                  <h3 className="text-lg font-black text-[#0B1B3D]">What's Included</h3>
                 </div>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-[#183B2A]">
+                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-800">
                   {pkg.included?.map((inc, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <span className="text-emerald-600 font-bold">✓</span>
@@ -342,12 +339,12 @@ export default function PackageDetailPage({
               </div>
 
               {/* Excluded */}
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200/80">
-                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100">
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80">
+                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
                   <XCircle className="w-5 h-5 text-red-500" />
-                  <h3 className="text-lg font-black text-[#183B2A]">What's Excluded</h3>
+                  <h3 className="text-lg font-black text-[#0B1B3D]">What's Excluded</h3>
                 </div>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-[#426D4A]">
+                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-600">
                   {pkg.excluded?.map((exc, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <span className="text-red-500 font-bold">✕</span>
@@ -363,22 +360,22 @@ export default function PackageDetailPage({
           <div className="lg:col-span-4">
             <div className="sticky top-24 space-y-6">
               {/* Booking Card */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
-                <span className="text-xs text-gray-400 font-semibold uppercase block">Package Price Per Person</span>
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200">
+                <span className="text-xs text-slate-400 font-semibold uppercase block">Package Price Per Person</span>
                 <div className="flex items-baseline gap-2 mt-1 mb-4">
                   <span className="text-3xl sm:text-4xl font-black text-[#0787E8]">
                     ₹{currentPrice.toLocaleString()}
                   </span>
                   {pkg.discount_price && (
-                    <span className="text-base text-gray-400 line-through">
+                    <span className="text-base text-slate-400 line-through">
                       ₹{pkg.price.toLocaleString()}
                     </span>
                   )}
-                  <span className="text-xs text-gray-500 font-medium">INR</span>
+                  <span className="text-xs text-slate-500 font-medium">INR</span>
                 </div>
 
                 {/* Rating review snapshot */}
-                <div className="flex items-center gap-1.5 p-3 rounded-xl bg-[#E5EFE5] text-xs font-semibold text-[#183B2A] mb-5">
+                <div className="flex items-center gap-1.5 p-3 rounded-xl bg-blue-50 text-xs font-semibold text-[#0787E8] mb-5">
                   <ShieldCheck className="w-4 h-4 text-[#0787E8]" />
                   <span>Guaranteed Weekend Departures • Hyd & Blr</span>
                 </div>
@@ -386,16 +383,16 @@ export default function PackageDetailPage({
                 {/* Upcoming Departure Dates */}
                 {pkg.upcoming_dates && pkg.upcoming_dates.length > 0 && (
                   <div className="mb-6">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#183B2A] block mb-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#0B1B3D] block mb-2">
                       Upcoming Batches:
                     </span>
                     <div className="space-y-1.5">
                       {pkg.upcoming_dates.map((d, i) => (
                         <div 
                           key={i}
-                          className="flex items-center justify-between p-2 rounded-lg bg-gray-50 text-xs font-medium border border-gray-100"
+                          className="flex items-center justify-between p-2 rounded-lg bg-slate-50 text-xs font-medium border border-slate-100"
                         >
-                          <span className="flex items-center gap-1 text-[#183B2A]">
+                          <span className="flex items-center gap-1 text-slate-800">
                             <Calendar className="w-3.5 h-3.5 text-[#0787E8]" />
                             {d}
                           </span>
@@ -406,13 +403,10 @@ export default function PackageDetailPage({
                   </div>
                 )}
 
-                {/* Book Now Button: #0787E8, hover #056DBB */}
+                {/* Book Now Button */}
                 <button
                   onClick={() => setBookingModalOpen(true)}
-                  className="w-full py-4 rounded-full font-bold text-base text-white shadow-xl transition-all active:scale-95 text-center"
-                  style={{ backgroundColor: '#0787E8' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0787E8')}
+                  className="w-full py-4 rounded-full font-bold text-base text-white shadow-xl transition-all active:scale-95 text-center bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb] shadow-blue-500/25"
                 >
                   Book This Tour
                 </button>
@@ -431,24 +425,24 @@ export default function PackageDetailPage({
                   <span>Inquire on WhatsApp</span>
                 </a>
 
-                <p className="mt-3 text-center text-[11px] text-[#426D4A]">
+                <p className="mt-3 text-center text-[11px] text-slate-500">
                   Lock seats with advance deposit • AC transport & stays included
                 </p>
               </div>
 
               {/* Specialist Assistance Box */}
-              <div className="bg-[#183B2A] text-white rounded-2xl p-6 shadow-md">
+              <div className="bg-[#0B1B3D] text-white rounded-2xl p-6 shadow-md border border-blue-900/40">
                 <h4 className="text-lg font-bold">Need Customization or Group Discount?</h4>
-                <p className="text-xs text-[#D5E2D7] mt-1.5 leading-relaxed">
+                <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
                   Traveling with a college batch, family or corporate team of 6+? We offer private buses and custom dates.
                 </p>
-                <div className="mt-4 pt-4 border-t border-[#426D4A]/40 flex items-center gap-3">
+                <div className="mt-4 pt-4 border-t border-blue-900/50 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                    <PhoneCall className="w-5 h-5 text-[#0787E8]" />
+                    <PhoneCall className="w-5 h-5 text-[#38BDF8]" />
                   </div>
                   <div>
-                    <span className="text-[11px] text-[#D5E2D7] block font-medium">Spirit Adventures Helpline</span>
-                    <a href="tel:+919666567551" className="text-sm font-bold text-white hover:text-[#0787E8] transition-colors">
+                    <span className="text-[11px] text-slate-400 block font-medium">Spirit Adventures Helpline</span>
+                    <a href="tel:+919666567551" className="text-sm font-bold text-white hover:text-[#38BDF8] transition-colors">
                       +91 966 656 7551
                     </a>
                   </div>

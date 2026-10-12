@@ -7,8 +7,8 @@ import {
   Phone, 
   MapPin, 
   ArrowRight, 
-  CheckCircle2,
-  ShieldCheck
+  CheckCircle2, 
+  ShieldCheck 
 } from 'lucide-react';
 
 export default function Footer() {
@@ -25,32 +25,28 @@ export default function Footer() {
 
   return (
     <footer 
-      className="pt-16 pb-10 border-t border-[#426D4A]/40"
-      style={{ backgroundColor: '#183B2A' }}
+      className="pt-16 pb-10 border-t border-blue-900/40 bg-[#0B1B3D]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-[#426D4A]/30">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-blue-900/30">
           {/* Brand & Agency Column */}
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-flex items-center group">
+            {/* White card container so black text logo is crystal clear */}
+            <Link href="/" className="inline-flex items-center group p-2.5 px-4 bg-white rounded-2xl shadow-md border border-slate-100">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src="/assets/img/logo.png" 
                 alt="Spirit Adventures" 
-                className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+                className="h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
               />
             </Link>
 
-            {/* Paragraph: #D5E2D7 */}
-            <p 
-              className="mt-4 text-sm leading-relaxed max-w-sm"
-              style={{ color: '#D5E2D7' }}
-            >
+            <p className="mt-4 text-sm leading-relaxed max-w-sm text-slate-300">
               Premier travel and adventure agency based in Hyderabad. Specialized in curated weekend getaways, hill station retreats, beach adventures, and custom group holidays across South India and beyond.
             </p>
 
-            {/* Social Media Icons: #FFFFFF */}
+            {/* Social Media Icons */}
             <div className="mt-6 flex items-center gap-3">
               {/* Instagram */}
               <a 
@@ -108,7 +104,7 @@ export default function Footer() {
               </a>
             </div>
 
-            <div className="mt-6 flex items-center gap-2 text-xs text-[#D5E2D7]">
+            <div className="mt-6 flex items-center gap-2 text-xs text-slate-300">
               <ShieldCheck className="w-4 h-4 text-[#0787E8]" />
               <span>Certified Tour Operator • Hyderabad & Bangalore Pickups</span>
             </div>
@@ -116,22 +112,14 @@ export default function Footer() {
 
           {/* Column 2: Popular Tours */}
           <div className="lg:col-span-2">
-            {/* Headings: #FFFFFF */}
-            <h4 
-              className="text-sm font-bold uppercase tracking-wider mb-4"
-              style={{ color: '#FFFFFF' }}
-            >
+            <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-white">
               Popular Tours
             </h4>
-            {/* Links: #E5EFE5, Link hover: #0787E8 */}
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link 
                   href="/packages/manali-kullu-kasol" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                  className="text-slate-300 hover:text-[#38BDF8] transition-colors"
                 >
                   Manali, Kullu & Kasol (₹9,999)
                 </Link>
@@ -139,10 +127,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/packages/isha-ooty-coonoor" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                  className="text-slate-300 hover:text-[#38BDF8] transition-colors"
                 >
                   Isha, Ooty & Coonoor (₹8,999)
                 </Link>
@@ -150,10 +135,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/packages/munnar-alleppey" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                  className="text-slate-300 hover:text-[#38BDF8] transition-colors"
                 >
                   Munnar & Alleppey Houseboat
                 </Link>
@@ -161,10 +143,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/packages/gokarna-dandeli-udupi" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                  className="text-slate-300 hover:text-[#38BDF8] transition-colors"
                 >
                   Gokarna, Dandeli & Udupi
                 </Link>
@@ -172,10 +151,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/packages/wayanad-adventure" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                  className="text-slate-300 hover:text-[#38BDF8] transition-colors"
                 >
                   3D/2N Wayanad Adventure
                 </Link>
@@ -183,10 +159,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/packages/coorg-wayanad" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                  className="text-slate-300 hover:text-[#38BDF8] transition-colors"
                 >
                   4D/3N Coorg & Wayanad
                 </Link>
@@ -196,21 +169,14 @@ export default function Footer() {
 
           {/* Column 3: Quick Links */}
           <div className="lg:col-span-2">
-            {/* Headings: #FFFFFF */}
-            <h4 
-              className="text-sm font-bold uppercase tracking-wider mb-4"
-              style={{ color: '#FFFFFF' }}
-            >
+            <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-white">
               Quick Links
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link 
                   href="/about" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                  className="text-slate-300 hover:text-[#38BDF8] transition-colors"
                 >
                   About Spirit Adventures
                 </Link>
@@ -218,10 +184,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/gallery" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                  className="text-slate-300 hover:text-[#38BDF8] transition-colors"
                 >
                   Adventure Gallery
                 </Link>
@@ -229,10 +192,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/packages" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                  className="text-slate-300 hover:text-[#38BDF8] transition-colors"
                 >
                   All Tour Packages
                 </Link>
@@ -240,10 +200,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/customize" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                  className="text-slate-300 hover:text-[#38BDF8] transition-colors"
                 >
                   Customize Your Trip
                 </Link>
@@ -251,10 +208,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/contact" 
-                  className="transition-colors"
-                  style={{ color: '#E5EFE5' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+                  className="text-slate-300 hover:text-[#38BDF8] transition-colors"
                 >
                   Contact Us
                 </Link>
@@ -264,24 +218,16 @@ export default function Footer() {
 
           {/* Column 4: Newsletter & Contact */}
           <div className="lg:col-span-4">
-            {/* Headings: #FFFFFF */}
-            <h4 
-              className="text-sm font-bold uppercase tracking-wider mb-2"
-              style={{ color: '#FFFFFF' }}
-            >
+            <h4 className="text-sm font-bold uppercase tracking-wider mb-2 text-white">
               Stay Connected
             </h4>
-            {/* Paragraphs: #D5E2D7 */}
-            <p 
-              className="text-xs sm:text-sm leading-relaxed mb-4"
-              style={{ color: '#D5E2D7' }}
-            >
+            <p className="text-xs sm:text-sm leading-relaxed mb-4 text-slate-300">
               Subscribe for weekend departure alerts, holiday discount codes, and new destination releases.
             </p>
 
             {subscribed ? (
               <div className="flex items-center gap-2 p-3 bg-white/10 rounded-xl text-white text-xs border border-white/20">
-                <CheckCircle2 className="w-4 h-4 text-[#0787E8]" />
+                <CheckCircle2 className="w-4 h-4 text-[#38BDF8]" />
                 <span>You are subscribed! Thank you for joining Spirit Adventures.</span>
               </div>
             ) : (
@@ -292,14 +238,11 @@ export default function Footer() {
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   placeholder="Enter your email address..."
-                  className="flex-1 px-4 py-2.5 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/50 text-xs focus:outline-none focus:border-[#0787E8]"
+                  className="flex-1 px-4 py-2.5 rounded-full bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs focus:outline-none focus:border-[#0787E8]"
                 />
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-full text-xs font-bold text-white transition-colors flex items-center gap-1 flex-shrink-0"
-                  style={{ backgroundColor: '#0787E8' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0787E8')}
+                  className="px-5 py-2.5 rounded-full text-xs font-bold text-white transition-colors flex items-center gap-1 flex-shrink-0 bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb] shadow-md shadow-blue-500/25"
                 >
                   <span>Join</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -307,16 +250,16 @@ export default function Footer() {
               </form>
             )}
 
-            <div className="mt-6 pt-5 border-t border-[#426D4A]/30 space-y-2 text-xs">
-              <div className="flex items-start gap-2" style={{ color: '#D5E2D7' }}>
+            <div className="mt-6 pt-5 border-t border-blue-900/40 space-y-2 text-xs">
+              <div className="flex items-start gap-2 text-slate-300">
                 <MapPin className="w-4 h-4 text-[#0787E8] flex-shrink-0 mt-0.5" />
                 <span>Vasantha Sai Apartments, Opposite Rishi Towers, KPHB, Kukatpally - 500085, Hyderabad, India</span>
               </div>
-              <div className="flex items-center gap-2" style={{ color: '#D5E2D7' }}>
+              <div className="flex items-center gap-2 text-slate-300">
                 <Phone className="w-3.5 h-3.5 text-[#0787E8] flex-shrink-0" />
                 <a href="tel:+919666567551" className="hover:text-white transition-colors">+91 966 656 7551</a>
               </div>
-              <div className="flex items-center gap-2" style={{ color: '#D5E2D7' }}>
+              <div className="flex items-center gap-2 text-slate-300">
                 <Mail className="w-3.5 h-3.5 text-[#0787E8] flex-shrink-0" />
                 <a href="mailto:info@spiritadventures.in" className="hover:text-white transition-colors">info@spiritadventures.in</a>
               </div>
@@ -326,36 +269,27 @@ export default function Footer() {
 
         {/* Bottom Copyright & Disclaimer */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-          <p style={{ color: '#D5E2D7' }}>
+          <p className="text-slate-400">
             © {new Date().getFullYear()} Spirit Adventure Travel Agency. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <Link 
               href="/about" 
-              className="transition-colors"
-              style={{ color: '#E5EFE5' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+              className="text-slate-400 hover:text-white transition-colors"
             >
               Privacy Policy
             </Link>
-            <span style={{ color: '#426D4A' }}>•</span>
+            <span className="text-blue-900">•</span>
             <Link 
               href="/about" 
-              className="transition-colors"
-              style={{ color: '#E5EFE5' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+              className="text-slate-400 hover:text-white transition-colors"
             >
               Terms of Service
             </Link>
-            <span style={{ color: '#426D4A' }}>•</span>
+            <span className="text-blue-900">•</span>
             <Link 
               href="/contact" 
-              className="transition-colors"
-              style={{ color: '#E5EFE5' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
+              className="text-slate-400 hover:text-white transition-colors"
             >
               Safety Guidelines
             </Link>

@@ -5,15 +5,11 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { 
   ShieldCheck, 
-  MapPin, 
-  Plane, 
   Hotel, 
-  HeartHandshake, 
   ArrowRight,
   Sparkles,
   Compass,
   Headphones,
-  CheckCircle2,
   CalendarCheck
 } from 'lucide-react';
 import { AgencyStats } from '@/types';
@@ -59,40 +55,28 @@ export default function AboutSection({ stats }: AboutSectionProps) {
   return (
     <section 
       id="about"
-      className="py-24 px-4 sm:px-6 lg:px-8 overflow-hidden relative"
-      style={{ backgroundColor: '#E5EFE5' }}
+      className="py-24 px-4 sm:px-6 lg:px-8 overflow-hidden relative bg-[#EBF3FE]"
     >
       <div className="max-w-7xl mx-auto">
         {/* Main Grid: Story + Imagery */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Mission & Narrative */}
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/70 backdrop-blur-sm border border-[#426D4A]/20 mb-4" style={{ color: '#0787E8' }}>
-              <Sparkles className="w-3.5 h-3.5" style={{ color: '#0787E8' }} />
-              <span style={{ color: '#183B2A' }}>ABOUT US • Your Trusted Travel Partner</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/80 backdrop-blur-sm border border-blue-200/60 mb-4 text-[#0787E8]">
+              <Sparkles className="w-3.5 h-3.5 text-[#0787E8]" />
+              <span className="text-[#0B1B3D]">ABOUT US • Your Trusted Travel Partner</span>
             </div>
 
-            {/* Headings: #183B2A */}
-            <h2 
-              className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.15]"
-              style={{ color: '#183B2A' }}
-            >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.15] text-[#0B1B3D]">
               Passionate Explorers, <br />
               Dedicated To Your Happiness
             </h2>
 
-            {/* Paragraphs: #426D4A */}
-            <p 
-              className="mt-6 text-base sm:text-lg leading-relaxed"
-              style={{ color: '#426D4A' }}
-            >
-              We are passionate travel experts dedicated to creating unforgettable journeys across India and the globe. <strong className="font-bold" style={{ color: '#183B2A' }}>Spirit Adventures</strong> makes domestic weekend getaways and international holidays easy, thrilling, and 100% hassle-free.
+            <p className="mt-6 text-base sm:text-lg leading-relaxed text-slate-600">
+              We are passionate travel experts dedicated to creating unforgettable journeys across India and the globe. <strong className="font-bold text-[#0B1B3D]">Spirit Adventures</strong> makes domestic weekend getaways and international holidays easy, thrilling, and 100% hassle-free.
             </p>
 
-            <p 
-              className="mt-4 text-sm sm:text-base leading-relaxed"
-              style={{ color: '#426D4A' }}
-            >
+            <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600">
               From the misty coffee trails of Coorg and pristine waters of Gokarna, to romantic desert camps, Himalayan peaks, shopping in Dubai, and relaxing on tropical beaches in Bali and the Maldives — Spirit Adventures crafts customized itineraries tailored to your unique rhythm and budget.
             </p>
 
@@ -103,24 +87,15 @@ export default function AboutSection({ stats }: AboutSectionProps) {
                 return (
                   <div 
                     key={idx}
-                    className="p-5 rounded-2xl bg-white/85 backdrop-blur-sm border border-white/60 shadow-sm hover:shadow-md transition-shadow"
+                    className="p-5 rounded-2xl bg-white/90 backdrop-blur-sm border border-white/80 shadow-sm hover:shadow-md transition-shadow"
                   >
-                    {/* Icons: #0787E8 */}
-                    <div className="w-10 h-10 rounded-xl bg-[#E5EFE5] flex items-center justify-center mb-3">
-                      <IconComponent className="w-6 h-6" style={{ color: '#0787E8' }} />
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-3">
+                      <IconComponent className="w-5 h-5 text-[#0787E8]" />
                     </div>
-                    {/* Heading: #183B2A */}
-                    <h3 
-                      className="text-base font-bold mb-1.5"
-                      style={{ color: '#183B2A' }}
-                    >
+                    <h3 className="text-base font-bold mb-1.5 text-[#0B1B3D]">
                       {item.title}
                     </h3>
-                    {/* Paragraph: #426D4A */}
-                    <p 
-                      className="text-xs sm:text-sm leading-relaxed"
-                      style={{ color: '#426D4A' }}
-                    >
+                    <p className="text-xs sm:text-sm leading-relaxed text-slate-600">
                       {item.desc}
                     </p>
                   </div>
@@ -131,10 +106,7 @@ export default function AboutSection({ stats }: AboutSectionProps) {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
                 href="/customize"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold text-white transition-all shadow-md active:scale-95"
-                style={{ backgroundColor: '#0787E8' }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0787E8')}
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold text-white transition-all shadow-md bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb] shadow-blue-500/25 active:scale-95"
               >
                 <span>Customize Tour Package</span>
                 <ArrowRight className="w-4 h-4" />
@@ -142,7 +114,7 @@ export default function AboutSection({ stats }: AboutSectionProps) {
 
               <Link
                 href="/about"
-                className="inline-flex items-center gap-1.5 text-sm font-bold text-[#183B2A] hover:text-[#0787E8] transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm font-bold text-[#0B1B3D] hover:text-[#0787E8] transition-colors"
               >
                 <span>Read Full Agency Story</span>
                 <ArrowRight className="w-4 h-4" />
@@ -164,22 +136,22 @@ export default function AboutSection({ stats }: AboutSectionProps) {
                 <source src="/assets/video/StampVideo.mp4" type="video/mp4" />
                 <source src="/assets/video/travel-loop.mp4" type="video/mp4" />
               </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#183B2A]/90 via-black/20 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1B3D]/90 via-black/20 to-transparent pointer-events-none" />
 
-              {/* Stamp Badge from original website */}
+              {/* Stamp Badge */}
               <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-lg border border-[#0787E8]/30 flex items-center gap-1.5 pointer-events-none">
                 <span className="w-2 h-2 rounded-full bg-[#0787E8] animate-ping" />
-                <span className="text-[11px] font-black uppercase tracking-wider text-[#183B2A]">TOP RATED EXPERIENCE</span>
+                <span className="text-[11px] font-black uppercase tracking-wider text-[#0B1B3D]">TOP RATED EXPERIENCE</span>
               </div>
 
               <div className="absolute bottom-6 left-6 right-6 text-white pointer-events-none">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0787E8]">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
                   Verified Stays & Expert Guidance
                 </span>
                 <h4 className="text-xl font-bold text-white mt-1">
                   Spirit Adventures Travel Desk
                 </h4>
-                <p className="text-xs text-[#D5E2D7] mt-1 leading-relaxed">
+                <p className="text-xs text-slate-300 mt-1 leading-relaxed">
                   KPHB, Kukatpally, Hyderabad • Serving 22,000+ happy explorers across South India & beyond
                 </p>
               </div>
@@ -190,14 +162,14 @@ export default function AboutSection({ stats }: AboutSectionProps) {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="absolute -top-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-[#426D4A]/10 hidden sm:flex items-center gap-3"
+              className="absolute -top-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-blue-100 hidden sm:flex items-center gap-3"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#E5EFE5] flex items-center justify-center">
-                <ShieldCheck className="w-6 h-6" style={{ color: '#0787E8' }} />
+              <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+                <ShieldCheck className="w-6 h-6 text-[#0787E8]" />
               </div>
               <div>
-                <span className="text-xs font-bold text-[#426D4A] block">Best Price Guarantee</span>
-                <span className="text-lg font-black" style={{ color: '#183B2A' }}>
+                <span className="text-xs font-bold text-slate-500 block">Best Price Guarantee</span>
+                <span className="text-lg font-black text-[#0B1B3D]">
                   100% Transparent
                 </span>
               </div>
@@ -205,85 +177,55 @@ export default function AboutSection({ stats }: AboutSectionProps) {
           </div>
         </div>
 
-        {/* Statistics and Highlights Banner: #183B2A */}
-        <div className="mt-20 pt-12 border-t border-[#426D4A]/25">
+        {/* Statistics and Highlights Banner */}
+        <div className="mt-20 pt-12 border-t border-blue-200/60">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 text-center">
             {/* Stat 1 */}
-            <div className="p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-white/60">
-              <span 
-                className="text-3xl sm:text-4xl font-black block tracking-tight"
-                style={{ color: '#183B2A' }}
-              >
+            <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/80 shadow-xs">
+              <span className="text-3xl sm:text-4xl font-black block tracking-tight text-[#0787E8]">
                 {currentStats.years_experience}+
               </span>
-              <span 
-                className="text-xs sm:text-sm font-semibold mt-1 block"
-                style={{ color: '#183B2A' }}
-              >
+              <span className="text-xs sm:text-sm font-semibold mt-1 block text-slate-700">
                 Years of Excellence
               </span>
             </div>
 
             {/* Stat 2 */}
-            <div className="p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-white/60">
-              <span 
-                className="text-3xl sm:text-4xl font-black block tracking-tight"
-                style={{ color: '#183B2A' }}
-              >
+            <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/80 shadow-xs">
+              <span className="text-3xl sm:text-4xl font-black block tracking-tight text-[#0787E8]">
                 {currentStats.expeditions_completed.toLocaleString()}+
               </span>
-              <span 
-                className="text-xs sm:text-sm font-semibold mt-1 block"
-                style={{ color: '#183B2A' }}
-              >
+              <span className="text-xs sm:text-sm font-semibold mt-1 block text-slate-700">
                 Trips Completed
               </span>
             </div>
 
             {/* Stat 3 */}
-            <div className="p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-white/60">
-              <span 
-                className="text-3xl sm:text-4xl font-black block tracking-tight"
-                style={{ color: '#183B2A' }}
-              >
+            <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/80 shadow-xs">
+              <span className="text-3xl sm:text-4xl font-black block tracking-tight text-[#0787E8]">
                 {currentStats.happy_explorers.toLocaleString()}+
               </span>
-              <span 
-                className="text-xs sm:text-sm font-semibold mt-1 block"
-                style={{ color: '#183B2A' }}
-              >
+              <span className="text-xs sm:text-sm font-semibold mt-1 block text-slate-700">
                 Happy Adventurers
               </span>
             </div>
 
             {/* Stat 4 */}
-            <div className="p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-white/60">
-              <span 
-                className="text-3xl sm:text-4xl font-black block tracking-tight"
-                style={{ color: '#183B2A' }}
-              >
+            <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/80 shadow-xs">
+              <span className="text-3xl sm:text-4xl font-black block tracking-tight text-[#0787E8]">
                 {currentStats.expert_guides}
               </span>
-              <span 
-                className="text-xs sm:text-sm font-semibold mt-1 block"
-                style={{ color: '#183B2A' }}
-              >
+              <span className="text-xs sm:text-sm font-semibold mt-1 block text-slate-700">
                 Expert Tour Leads
               </span>
             </div>
 
             {/* Stat 5 */}
-            <div className="col-span-2 md:col-span-1 p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-white/60">
-              <span 
-                className="text-3xl sm:text-4xl font-black block tracking-tight"
-                style={{ color: '#183B2A' }}
-              >
+            <div className="col-span-2 md:col-span-1 p-4 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/80 shadow-xs">
+              <span className="text-3xl sm:text-4xl font-black block tracking-tight text-[#0787E8]">
                 {currentStats.safety_record_percentage}%
               </span>
-              <span 
-                className="text-xs sm:text-sm font-semibold mt-1 block"
-                style={{ color: '#183B2A' }}
-              >
+              <span className="text-xs sm:text-sm font-semibold mt-1 block text-slate-700">
                 Guest Satisfaction
               </span>
             </div>

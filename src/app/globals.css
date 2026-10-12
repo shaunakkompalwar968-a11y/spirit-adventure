@@ -2,16 +2,16 @@
 
 @layer base {
   :root {
-    --brand-forest: #183B2A;
-    --brand-forest-medium: #426D4A;
-    --brand-forest-light: #E5EFE5;
-    --brand-forest-muted: #D5E2D7;
+    --brand-forest: #0B1B3D;
+    --brand-forest-medium: #2563EB;
+    --brand-forest-light: #EBF3FE;
+    --brand-forest-muted: #D0E2FF;
     --brand-blue: #0787E8;
     --brand-blue-hover: #056DBB;
-    --brand-sand: #F3F5F4;
+    --brand-sand: #F8FAFC;
     --brand-star: #FF9D42;
-    --brand-hero-overlay: rgba(12, 35, 27, 0.58);
-    --brand-card-shadow: rgba(24, 59, 42, 0.15);
+    --brand-hero-overlay: rgba(7, 25, 47, 0.60);
+    --brand-card-shadow: rgba(11, 27, 61, 0.10);
   }
 
   html {
@@ -20,7 +20,7 @@
 
   body {
     background-color: #FFFFFF;
-    color: #183B2A;
+    color: #0F172A;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
@@ -30,14 +30,14 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F3F5F4;
+  background: #F1F5F9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #426D4A;
+  background: #93C5FD;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #183B2A;
+  background: #3B82F6;
 }
 
 /* Utility shadow */
@@ -45,5 +45,5 @@
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .shadow-brand-hover:hover {
-  box-shadow: 0 20px 30px -10px rgba(24, 59, 42, 0.15), 0 10px 15px -5px rgba(24, 59, 42, 0.08);
+  box-shadow: 0 20px 30px -10px rgba(7, 135, 232, 0.15), 0 10px 15px -5px rgba(11, 27, 61, 0.08);
 }

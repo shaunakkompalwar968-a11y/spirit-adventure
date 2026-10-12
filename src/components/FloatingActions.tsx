@@ -8,12 +8,7 @@ import {
   Star, 
   Sparkles, 
   Bot, 
-  CheckCircle2, 
-  MapPin, 
-  Clock, 
-  ThumbsUp,
-  User,
-  ExternalLink
+  CheckCircle2
 } from 'lucide-react';
 
 interface ChatMessage {
@@ -85,7 +80,7 @@ export default function FloatingActions() {
     const q = query.toLowerCase();
 
     if (q.includes('package') || q.includes('tours') || q.includes('destinations') || q.includes('trips')) {
-      return "We offer 6 top-rated tour packages across South India:\n\n• Coorg Getaway (2D/1N) - ₹4,499\n• Goa Beach Trip (3D/2N) - ₹7,999\n• Hampi, Gokarna & Dandeli (4D/3N) - ₹8,999\n• Kodaikanal, Ooty & Mysore (4D/3N) - ₹13,499\n• Chikmagalur Coffee Trail (2D/1N) - ₹5,999\n• Dandeli River Rafting (2D/1N) - ₹3,999\n\nAll include comfortable AC transport, stays, breakfast, and campfires!";
+      return "We offer 34+ top-rated tour packages across South India & beyond:\n\n• Coorg Getaway (2D/1N) - ₹4,499\n• Goa Beach Trip (3D/2N) - ₹7,999\n• Hampi, Gokarna & Dandeli (4D/3N) - ₹8,999\n• Kodaikanal, Ooty & Mysore (4D/3N) - ₹13,499\n• Chikmagalur Coffee Trail (2D/1N) - ₹5,999\n• Dandeli River Rafting (2D/1N) - ₹3,999\n\nAll include comfortable AC transport, stays, breakfast, and campfires!";
     }
 
     if (q.includes('pickup') || q.includes('hyderabad') || q.includes('bangalore') || q.includes('boarding')) {
@@ -144,39 +139,37 @@ export default function FloatingActions() {
       };
       setChatMessages(prev => [...prev, botMsg]);
       setIsTyping(false);
-    }, 700);
+    }, 600);
   };
 
   return (
     <>
-      {/* Floating Buttons Bar (Bottom-Right: elevated on mobile to avoid bottom navbar) */}
-      <div className="fixed bottom-22 md:bottom-6 right-4 md:right-6 z-50 flex flex-col items-end gap-3 pointer-events-auto">
-        {/* Rate Us Pill Button */}
+      {/* Floating Action Trigger Buttons */}
+      <div className="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-40 flex flex-col items-end gap-3 pointer-events-auto">
+        {/* Rate Us Floating Trigger */}
         <button
           onClick={() => setShowRatingModal(true)}
-          className="group flex items-center gap-2 px-3.5 py-2 rounded-full bg-white text-[#183B2A] shadow-lg border border-[#426D4A]/20 hover:border-[#0787E8] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
-          title="Rate Your Spirit Adventure Experience"
+          className="group flex items-center gap-2 px-3.5 py-2 rounded-full bg-white text-slate-800 shadow-lg hover:shadow-xl border border-slate-200 transition-all duration-300 transform hover:scale-105"
+          title="Share Feedback"
         >
-          <div className="w-6 h-6 rounded-full bg-[#FF9D42]/15 flex items-center justify-center text-[#FF9D42]">
-            <Star className="w-3.5 h-3.5 fill-[#FF9D42]" />
+          <div className="flex items-center text-[#FF9D42]">
+            <Star className="w-4 h-4 fill-[#FF9D42]" />
           </div>
-          <span className="text-xs font-bold text-[#183B2A] group-hover:text-[#0787E8] transition-colors">
+          <span className="text-xs font-bold hidden sm:inline text-[#0B1B3D]">
             Rate Us
           </span>
         </button>
 
-        {/* WhatsApp Direct Chat Button */}
+        {/* WhatsApp Quick Chat Floating Trigger */}
         <a
-          href="https://wa.me/919666567551?text=Hello%20Spirit%20Adventures%2C%20I%20would%20like%20to%20inquire%20about%20a%20tour%20package."
+          href="https://wa.me/919666567551?text=Hello%20Spirit%20Adventures%2C%20I%20would%20like%20to%20inquire%20about%20your%20upcoming%20tour%20packages."
           target="_blank"
-          rel="noopener noreferrer"
-          className="w-13 h-13 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg hover:shadow-2xl flex items-center justify-center transition-all duration-300 transform hover:scale-105 group relative"
-          title="Chat with us on WhatsApp (+91 9666567551)"
+          rel="noreferrer"
+          className="group flex items-center gap-2 p-3 sm:px-4 sm:py-2.5 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+          title="Chat on WhatsApp"
         >
-          <svg className="w-7 h-7 fill-white" viewBox="0 0 24 24">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
-          </svg>
-          <span className="absolute right-15 bg-[#183B2A] text-white text-xs px-2.5 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none">
+          <MessageCircle className="w-5 h-5 fill-white text-white" />
+          <span className="text-xs font-bold hidden sm:inline">
             WhatsApp Support
           </span>
         </a>
@@ -184,8 +177,7 @@ export default function FloatingActions() {
         {/* Spirit AI Guide Floating Trigger */}
         <button
           onClick={() => setShowChatbot(prev => !prev)}
-          className="w-14 h-14 rounded-full text-white shadow-xl hover:shadow-2xl flex items-center justify-center transition-all duration-300 transform hover:scale-105 relative"
-          style={{ backgroundColor: '#0787E8' }}
+          className="w-14 h-14 rounded-full text-white shadow-xl hover:shadow-2xl flex items-center justify-center transition-all duration-300 transform hover:scale-105 relative bg-gradient-to-r from-[#0066FF] to-[#0787E8]"
           title="Open Spirit AI Assistant"
         >
           {showChatbot ? (
@@ -202,12 +194,12 @@ export default function FloatingActions() {
 
       {/* Spirit AI Guide Chatbot Modal Window */}
       {showChatbot && (
-        <div className="fixed bottom-24 md:bottom-24 right-4 md:right-6 z-50 w-[92vw] sm:w-[410px] h-[520px] sm:h-[560px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
-          {/* Chat Header: #183B2A with #0787E8 accents */}
-          <div className="p-4 flex items-center justify-between text-white" style={{ backgroundColor: '#183B2A' }}>
+        <div className="fixed bottom-24 md:bottom-24 right-4 md:right-6 z-50 w-[92vw] sm:w-[410px] h-[520px] sm:h-[560px] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
+          {/* Chat Header: Deep Navy */}
+          <div className="p-4 flex items-center justify-between text-white bg-[#0B1B3D]">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                <Bot className="w-6 h-6 text-[#0787E8]" />
+                <Bot className="w-6 h-6 text-[#38BDF8]" />
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
@@ -216,7 +208,7 @@ export default function FloatingActions() {
                     LIVE
                   </span>
                 </div>
-                <p className="text-[11px] text-[#D5E2D7]">Instant Tour & Itinerary Answers</p>
+                <p className="text-[11px] text-slate-300">Instant Tour & Itinerary Answers</p>
               </div>
             </div>
             <button
@@ -228,26 +220,26 @@ export default function FloatingActions() {
           </div>
 
           {/* Chat Messages Body */}
-          <div className="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-[#F3F5F4]/60">
+          <div className="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-slate-50">
             {chatMessages.map(msg => (
               <div
                 key={msg.id}
                 className={`flex gap-2.5 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {msg.sender === 'bot' && (
-                  <div className="w-7 h-7 rounded-full bg-[#183B2A] flex items-center justify-center text-[#0787E8] flex-shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-full bg-[#0B1B3D] flex items-center justify-center text-[#38BDF8] flex-shrink-0 mt-0.5">
                     <Sparkles className="w-3.5 h-3.5" />
                   </div>
                 )}
                 <div
                   className={`max-w-[82%] rounded-2xl p-3.5 leading-relaxed shadow-sm whitespace-pre-line ${
                     msg.sender === 'user'
-                      ? 'bg-[#0787E8] text-white rounded-br-xs'
-                      : 'bg-white text-[#183B2A] border border-gray-100 rounded-bl-xs'
+                      ? 'bg-gradient-to-r from-[#0066FF] to-[#0787E8] text-white rounded-br-xs'
+                      : 'bg-white text-slate-800 border border-slate-200 rounded-bl-xs'
                   }`}
                 >
                   <p>{msg.text}</p>
-                  <span className={`block text-[9px] mt-1 text-right ${msg.sender === 'user' ? 'text-white/70' : 'text-gray-400'}`}>
+                  <span className={`block text-[9px] mt-1 text-right ${msg.sender === 'user' ? 'text-white/70' : 'text-slate-400'}`}>
                     {msg.timestamp}
                   </span>
                 </div>
@@ -255,14 +247,14 @@ export default function FloatingActions() {
             ))}
 
             {isTyping && (
-              <div className="flex gap-2 items-center text-gray-500">
-                <div className="w-7 h-7 rounded-full bg-[#183B2A] flex items-center justify-center text-[#0787E8] flex-shrink-0">
+              <div className="flex gap-2 items-center text-slate-500">
+                <div className="w-7 h-7 rounded-full bg-[#0B1B3D] flex items-center justify-center text-[#38BDF8] flex-shrink-0">
                   <Sparkles className="w-3.5 h-3.5 animate-spin" />
                 </div>
-                <div className="bg-white px-3 py-2 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" />
-                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]" />
-                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.4s]" />
+                <div className="bg-white px-3 py-2 rounded-2xl shadow-sm border border-slate-200 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" />
+                  <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]" />
+                  <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.4s]" />
                 </div>
               </div>
             )}
@@ -270,12 +262,12 @@ export default function FloatingActions() {
           </div>
 
           {/* Quick FAQ Chips */}
-          <div className="px-3 py-2 bg-white border-t border-gray-100 overflow-x-auto whitespace-nowrap flex gap-1.5 no-scrollbar">
+          <div className="px-3 py-2 bg-white border-t border-slate-100 overflow-x-auto whitespace-nowrap flex gap-1.5 no-scrollbar">
             {FAQ_SUGGESTIONS.map((faq, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSendMessage(faq)}
-                className="inline-block px-2.5 py-1 rounded-full text-[11px] bg-[#E5EFE5] text-[#183B2A] hover:bg-[#0787E8] hover:text-white transition-colors flex-shrink-0 font-medium"
+                className="inline-block px-2.5 py-1 rounded-full text-[11px] bg-blue-50 text-[#0787E8] hover:bg-[#0787E8] hover:text-white transition-colors flex-shrink-0 font-medium"
               >
                 {faq}
               </button>
@@ -283,19 +275,18 @@ export default function FloatingActions() {
           </div>
 
           {/* Chat Input Bar */}
-          <div className="p-3 bg-white border-t border-gray-100 flex items-center gap-2">
+          <div className="p-3 bg-white border-t border-slate-100 flex items-center gap-2">
             <input
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
               placeholder="Ask about packages, prices, pickups..."
-              className="flex-1 px-3.5 py-2.5 rounded-full border border-gray-200 text-xs text-[#183B2A] focus:outline-none focus:border-[#0787E8] bg-gray-50"
+              className="flex-1 px-3.5 py-2.5 rounded-full border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-[#0787E8] bg-slate-50"
             />
             <button
               onClick={() => handleSendMessage()}
-              className="p-2.5 rounded-full text-white transition-colors"
-              style={{ backgroundColor: '#0787E8' }}
+              className="p-2.5 rounded-full text-white transition-colors bg-gradient-to-r from-[#0066FF] to-[#0787E8]"
               title="Send Message"
             >
               <Send className="w-4 h-4" />
@@ -306,33 +297,33 @@ export default function FloatingActions() {
 
       {/* Rate Us Modal */}
       {showRatingModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-gray-100 animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 animate-in zoom-in-95 duration-200">
             <button
               onClick={() => setShowRatingModal(false)}
-              className="absolute top-5 right-5 p-1 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+              className="absolute top-5 right-5 p-1 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
             {ratingSubmitted ? (
               <div className="text-center py-8 space-y-4">
-                <div className="w-16 h-16 rounded-full bg-[#E5EFE5] text-[#183B2A] flex items-center justify-center mx-auto">
+                <div className="w-16 h-16 rounded-full bg-blue-50 text-[#0787E8] flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-8 h-8 text-[#0787E8]" />
                 </div>
-                <h3 className="text-xl font-bold text-[#183B2A]">Review Submitted!</h3>
-                <p className="text-sm text-[#426D4A] max-w-xs mx-auto">
+                <h3 className="text-xl font-bold text-[#0B1B3D]">Review Submitted!</h3>
+                <p className="text-sm text-slate-600 max-w-xs mx-auto">
                   Thank you for sharing your experience with Spirit Adventures. Your feedback helps fellow travelers explore with confidence.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleRatingSubmit} className="space-y-4">
                 <div className="text-center">
-                  <div className="inline-flex p-2 rounded-2xl bg-[#E5EFE5] text-[#183B2A] mb-3">
+                  <div className="inline-flex p-2 rounded-2xl bg-blue-50 text-[#0787E8] mb-3">
                     <Star className="w-6 h-6 text-[#FF9D42] fill-[#FF9D42]" />
                   </div>
-                  <h3 className="text-xl font-bold text-[#183B2A]">Rate Spirit Adventures</h3>
-                  <p className="text-xs text-[#426D4A] mt-1">
+                  <h3 className="text-xl font-bold text-[#0B1B3D]">Rate Spirit Adventures</h3>
+                  <p className="text-xs text-slate-600 mt-1">
                     How was your journey, tour coordinator support, and accommodation?
                   </p>
                 </div>
@@ -352,7 +343,7 @@ export default function FloatingActions() {
                         className={`w-8 h-8 transition-colors ${
                           (ratingHover || rating) >= star
                             ? 'text-[#FF9D42] fill-[#FF9D42]'
-                            : 'text-gray-300'
+                            : 'text-slate-200'
                         }`}
                       />
                     </button>
@@ -360,23 +351,23 @@ export default function FloatingActions() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-[#183B2A] mb-1">Your Full Name</label>
+                  <label className="block text-xs font-bold text-slate-800 mb-1">Your Full Name</label>
                   <input
                     type="text"
                     required
                     value={reviewerName}
                     onChange={(e) => setReviewerName(e.target.value)}
                     placeholder="e.g. Rahul Sharma"
-                    className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-[#0787E8]"
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#0787E8]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-[#183B2A] mb-1">Tour Package Attended</label>
+                  <label className="block text-xs font-bold text-slate-800 mb-1">Tour Package Attended</label>
                   <select
                     value={reviewerTour}
                     onChange={(e) => setReviewerTour(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-[#0787E8] bg-white"
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#0787E8] bg-white text-slate-800"
                   >
                     <option value="Coorg Getaway">Coorg Getaway</option>
                     <option value="Goa Beach Trip">Goa Beach Trip</option>
@@ -389,23 +380,20 @@ export default function FloatingActions() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-[#183B2A] mb-1">Your Experience & Feedback</label>
+                  <label className="block text-xs font-bold text-slate-800 mb-1">Your Experience & Feedback</label>
                   <textarea
                     rows={3}
                     required
                     value={reviewerComments}
                     onChange={(e) => setReviewerComments(e.target.value)}
                     placeholder="Tell us about the bonfire night, transportation, meals, sightseeing..."
-                    className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-[#0787E8]"
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#0787E8]"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-3 rounded-full text-xs font-bold text-white transition-colors shadow-md"
-                  style={{ backgroundColor: '#0787E8' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0787E8')}
+                  className="w-full py-3 rounded-full text-xs font-bold text-white transition-colors shadow-md bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb]"
                 >
                   Submit Review
                 </button>

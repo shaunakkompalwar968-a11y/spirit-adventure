@@ -9,7 +9,6 @@ import {
   ShieldCheck, 
   CheckCircle2, 
   Loader2, 
-  Mountain,
   AlertCircle,
   MapPin,
   ArrowRight
@@ -122,7 +121,7 @@ export default function BookingModal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleResetAndClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"
           />
 
           {/* Modal Container */}
@@ -130,23 +129,20 @@ export default function BookingModal({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden z-10 border border-gray-100"
+            className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden z-10 border border-slate-200"
           >
-            {/* Header: #183B2A */}
-            <div 
-              className="px-6 py-5 text-white flex items-center justify-between"
-              style={{ backgroundColor: '#183B2A' }}
-            >
+            {/* Header: Deep Navy */}
+            <div className="px-6 py-5 text-white flex items-center justify-between bg-[#0B1B3D]">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center">
+                <div className="w-12 h-10 rounded-xl bg-white p-1.5 flex items-center justify-center shadow-sm">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+                  <img src="/assets/img/logo.png" alt="Logo" className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <h3 className="text-lg font-black tracking-tight text-white">
                     {confirmation ? 'Booking Confirmed' : 'Book Your Tour Package'}
                   </h3>
-                  <p className="text-xs text-[#D5E2D7]">
+                  <p className="text-xs text-slate-300">
                     Spirit Adventure Travel Agency • Hyderabad & Bangalore
                   </p>
                 </div>
@@ -164,38 +160,38 @@ export default function BookingModal({
             <div className="p-6 sm:p-8 max-h-[80vh] overflow-y-auto">
               {confirmation ? (
                 <div className="text-center py-6">
-                  <div className="w-16 h-16 rounded-full bg-[#E5EFE5] flex items-center justify-center mx-auto mb-4 text-[#183B2A]">
+                  <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-4 text-[#0787E8]">
                     <CheckCircle2 className="w-9 h-9 text-[#0787E8]" />
                   </div>
                   <span className="text-xs font-bold uppercase tracking-widest text-[#0787E8]">
                     Reservation Registered
                   </span>
-                  <h4 className="text-2xl font-black text-[#183B2A] mt-1">
+                  <h4 className="text-2xl font-black text-[#0B1B3D] mt-1">
                     {confirmation.package_title}
                   </h4>
-                  <p className="text-xs sm:text-sm text-[#426D4A] max-w-md mx-auto mt-2 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto mt-2 leading-relaxed">
                     {confirmation.message}
                   </p>
 
-                  <div className="mt-6 p-4 rounded-2xl bg-gray-50 border border-gray-100 text-left max-w-md mx-auto space-y-2 text-xs">
+                  <div className="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-100 text-left max-w-md mx-auto space-y-2 text-xs">
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Booking Reference:</span>
-                      <span className="font-mono font-bold text-[#183B2A]">{confirmation.booking_id}</span>
+                      <span className="text-slate-500">Booking Reference:</span>
+                      <span className="font-mono font-bold text-[#0B1B3D]">{confirmation.booking_id}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Lead Traveler:</span>
-                      <span className="font-bold text-[#183B2A]">{confirmation.full_name}</span>
+                      <span className="text-slate-500">Lead Traveler:</span>
+                      <span className="font-bold text-[#0B1B3D]">{confirmation.full_name}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Departure Batch:</span>
-                      <span className="font-bold text-[#183B2A]">{confirmation.start_date}</span>
+                      <span className="text-slate-500">Departure Batch:</span>
+                      <span className="font-bold text-[#0B1B3D]">{confirmation.start_date}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Total Travelers:</span>
-                      <span className="font-bold text-[#183B2A]">{confirmation.travelers_count} Person{confirmation.travelers_count > 1 ? 's' : ''}</span>
+                      <span className="text-slate-500">Total Travelers:</span>
+                      <span className="font-bold text-[#0B1B3D]">{confirmation.travelers_count} Person{confirmation.travelers_count > 1 ? 's' : ''}</span>
                     </div>
-                    <div className="flex justify-between pt-2 border-t border-gray-200">
-                      <span className="font-bold text-[#183B2A]">Total Amount:</span>
+                    <div className="flex justify-between pt-2 border-t border-slate-200">
+                      <span className="font-bold text-[#0B1B3D]">Total Amount:</span>
                       <span className="font-black text-base text-[#0787E8]">₹{confirmation.total_price.toLocaleString()}</span>
                     </div>
                   </div>
@@ -213,7 +209,7 @@ export default function BookingModal({
                     </a>
                     <button
                       onClick={handleResetAndClose}
-                      className="px-6 py-3 rounded-full border border-gray-300 text-[#183B2A] font-bold text-xs hover:bg-gray-50 transition-colors"
+                      className="px-6 py-3 rounded-full border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50 transition-colors"
                     >
                       Close
                     </button>
@@ -230,7 +226,7 @@ export default function BookingModal({
 
                   {/* Selected Package Selector */}
                   <div>
-                    <label className="block text-xs font-bold text-[#183B2A] uppercase mb-1.5">
+                    <label className="block text-xs font-bold text-slate-800 uppercase mb-1.5">
                       Selected Tour Package
                     </label>
                     <select
@@ -244,7 +240,7 @@ export default function BookingModal({
                           }
                         }
                       }}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-[#183B2A] font-semibold text-sm focus:outline-none focus:border-[#0787E8] bg-white"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-800 font-semibold text-sm focus:outline-none focus:border-[#0787E8] bg-white"
                     >
                       {packages.map((pkg) => (
                         <option key={pkg.id} value={pkg.id}>
@@ -257,7 +253,7 @@ export default function BookingModal({
                   {/* Date and Travelers Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-[#183B2A] uppercase mb-1.5">
+                      <label className="block text-xs font-bold text-slate-800 uppercase mb-1.5">
                         <span className="flex items-center gap-1.5">
                           <Calendar className="w-3.5 h-3.5 text-[#0787E8]" />
                           Departure Batch *
@@ -267,7 +263,7 @@ export default function BookingModal({
                         <select
                           value={date}
                           onChange={(e) => setDate(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-[#183B2A] text-sm focus:outline-none focus:border-[#0787E8] bg-white font-medium"
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-800 text-sm focus:outline-none focus:border-[#0787E8] bg-white font-medium"
                           required
                         >
                           <option value="">Select departure batch...</option>
@@ -280,34 +276,34 @@ export default function BookingModal({
                           type="date"
                           value={date}
                           onChange={(e) => setDate(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-[#183B2A] text-sm focus:outline-none focus:border-[#0787E8] bg-white font-medium"
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-800 text-sm focus:outline-none focus:border-[#0787E8] bg-white font-medium"
                           required
                         />
                       )}
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-[#183B2A] uppercase mb-1.5">
+                      <label className="block text-xs font-bold text-slate-800 uppercase mb-1.5">
                         <span className="flex items-center gap-1.5">
                           <Users className="w-3.5 h-3.5 text-[#0787E8]" />
                           Number of Travelers
                         </span>
                       </label>
-                      <div className="flex items-center border border-gray-300 rounded-xl overflow-hidden">
+                      <div className="flex items-center border border-slate-300 rounded-xl overflow-hidden">
                         <button
                           type="button"
                           onClick={() => setTravelers(Math.max(1, travelers - 1))}
-                          className="px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-[#183B2A] font-bold text-sm transition-colors"
+                          className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm transition-colors"
                         >
                           -
                         </button>
-                        <span className="flex-1 text-center font-bold text-[#183B2A] text-sm">
+                        <span className="flex-1 text-center font-bold text-slate-800 text-sm">
                           {travelers} {travelers === 1 ? 'Person' : 'Persons'}
                         </span>
                         <button
                           type="button"
                           onClick={() => setTravelers(travelers + 1)}
-                          className="px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-[#183B2A] font-bold text-sm transition-colors"
+                          className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm transition-colors"
                         >
                           +
                         </button>
@@ -317,14 +313,14 @@ export default function BookingModal({
 
                   {/* Boarding Point */}
                   <div>
-                    <label className="block text-xs font-bold text-[#183B2A] uppercase mb-1.5 flex items-center gap-1.5">
+                    <label className="block text-xs font-bold text-slate-800 uppercase mb-1.5 flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-[#0787E8]" />
                       <span>Preferred Boarding / Pickup Location *</span>
                     </label>
                     <select
                       value={boardingCity}
                       onChange={(e) => setBoardingCity(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-[#183B2A] text-sm focus:outline-none focus:border-[#0787E8] bg-white font-medium"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-800 text-sm focus:outline-none focus:border-[#0787E8] bg-white font-medium"
                     >
                       <option value="Hyderabad - KPHB Colony / JNTU">Hyderabad - KPHB Colony / JNTU</option>
                       <option value="Hyderabad - Gachibowli ORR Junction">Hyderabad - Gachibowli ORR Junction</option>
@@ -338,7 +334,7 @@ export default function BookingModal({
                   {/* Personal Contact Info */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-[#183B2A] uppercase mb-1">
+                      <label className="block text-xs font-bold text-slate-800 uppercase mb-1">
                         Full Name *
                       </label>
                       <input
@@ -347,11 +343,11 @@ export default function BookingModal({
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="e.g. Rahul Sharma"
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0787E8]"
+                        className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-[#0787E8]"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-[#183B2A] uppercase mb-1">
+                      <label className="block text-xs font-bold text-slate-800 uppercase mb-1">
                         Email Address *
                       </label>
                       <input
@@ -360,14 +356,14 @@ export default function BookingModal({
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="rahul@example.com"
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0787E8]"
+                        className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-[#0787E8]"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-[#183B2A] uppercase mb-1">
+                      <label className="block text-xs font-bold text-slate-800 uppercase mb-1">
                         Phone / WhatsApp *
                       </label>
                       <input
@@ -376,11 +372,11 @@ export default function BookingModal({
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+91 966 656 7551"
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0787E8]"
+                        className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-[#0787E8]"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-[#183B2A] uppercase mb-1">
+                      <label className="block text-xs font-bold text-slate-800 uppercase mb-1">
                         Special Requests / Food Preference
                       </label>
                       <input
@@ -388,38 +384,35 @@ export default function BookingModal({
                         value={specialRequests}
                         onChange={(e) => setSpecialRequests(e.target.value)}
                         placeholder="e.g. Pure Veg, Jain food, front seat request"
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0787E8]"
+                        className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-[#0787E8]"
                       />
                     </div>
                   </div>
 
                   {/* Price Summary Bar */}
-                  <div className="bg-[#E5EFE5] rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 border border-[#426D4A]/20">
+                  <div className="bg-blue-50/70 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 border border-blue-100">
                     <div>
-                      <span className="text-xs text-[#426D4A] font-semibold block">Total Package Price</span>
+                      <span className="text-xs text-slate-500 font-semibold block">Total Package Price</span>
                       <div className="flex items-baseline gap-2">
                         <span className="text-2xl font-black text-[#0787E8]">
                           ₹{totalPrice.toLocaleString()}
                         </span>
-                        <span className="text-xs text-[#183B2A]">
+                        <span className="text-xs text-slate-600">
                           (₹{unitPrice.toLocaleString()} × {travelers} traveler{travelers > 1 ? 's' : ''})
                         </span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1.5 text-xs text-[#426D4A] font-medium">
+                    <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
                       <ShieldCheck className="w-4 h-4 text-[#0787E8]" />
                       <span>Zero booking surcharge • Verified stays</span>
                     </div>
                   </div>
 
-                  {/* Submit Button: #0787E8, hover #056DBB */}
+                  {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 rounded-full font-bold text-sm text-white shadow-xl transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-70"
-                    style={{ backgroundColor: '#0787E8' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}
-                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0787E8')}
+                    className="w-full py-4 rounded-full font-bold text-sm text-white shadow-xl transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb] active:scale-95 disabled:opacity-70 shadow-blue-500/25"
                   >
                     {isSubmitting ? (
                       <>

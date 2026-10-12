@@ -2,16 +2,11 @@
 
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
-  Filter, 
-  MapPin, 
   Compass, 
-  SlidersHorizontal, 
   ArrowUpDown, 
-  X,
-  Sparkles
+  X
 } from 'lucide-react';
 import PackageCard from '@/components/PackageCard';
 import BookingModal from '@/components/BookingModal';
@@ -25,7 +20,7 @@ import {
 function PackagesCatalogContent() {
   const searchParams = useSearchParams();
   
-  const [packages, setPackages] = useState<TourPackage[]>(FALLBACK_PACKAGES);
+  const [packages] = useState<TourPackage[]>(FALLBACK_PACKAGES);
   const [categories] = useState<Category[]>(FALLBACK_CATEGORIES);
   const [destinations] = useState<Destination[]>(FALLBACK_DESTINATIONS);
 
@@ -109,8 +104,8 @@ function PackagesCatalogContent() {
   };
 
   return (
-    <div className="bg-[#F3F5F4] min-h-screen pb-24">
-      {/* Header Banner: Overlay rgba(12, 35, 27, 0.58) */}
+    <div className="bg-slate-50 min-h-screen pb-24">
+      {/* Header Banner: Deep Navy Overlay */}
       <div 
         className="relative pt-28 pb-20 px-4 sm:px-6 lg:px-8 bg-cover bg-center"
         style={{
@@ -119,18 +114,18 @@ function PackagesCatalogContent() {
       >
         <div 
           className="absolute inset-0"
-          style={{ backgroundColor: 'rgba(12, 35, 27, 0.58)' }}
+          style={{ backgroundColor: 'rgba(11, 27, 61, 0.75)' }}
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center text-white">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 backdrop-blur-md border border-white/20 mb-4 text-[#0787E8]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 backdrop-blur-md border border-white/20 mb-4 text-[#38BDF8]">
             <Compass className="w-3.5 h-3.5" />
             <span className="text-white">Official Spirit Adventures Circuits</span>
           </div>
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
-            Tour Packages & <span className="text-[#0787E8]">Backpacking Trips</span>
+            Tour Packages & <span className="text-[#38BDF8]">Backpacking Trips</span>
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-[#F3F5F4] font-light max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-slate-200 font-light max-w-2xl mx-auto leading-relaxed">
             Departures every Thursday & Friday from Hyderabad (Nampally, Begumpet, Lingampally, Kacheguda) with pickups in Bangalore & Chennai. Includes train tickets, resort stays & beach camping, watersports, and certified trip captains.
           </p>
         </div>
@@ -139,17 +134,17 @@ function PackagesCatalogContent() {
       {/* Main Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Filter Controls Bar */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200/80 mb-10">
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 mb-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
             {/* Search Input */}
             <div className="relative">
-              <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search Coorg, Goa, Hampi, Ooty..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#0787E8] text-[#183B2A] font-medium"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#0787E8] text-slate-800 font-medium bg-slate-50 focus:bg-white"
               />
             </div>
 
@@ -158,7 +153,7 @@ function PackagesCatalogContent() {
               <select
                 value={selectedDestination}
                 onChange={(e) => setSelectedDestination(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm font-semibold text-[#183B2A] focus:outline-none focus:border-[#0787E8] bg-white"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-800 focus:outline-none focus:border-[#0787E8] bg-slate-50 focus:bg-white"
               >
                 <option value="all">All Destinations</option>
                 {destinations.map(d => (
@@ -172,7 +167,7 @@ function PackagesCatalogContent() {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm font-semibold text-[#183B2A] focus:outline-none focus:border-[#0787E8] bg-white"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-800 focus:outline-none focus:border-[#0787E8] bg-slate-50 focus:bg-white"
               >
                 <option value="all">All Tour Styles</option>
                 {categories.map(c => (
@@ -186,7 +181,7 @@ function PackagesCatalogContent() {
               <select
                 value={selectedDifficulty}
                 onChange={(e) => setSelectedDifficulty(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm font-semibold text-[#183B2A] focus:outline-none focus:border-[#0787E8] bg-white"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-800 focus:outline-none focus:border-[#0787E8] bg-slate-50 focus:bg-white"
               >
                 <option value="all">All Difficulty Levels</option>
                 <option value="easy">Easy (Leisure & Family)</option>
@@ -197,9 +192,9 @@ function PackagesCatalogContent() {
           </div>
 
           {/* Secondary Filter Row: Price Slider & Sorting */}
-          <div className="mt-5 pt-5 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="mt-5 pt-5 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="w-full md:w-auto flex items-center gap-4">
-              <span className="text-xs font-bold text-[#183B2A] uppercase flex-shrink-0">
+              <span className="text-xs font-bold text-slate-700 uppercase flex-shrink-0">
                 Max Budget: <strong className="text-[#0787E8] font-black text-sm">₹{maxPrice.toLocaleString()}</strong>
               </span>
               <input
@@ -215,11 +210,11 @@ function PackagesCatalogContent() {
 
             <div className="w-full md:w-auto flex items-center justify-between md:justify-end gap-3">
               <div className="flex items-center gap-2">
-                <ArrowUpDown className="w-4 h-4 text-gray-500" />
+                <ArrowUpDown className="w-4 h-4 text-slate-500" />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as any)}
-                  className="px-3 py-2 rounded-xl border border-gray-200 text-xs font-bold text-[#183B2A] focus:outline-none focus:border-[#0787E8] bg-white"
+                  className="px-3 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#0787E8] bg-white"
                 >
                   <option value="featured">Featured / Recommended</option>
                   <option value="price-asc">Price: Low to High</option>
@@ -231,7 +226,7 @@ function PackagesCatalogContent() {
               {(searchQuery || selectedDestination !== 'all' || selectedCategory !== 'all' || selectedDifficulty !== 'all' || maxPrice < 40000) && (
                 <button
                   onClick={handleResetFilters}
-                  className="px-3.5 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-bold text-[#183B2A] flex items-center gap-1 transition-colors"
+                  className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 flex items-center gap-1 transition-colors"
                 >
                   <X className="w-3.5 h-3.5" />
                   <span>Reset</span>
@@ -243,10 +238,10 @@ function PackagesCatalogContent() {
 
         {/* Results Counter */}
         <div className="flex items-center justify-between mb-8">
-          <p className="text-sm font-bold text-[#183B2A]">
+          <p className="text-sm font-bold text-[#0B1B3D]">
             Showing <span className="text-[#0787E8]">{filteredAndSortedPackages.length}</span> Verified Packages
           </p>
-          <span className="text-xs text-[#426D4A]">
+          <span className="text-xs text-slate-500">
             Hyderabad & Bangalore Departures
           </span>
         </div>
@@ -264,18 +259,15 @@ function PackagesCatalogContent() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-white rounded-3xl p-8 border border-gray-200/80">
+          <div className="text-center py-20 bg-white rounded-3xl p-8 border border-slate-200/80">
             <Compass className="w-12 h-12 text-[#0787E8] mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-[#183B2A]">No tour packages match your filters</h3>
-            <p className="text-xs text-[#426D4A] max-w-sm mx-auto mt-2">
+            <h3 className="text-xl font-bold text-[#0B1B3D]">No tour packages match your filters</h3>
+            <p className="text-xs text-slate-600 max-w-sm mx-auto mt-2">
               Try adjusting your price slider or clear your filters to view all weekend getaways.
             </p>
             <button
               onClick={handleResetFilters}
-              className="mt-6 px-6 py-2.5 rounded-full text-xs font-bold text-white transition-colors"
-              style={{ backgroundColor: '#0787E8' }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0787E8')}
+              className="mt-6 px-6 py-2.5 rounded-full text-xs font-bold text-white transition-colors bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb]"
             >
               Reset All Filters
             </button>
@@ -296,7 +288,7 @@ function PackagesCatalogContent() {
 export default function PackagesCatalogPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-[#F3F5F4]">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0787E8]"></div>
       </div>
     }>

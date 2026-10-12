@@ -31,17 +31,17 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#F3F5F4]">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-[#0787E8] border border-gray-200 shadow-sm mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-[#0787E8] border border-blue-100 shadow-sm mb-3">
             <HelpCircle className="w-3.5 h-3.5" />
             <span>Got Questions?</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-[#183B2A] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-black text-[#0B1B3D] tracking-tight">
             Frequently Asked Questions
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-[#426D4A]">
+          <p className="mt-3 text-sm sm:text-base text-slate-600">
             Everything you need to know about preparing for your high-altitude expedition.
           </p>
         </div>
@@ -52,11 +52,11 @@ export default function FAQSection() {
             return (
               <div
                 key={index}
-                className="bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-sm transition-all"
+                className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm transition-all"
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#183B2A] hover:text-[#0787E8] transition-colors"
+                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#0B1B3D] hover:text-[#0787E8] transition-colors"
                 >
                   <span>{faq.q}</span>
                   <motion.div
@@ -76,7 +76,7 @@ export default function FAQSection() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.25 }}
                     >
-                      <div className="px-6 pb-6 pt-1 text-sm sm:text-base text-[#426D4A] leading-relaxed border-t border-gray-100">
+                      <div className="px-6 pb-6 pt-1 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-slate-100">
                         {faq.a}
                       </div>
                     </motion.div>

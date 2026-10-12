@@ -1,13 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Camera, Video, Play, ArrowRight, MapPin, Sparkles } from 'lucide-react';
+import { Camera, Play, ArrowRight, MapPin } from 'lucide-react';
 import { FALLBACK_GALLERY_ITEMS } from '@/data/fallbackData';
 
 export default function MediaGalleryPreview() {
-  // Take first 6 items: a mix of stunning authentic photos and video reels
   const featuredItems = [
     FALLBACK_GALLERY_ITEMS[0], // Mountain Escapade
     FALLBACK_GALLERY_ITEMS[1], // Sun & Beaches
@@ -18,29 +17,26 @@ export default function MediaGalleryPreview() {
   ];
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#E5EFE5]/40 border-t border-b border-[#426D4A]/10">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-t border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#E5EFE5] text-[#183B2A] mb-3 border border-[#426D4A]/20">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-[#0787E8] mb-3 border border-blue-100">
               <Camera className="w-3.5 h-3.5 text-[#0787E8]" />
               <span>Real Travel Stories</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#183B2A] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#0B1B3D] tracking-tight">
               Moments from the Wild & Roads
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-[#426D4A] max-w-xl">
+            <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-xl">
               Authentic glimpses of summit sunrises, coastal shores, ancient stone boulders, and campfire nights captured by Spirit Adventure explorers.
             </p>
           </div>
 
           <Link
             href="/gallery"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-bold text-white transition-all shadow-md active:scale-95 flex-shrink-0"
-            style={{ backgroundColor: '#0787E8' }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0787E8')}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-bold text-white transition-all shadow-md active:scale-95 flex-shrink-0 bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb] shadow-blue-500/25"
           >
             <span>Explore All Photos & Reels</span>
             <ArrowRight className="w-4 h-4" />
@@ -56,7 +52,7 @@ export default function MediaGalleryPreview() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.08 }}
-              className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 bg-black h-64 sm:h-72 border border-white/40"
+              className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 bg-black h-64 sm:h-72 border border-slate-100"
             >
               {item.type === 'video' ? (
                 <>
@@ -102,11 +98,11 @@ export default function MediaGalleryPreview() {
 
               {/* Content bottom */}
               <div className="absolute bottom-3 left-4 right-4 text-white pointer-events-none">
-                <div className="flex items-center gap-1 text-[11px] text-[#0787E8] font-semibold mb-0.5">
+                <div className="flex items-center gap-1 text-[11px] text-[#38BDF8] font-semibold mb-0.5">
                   <MapPin className="w-3 h-3" />
                   <span>{item.location}</span>
                 </div>
-                <h3 className="text-base font-bold text-white group-hover:text-[#FF9D42] transition-colors truncate">
+                <h3 className="text-base font-bold text-white group-hover:text-[#38BDF8] transition-colors truncate">
                   {item.title}
                 </h3>
               </div>

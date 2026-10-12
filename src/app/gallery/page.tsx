@@ -11,8 +11,6 @@ import {
   X, 
   ChevronLeft, 
   ChevronRight, 
-  Sparkles, 
-  Compass, 
   Maximize2,
   ArrowRight
 } from 'lucide-react';
@@ -65,9 +63,9 @@ export default function GalleryPage() {
   };
 
   return (
-    <div className="bg-[#F3F5F4] min-h-screen pb-24">
-      {/* Cinematic Hero Banner */}
-      <div className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#183B2A]">
+    <div className="bg-slate-50 min-h-screen pb-24">
+      {/* Cinematic Hero Banner: Deep Navy */}
+      <div className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#0B1B3D]">
         <video
           autoPlay
           loop
@@ -82,14 +80,14 @@ export default function GalleryPage() {
 
         <div 
           className="absolute inset-0"
-          style={{ backgroundColor: 'rgba(12, 35, 27, 0.75)' }}
+          style={{ backgroundColor: 'rgba(11, 27, 61, 0.80)' }}
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center text-white">
           <motion.div
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 backdrop-blur-md border border-white/20 mb-4 text-[#FF9D42]"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 backdrop-blur-md border border-white/20 mb-4 text-[#38BDF8]"
           >
             <Camera className="w-3.5 h-3.5" />
             <span>Official Spirit Adventure Vault</span>
@@ -108,7 +106,7 @@ export default function GalleryPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-4 text-base sm:text-lg text-[#F3F5F4] font-normal leading-relaxed max-w-2xl mx-auto"
+            className="mt-4 text-base sm:text-lg text-slate-200 font-normal leading-relaxed max-w-2xl mx-auto"
           >
             Real moments from real journeys. Explore authentic photos and cinematic drone reels captured across Coorg, Goa, Hampi, Dandeli, Ooty, and beyond.
           </motion.p>
@@ -118,7 +116,7 @@ export default function GalleryPage() {
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
         {/* Filter Tabs Pills */}
-        <div className="bg-white rounded-2xl p-2.5 shadow-xl border border-gray-200/80 flex flex-wrap items-center justify-center gap-2 mb-12">
+        <div className="bg-white rounded-2xl p-2.5 shadow-xl border border-slate-200/80 flex flex-wrap items-center justify-center gap-2 mb-12">
           {filterTabs.map((tab) => {
             const isActive = activeFilter === tab.value;
             return (
@@ -127,13 +125,13 @@ export default function GalleryPage() {
                 onClick={() => setActiveFilter(tab.value)}
                 className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 ${
                   isActive
-                    ? 'bg-[#183B2A] text-white shadow-md'
-                    : 'text-[#426D4A] hover:bg-[#E5EFE5] hover:text-[#183B2A]'
+                    ? 'bg-gradient-to-r from-[#0066FF] to-[#0787E8] text-white shadow-md shadow-blue-500/25'
+                    : 'text-slate-600 hover:bg-blue-50 hover:text-[#0787E8]'
                 }`}
               >
                 <span>{tab.label}</span>
                 <span className={`text-[10px] px-2 py-0.5 rounded-full ${
-                  isActive ? 'bg-[#0787E8] text-white' : 'bg-gray-100 text-gray-600'
+                  isActive ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
                 }`}>
                   {tab.count}
                 </span>
@@ -156,7 +154,7 @@ export default function GalleryPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.35, delay: idx * 0.04 }}
-                className="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200/80 cursor-pointer"
+                className="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200/80 cursor-pointer"
                 onClick={() => setActiveItem(item)}
               >
                 {/* Media Container */}
@@ -199,7 +197,7 @@ export default function GalleryPage() {
                       {item.category}
                     </span>
                     {item.type === 'video' && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#FF9D42] text-[#183B2A] shadow">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#FF9D42] text-slate-950 shadow">
                         <Video className="w-3 h-3" />
                         <span>Reel</span>
                       </span>
@@ -211,11 +209,11 @@ export default function GalleryPage() {
 
                   {/* Caption & Info */}
                   <div className="absolute bottom-3 left-4 right-4 text-white">
-                    <div className="flex items-center gap-1 text-[11px] text-[#0787E8] font-semibold mb-1">
+                    <div className="flex items-center gap-1 text-[11px] text-[#38BDF8] font-semibold mb-1">
                       <MapPin className="w-3 h-3" />
                       <span>{item.location}</span>
                     </div>
-                    <h3 className="text-lg font-bold text-white group-hover:text-[#FF9D42] transition-colors leading-snug">
+                    <h3 className="text-lg font-bold text-white group-hover:text-[#38BDF8] transition-colors leading-snug">
                       {item.title}
                     </h3>
                   </div>
@@ -228,7 +226,7 @@ export default function GalleryPage() {
 
                 {/* Sub-card details */}
                 <div className="p-4 bg-white">
-                  <p className="text-xs text-[#426D4A] line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
                     {item.caption}
                   </p>
                 </div>
@@ -249,18 +247,18 @@ export default function GalleryPage() {
             onClick={() => setActiveItem(null)}
           >
             <div 
-              className="relative w-full max-w-5xl bg-[#183B2A] rounded-3xl overflow-hidden shadow-2xl border border-white/20 flex flex-col"
+              className="relative w-full max-w-5xl bg-[#0B1B3D] rounded-3xl overflow-hidden shadow-2xl border border-blue-900/40 flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Top Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/40">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-blue-900/30 bg-black/40">
                 <div className="flex items-center gap-3">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#0787E8] animate-ping" />
                   <div>
                     <h4 className="text-white text-base sm:text-lg font-bold">
                       {activeItem.title}
                     </h4>
-                    <span className="text-xs text-[#0787E8] flex items-center gap-1">
+                    <span className="text-xs text-[#38BDF8] flex items-center gap-1">
                       <MapPin className="w-3 h-3" />
                       {activeItem.location} • {activeItem.category}
                     </span>
@@ -323,16 +321,15 @@ export default function GalleryPage() {
               </div>
 
               {/* Modal Footer */}
-              <div className="p-5 bg-[#183B2A] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <p className="text-xs sm:text-sm text-[#D5E2D7] leading-relaxed max-w-2xl">
+              <div className="p-5 bg-[#0B1B3D] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl">
                   {activeItem.caption}
                 </p>
 
                 <div className="flex items-center gap-3 w-full sm:w-auto">
                   <Link
                     href="/customize"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white transition-all shadow-md active:scale-95"
-                    style={{ backgroundColor: '#0787E8' }}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white transition-all shadow-md active:scale-95 bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb]"
                   >
                     <span>Plan Trip Here</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -346,22 +343,21 @@ export default function GalleryPage() {
 
       {/* Bottom CTA Banner */}
       <div className="max-w-5xl mx-auto px-4 mt-20">
-        <div className="rounded-3xl p-8 sm:p-12 text-center text-white relative overflow-hidden bg-gradient-to-r from-[#183B2A] via-[#1f4a35] to-[#183B2A] shadow-2xl border border-white/20">
+        <div className="rounded-3xl p-8 sm:p-12 text-center text-white relative overflow-hidden bg-gradient-to-r from-[#0B1B3D] via-[#0F2856] to-[#0B1B3D] shadow-2xl border border-blue-900/40">
           <div className="relative z-10">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#FF9D42] mb-2 block">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#38BDF8] mb-2 block">
               READY FOR YOUR NEXT ADVENTURE?
             </span>
             <h2 className="text-2xl sm:text-4xl font-black mb-4">
               Capture Your Own Memories with Spirit Adventure
             </h2>
-            <p className="text-[#D5E2D7] text-sm sm:text-base max-w-2xl mx-auto mb-8">
+            <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto mb-8">
               Join our upcoming weekend batches or let our travel designers curate a personalized custom getaway with private resort stays and campfire nights.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/packages"
-                className="px-8 py-3.5 rounded-full font-bold text-sm text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
-                style={{ backgroundColor: '#0787E8' }}
+                className="px-8 py-3.5 rounded-full font-bold text-sm text-white shadow-lg transition-transform hover:scale-105 active:scale-95 bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb] shadow-blue-500/25"
               >
                 Browse Tour Packages
               </Link>

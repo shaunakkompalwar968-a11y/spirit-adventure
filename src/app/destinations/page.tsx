@@ -3,12 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { MapPin, Calendar, Mountain, ArrowRight, Compass, Sparkles } from 'lucide-react';
+import { MapPin, Calendar, Mountain, ArrowRight, Compass } from 'lucide-react';
 import { FALLBACK_DESTINATIONS } from '@/data/fallbackData';
 
 export default function DestinationsPage() {
   return (
-    <div className="bg-[#F3F5F4] min-h-screen pb-24">
+    <div className="bg-slate-50 min-h-screen pb-24">
       {/* Banner */}
       <div 
         className="relative pt-28 pb-20 px-4 sm:px-6 lg:px-8 bg-cover bg-center"
@@ -18,18 +18,18 @@ export default function DestinationsPage() {
       >
         <div 
           className="absolute inset-0"
-          style={{ backgroundColor: 'rgba(12, 35, 27, 0.72)' }}
+          style={{ backgroundColor: 'rgba(11, 27, 61, 0.75)' }}
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center text-white">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 backdrop-blur-md border border-white/20 mb-4 text-[#0787E8]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 backdrop-blur-md border border-white/20 mb-4 text-[#38BDF8]">
             <Compass className="w-3.5 h-3.5" />
             <span className="text-white">Iconic South India Circuits</span>
           </div>
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
             Top Travel Destinations
           </h1>
-          <p className="mt-4 text-base sm:text-xl text-[#F3F5F4] font-light leading-relaxed max-w-3xl mx-auto">
+          <p className="mt-4 text-base sm:text-xl text-slate-200 font-light leading-relaxed max-w-3xl mx-auto">
             From the misty coffee trails of Coorg and sunny shores of Goa to the boulder empire of Hampi and river rapids of Dandeli, explore handpicked weekend getaways with departures from Hyderabad and Bangalore.
           </p>
         </div>
@@ -47,7 +47,7 @@ export default function DestinationsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200/80 grid grid-cols-1 lg:grid-cols-12"
+                className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 grid grid-cols-1 lg:grid-cols-12"
               >
                 {/* Photo Column */}
                 <div className={`lg:col-span-6 relative h-72 sm:h-96 lg:h-auto overflow-hidden group ${isReversed ? 'lg:order-2' : ''}`}>
@@ -74,31 +74,31 @@ export default function DestinationsPage() {
                       <span>{dest.country}</span>
                     </div>
 
-                    <h2 className="text-2xl sm:text-3xl font-black text-[#183B2A] tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl font-black text-[#0B1B3D] tracking-tight">
                       {dest.name}
                     </h2>
 
-                    <p className="mt-4 text-sm sm:text-base text-[#426D4A] leading-relaxed">
+                    <p className="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed">
                       {dest.description}
                     </p>
 
                     {/* Metadata Grid */}
-                    <div className="mt-6 pt-6 border-t border-gray-100 grid grid-cols-2 gap-4 text-xs">
+                    <div className="mt-6 pt-6 border-t border-slate-100 grid grid-cols-2 gap-4 text-xs">
                       <div>
-                        <span className="text-gray-400 font-bold uppercase block mb-1">
+                        <span className="text-slate-400 font-bold uppercase block mb-1">
                           Prime Season
                         </span>
-                        <div className="flex items-center gap-1.5 font-bold text-[#183B2A]">
+                        <div className="flex items-center gap-1.5 font-bold text-[#0B1B3D]">
                           <Calendar className="w-3.5 h-3.5 text-[#0787E8]" />
                           <span>{dest.best_season}</span>
                         </div>
                       </div>
 
                       <div>
-                        <span className="text-gray-400 font-bold uppercase block mb-1">
+                        <span className="text-slate-400 font-bold uppercase block mb-1">
                           Altitude Range
                         </span>
-                        <div className="flex items-center gap-1.5 font-bold text-[#183B2A]">
+                        <div className="flex items-center gap-1.5 font-bold text-[#0B1B3D]">
                           <Mountain className="w-3.5 h-3.5 text-[#0787E8]" />
                           <span>{dest.altitude}</span>
                         </div>
@@ -106,16 +106,13 @@ export default function DestinationsPage() {
                     </div>
                   </div>
 
-                  <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between">
-                    <span className="text-xs text-[#426D4A] font-medium">
+                  <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
+                    <span className="text-xs text-slate-500 font-medium">
                       Hyderabad & Bangalore Pickups
                     </span>
                     <Link
                       href={`/packages?destination=${dest.slug}`}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white transition-all shadow-md active:scale-95"
-                      style={{ backgroundColor: '#0787E8' }}
-                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}
-                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0787E8')}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white transition-all shadow-md active:scale-95 bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb] shadow-blue-500/25"
                     >
                       <span>Explore {dest.name.split(' ')[0]} Tours</span>
                       <ArrowRight className="w-3.5 h-3.5" />

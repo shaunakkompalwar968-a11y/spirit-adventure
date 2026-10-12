@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Compass, ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { TourPackage, Category } from '@/types';
 import PackageCard from './PackageCard';
 import BookingModal from './BookingModal';
@@ -33,23 +33,19 @@ export default function TourPackagesSection({
   return (
     <section 
       id="packages"
-      className="py-20 px-4 sm:px-6 lg:px-8"
-      style={{ backgroundColor: '#F3F5F4' }}
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-[#0787E8] border border-gray-200 shadow-sm mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-[#0787E8] border border-blue-200/60 shadow-sm mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Featured Expeditions</span>
           </div>
-          <h2 
-            className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight"
-            style={{ color: '#183B2A' }}
-          >
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#0B1B3D]">
             Official Adventure & Backpacking Tours
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#426D4A] leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
             Experience curated weekend getaways and Himalayan expeditions from Hyderabad, Bangalore & Chennai — featuring Chembra Peak treks, Dandeli river rafting, Gokarna beach treks, Isha Foundation & Nilgiri toy train, Munnar & Alleppey houseboats, and Manali snow adventures.
           </p>
 
@@ -57,10 +53,10 @@ export default function TourPackagesSection({
           <div className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
             <button
               onClick={() => setActiveCategory('all')}
-              className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 ${
+              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 ${
                 activeCategory === 'all'
-                  ? 'bg-[#183B2A] text-white shadow-md'
-                  : 'bg-white text-[#183B2A] hover:bg-gray-100 border border-gray-200'
+                  ? 'bg-gradient-to-r from-[#0066FF] to-[#0787E8] text-white shadow-md shadow-blue-500/25'
+                  : 'bg-white text-slate-700 hover:text-[#0787E8] hover:bg-blue-50/50 border border-slate-200'
               }`}
             >
               All Expeditions ({packages.length})
@@ -69,10 +65,10 @@ export default function TourPackagesSection({
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.slug)}
-                className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 ${
+                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 ${
                   activeCategory === cat.slug
-                    ? 'bg-[#183B2A] text-white shadow-md'
-                    : 'bg-white text-[#183B2A] hover:bg-gray-100 border border-gray-200'
+                    ? 'bg-gradient-to-r from-[#0066FF] to-[#0787E8] text-white shadow-md shadow-blue-500/25'
+                    : 'bg-white text-slate-700 hover:text-[#0787E8] hover:bg-blue-50/50 border border-slate-200'
                 }`}
               >
                 {cat.name}
@@ -109,16 +105,13 @@ export default function TourPackagesSection({
         <div className="mt-14 text-center">
           <Link
             href="/packages"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold text-white transition-all duration-300 shadow-lg active:scale-95"
-            style={{ backgroundColor: '#0787E8' }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0787E8')}
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold text-white transition-all duration-300 shadow-lg bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb] shadow-blue-500/25 active:scale-95"
           >
             <span>View All Packages & Expeditions</span>
             <ArrowRight className="w-5 h-5" />
           </Link>
-          <p className="mt-3 text-xs text-[#426D4A]">
-            Need a bespoke itinerary or private expedition? <Link href="/contact" className="font-bold underline text-[#183B2A] hover:text-[#0787E8]">Plan with our lead alpinists</Link>
+          <p className="mt-3 text-xs text-slate-500">
+            Need a bespoke itinerary or private expedition? <Link href="/contact" className="font-bold underline text-[#0787E8] hover:text-[#056dbb]">Plan with our lead alpinists</Link>
           </p>
         </div>
       </div>
