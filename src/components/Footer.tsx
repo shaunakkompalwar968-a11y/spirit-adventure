@@ -33,19 +33,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-[#426D4A]/30">
           {/* Brand & Agency Column */}
           <div className="lg:col-span-4">
-            <Link href="/" className="flex items-center gap-3 group inline-flex">
-              <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-md overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/logohead.png" alt="Spirit Adventures Logo" className="w-full h-full object-contain" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-black tracking-tight text-white font-sans">
-                  SPIRIT<span className="text-[#0787E8]">.</span>ADVENTURE
-                </span>
-                <span className="text-[10px] tracking-widest uppercase font-bold text-[#D5E2D7]">
-                  Explore the World, Without Limits
-                </span>
-              </div>
+            <Link href="/" className="inline-flex items-center group">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src="/assets/img/logo.png" 
+                alt="Spirit Adventures" 
+                className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+              />
             </Link>
 
             {/* Paragraph: #D5E2D7 */}

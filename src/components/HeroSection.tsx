@@ -45,9 +45,10 @@ export default function HeroSection() {
         poster="/assets/img/hero-poster.jpg"
         className="absolute inset-0 w-full h-full object-cover scale-105"
       >
+        <source src="/assets/video/travel-mountains-hero.mp4" type="video/mp4" />
+        <source src="/assets/video/travel-adventure-bg.mp4" type="video/mp4" />
+        <source src="/assets/video/travel-new-hero.mp4" type="video/mp4" />
         <source src="/assets/video/Bgvideo.mp4" type="video/mp4" />
-        <source src="/assets/video/travel-coast.mp4" type="video/mp4" />
-        <source src="/assets/video/travel-loop.mp4" type="video/mp4" />
       </video>
 
       {/* Specified Overlay: rgba(12, 35, 27, 0.58) */}

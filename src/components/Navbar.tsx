@@ -87,20 +87,14 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
               : 'bg-black/40 backdrop-blur-lg border-white/15 shadow-xl'
           }`}
         >
-          {/* Brand Logo & Tagline */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center p-1 transition-transform duration-300 group-hover:scale-105 shadow-inner overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logohead.png" alt="Spirit Adventure Emblem" className="w-full h-full object-contain" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-base lg:text-lg font-black tracking-wider text-white font-sans flex items-center gap-1">
-                SPIRIT ADVENTURE
-              </span>
-              <span className="text-[8px] tracking-[0.22em] uppercase font-bold text-white/70">
-                EXPLORE • DISCOVER • EXPERIENCE
-              </span>
-            </div>
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center group">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src="/assets/img/logo.png" 
+              alt="Spirit Adventures" 
+              className="h-10 lg:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+            />
           </Link>
 
           {/* Desktop Navigation Links */}
@@ -145,36 +139,38 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute top-full left-0 mt-2 w-72 rounded-2xl bg-[#0c231b]/95 backdrop-blur-xl border border-white/20 shadow-2xl p-3 z-50 space-y-1"
+                    className="absolute top-full left-0 mt-2 w-80 rounded-2xl bg-[#0c231b]/95 backdrop-blur-xl border border-white/20 shadow-2xl p-3 z-50 space-y-1"
                   >
-                    <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[#F59E0B] border-b border-white/10">
-                      Popular Weekend Departures
+                    <div className="px-3 py-1.5 flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-[#F59E0B] border-b border-white/10">
+                      <span>Featured Tours</span>
+                      <span className="text-white/60 font-semibold normal-case">Top 5 Tours</span>
                     </div>
-                    {featuredPackages.map((pkg) => (
+                    {featuredPackages.slice(0, 5).map((pkg) => (
                       <Link
                         key={pkg.id}
                         href={`/packages/${pkg.slug}`}
                         onClick={() => setToursDropdownOpen(false)}
-                        className="flex items-center justify-between p-2 rounded-xl hover:bg-white/10 transition-colors group/item"
+                        className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 transition-colors group/item"
                       >
-                        <div>
-                          <span className="text-xs font-bold text-white group-hover/item:text-[#F59E0B] transition-colors block">
+                        <div className="pr-2">
+                          <span className="text-xs font-bold text-white group-hover/item:text-[#F59E0B] transition-colors block line-clamp-1">
                             {pkg.title}
                           </span>
-                          <span className="text-[10px] text-white/60">
-                            {pkg.duration_days} Days • From ₹{pkg.discount_price ?? pkg.price}
+                          <span className="text-[10px] text-white/65">
+                            {pkg.duration_days} Days • From ₹{(pkg.discount_price ?? pkg.price).toLocaleString()}
                           </span>
                         </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-white/40 group-hover/item:text-[#F59E0B] group-hover/item:translate-x-0.5 transition-all" />
+                        <ArrowRight className="w-3.5 h-3.5 text-white/40 group-hover/item:text-[#F59E0B] group-hover/item:translate-x-0.5 transition-all flex-shrink-0" />
                       </Link>
                     ))}
                     <div className="pt-2 border-t border-white/10">
                       <Link
                         href="/packages"
                         onClick={() => setToursDropdownOpen(false)}
-                        className="block text-center text-xs font-bold text-[#F59E0B] hover:underline py-1"
+                        className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-gradient-to-r from-[#FBBF24] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706] text-slate-950 font-bold text-xs transition-all shadow-md active:scale-98 group/btn"
                       >
-                        View All Tour Packages →
+                        <span>Show More Tours</span>
+                        <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
                       </Link>
                     </div>
                   </motion.div>
@@ -321,14 +317,13 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
       {/* ========================================================= */}
       <header className="md:hidden fixed top-0 left-0 right-0 z-40 px-4 py-3 bg-[#0c231b]/80 backdrop-blur-xl border-b border-white/10 flex items-center justify-between text-white shadow-lg">
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center p-0.5 overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logohead.png" alt="Spirit Adventure Emblem" className="w-full h-full object-contain" />
-          </div>
-          <span className="text-sm font-black tracking-wider text-white">
-            SPIRIT ADVENTURE
-          </span>
+        <Link href="/" className="flex items-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
+            src="/assets/img/logo.png" 
+            alt="Spirit Adventures" 
+            className="h-8 sm:h-9 w-auto object-contain" 
+          />
         </Link>
 
         {/* Right Action Icons: Search, Heart, Book Now */}
