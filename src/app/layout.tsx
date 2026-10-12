@@ -21,9 +21,14 @@ export const metadata: Metadata = {
   description: 'Premier travel and adventure agency based in Hyderabad. Curated weekend getaways, hill station retreats, beach adventures, and custom group holidays across South India with pickups in Hyderabad and Bangalore.',
   keywords: ['Spirit Adventures', 'travel agency Hyderabad', 'Coorg weekend getaway', 'Goa trip from Hyderabad', 'Hampi Gokarna Dandeli tour', 'Chikmagalur trip', 'Kodaikanal Ooty package', 'adventure tours India'],
   icons: {
-    icon: '/logohead.png',
+    icon: [
+      { url: '/logohead.png', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
     shortcut: '/logohead.png',
-    apple: '/logohead.png',
+    apple: [
+      { url: '/logohead.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
 };
 
