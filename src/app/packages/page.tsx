@@ -204,7 +204,7 @@ function PackagesCatalogContent() {
               </span>
               <input
                 type="range"
-                min="3500"
+                min="3000"
                 max="40000"
                 step="500"
                 value={maxPrice}

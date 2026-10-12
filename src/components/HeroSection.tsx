@@ -191,6 +191,16 @@ export default function HeroSection() {
                   <option value="shimla-manali" className="bg-[#0C231B] text-white">Delhi, Shimla & Manali Group Trip (5D/4N)</option>
                   <option value="coorg-weekend" className="bg-[#0C231B] text-white">Coorg Weekend Backpacking Trip (2D/1N)</option>
                   <option value="dandeli-weekend" className="bg-[#0C231B] text-white">Dandeli Weekend Adventure Trip (2D/1N)</option>
+                  <option value="gokarna-murudeshwar-2d" className="bg-[#0C231B] text-white">Gokarna & Murudeshwar Trip (2D/1N)</option>
+                  <option value="hampi-weekend" className="bg-[#0C231B] text-white">Hampi Adventure Trip (2D/1N)</option>
+                  <option value="munnar-2d" className="bg-[#0C231B] text-white">Munnar Adventure Escape (3D/2N)</option>
+                  <option value="chikmagalur" className="bg-[#0C231B] text-white">Chikmagalur Adventure Trip (3D/2N)</option>
+                  <option value="coorg-chikmagalur" className="bg-[#0C231B] text-white">Coorg & Chikmagalur Adventure (3D/2N)</option>
+                  <option value="coorg-3d" className="bg-[#0C231B] text-white">Coorg Scotland of India Trip (3D/2N)</option>
+                  <option value="goa" className="bg-[#0C231B] text-white">Go Goa Adventure Trip (3D/2N)</option>
+                  <option value="gokarna-dandeli-3d" className="bg-[#0C231B] text-white">Gokarna & Dandeli Express (3D/2N)</option>
+                  <option value="gokarna-jogfalls-3d" className="bg-[#0C231B] text-white">Gokarna & Jog Falls Express (3D/2N)</option>
+                  <option value="gokarna-udupi-3d" className="bg-[#0C231B] text-white">Gokarna & Udupi Express (3D/2N)</option>
                 </select>
               </div>
             </div>
