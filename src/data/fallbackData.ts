@@ -231,6 +231,61 @@ export const FALLBACK_DESTINATIONS: Destination[] = [
     best_season: "March to June",
     altitude: "216m - 3,050m",
     treks_count: 5
+  },
+  {
+    id: 16,
+    name: "Meghalaya & Shillong",
+    country: "Meghalaya, India",
+    slug: "meghalaya",
+    image_url: "/assets/img/Testimonals/19.webp",
+    description: "Double Decker Living Root Bridge, crystal clear Dawki River, Cherrapunji caves & Mawlynnong.",
+    best_season: "September to May",
+    altitude: "1,496m",
+    treks_count: 5
+  },
+  {
+    id: 17,
+    name: "Ooty & Kodaikanal",
+    country: "Tamil Nadu, India",
+    slug: "ooty-kodaikanal",
+    image_url: "/assets/img/Testimonals/15.webp",
+    description: "UNESCO Nilgiri Toy Train, Isha Foundation Adiyogi laser show, Pillar Rocks & Kodai Lake.",
+    best_season: "Year-round",
+    altitude: "2,133m - 2,240m",
+    treks_count: 5
+  },
+  {
+    id: 18,
+    name: "Delhi, Shimla & Manali",
+    country: "Himachal Pradesh & Delhi, India",
+    slug: "shimla-manali",
+    image_url: "/assets/img/Testimonals/20.webp",
+    description: "UNESCO Kalka-Shimla Toy Train, Kufri Valley, Solang snow sports & Jogini Waterfalls.",
+    best_season: "Year-round (Snow Dec-April)",
+    altitude: "216m - 2,276m",
+    treks_count: 5
+  },
+  {
+    id: 19,
+    name: "Coorg Weekend",
+    country: "Karnataka, India",
+    slug: "coorg-weekend",
+    image_url: "/assets/img/Testimonals/01.webp",
+    description: "Namdroling Golden Temple, Harangi Elephant Camp, Mandalpatti Peak & Abbey Falls.",
+    best_season: "October to March",
+    altitude: "900m - 1,750m",
+    treks_count: 3
+  },
+  {
+    id: 20,
+    name: "Dandeli Weekend",
+    country: "Karnataka, India",
+    slug: "dandeli-weekend",
+    image_url: "/assets/img/Testimonals/12.webp",
+    description: "Boating, kayaking, zorbing, swimming pool, rain dance & campfire night resort stay.",
+    best_season: "October to May",
+    altitude: "473m",
+    treks_count: 3
   }
 ];
 
@@ -1836,6 +1891,515 @@ export const FALLBACK_PACKAGES: TourPackage[] = [
       "Lunch & Other Meals Not Mentioned"
     ],
     upcoming_dates: ["Every Weekend Departure", "March to June (Best Weather & Snow)", "Nov 06, 2026", "Nov 13, 2026", "Nov 20, 2026"]
+  },
+  {
+    id: 16,
+    title: "5D 4N Meghalaya Group Trip (Shillong & Cherrapunji)",
+    slug: "meghalaya-escape",
+    tagline: "Double Decker Root Bridge, Dawki River, Nohkalikai Falls & Mawlynnong Cleanest Village",
+    destination_name: "Meghalaya & Shillong",
+    destination_slug: "meghalaya",
+    category_name: "Gangtok, Darjeeling & Northeast",
+    category_slug: "darjeeling-northeast",
+    duration_days: 5,
+    difficulty: "Moderate",
+    max_altitude: "1,496 m",
+    group_size: "10 - 25 Backpackers",
+    price: 12800,
+    discount_price: 12800,
+    rating: 5.0,
+    reviews_count: 220,
+    is_featured: true,
+    hero_image: "/assets/img/Testimonals/19.webp",
+    gallery: [
+      "/assets/img/Testimonals/19.webp",
+      "/assets/img/Testimonals/09.webp",
+      "/assets/img/Testimonals/11.webp"
+    ],
+    overview: "Organized by THE SPIRIT ADVENTURES (Contact / WhatsApp: 96665 67551). Package Cost: ₹12,800/- Per Person Only (EX MEGHALAYA). Embark on the 5 Days • 4 Nights Northeast Escape across the abode of clouds. Trek the iconic Double Decker Living Root Bridge in Nongriat, boat on the crystal clear waters of Dawki River along the India-Bangladesh border, explore Asia's cleanest village at Mawlynnong, and witness roaring waterfalls (Nohkalikai, Seven Sisters, Wei Sawdong, Elephant Falls) and mystical caves (Mawsmai & Arwah) in Cherrapunji.",
+    highlights: [
+      "EX MEGHALAYA with dedicated transportation & trip captain support",
+      "Contact / WhatsApp Hotline: 96665 67551",
+      "Umiam Lake & scenic Shillong hill station sightseeing",
+      "Cherrapunji Waterfalls: Nohkalikai Falls, Seven Sisters Falls & Wei Sawdong Falls",
+      "Elephant Falls & panoramic valley viewpoints",
+      "Explore mystical Arwah Caves & Mawsmai limestone caves",
+      "Trek to the world-famous Double Decker Living Root Bridge in Nongriat",
+      "Mawlynnong — Asia's Cleanest Village & Single Living Root Bridge",
+      "Crystal clear transparent waters of Dawki River with boating & Shnongpdeng",
+      "Visit India–Bangladesh Border"
+    ],
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Shillong Exploration",
+        meals: "Local cuisine stops",
+        activities: [
+          "Arrival and transfer to Shillong.",
+          "Visit picturesque Umiam Lake surrounded by lush pine hills.",
+          "Shillong local sightseeing and scenic viewpoints.",
+          "Enjoy cool weather, cloudy mountain vistas, and tranquil Northeast landscapes.",
+          "Check in and overnight stay in Shillong."
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Cherrapunji Waterfalls & Caves",
+        meals: "En-route meal stops",
+        activities: [
+          "Morning drive to Cherrapunji (Sohra).",
+          "Visit multi-tiered Elephant Falls and panoramic Meghalaya valley viewpoints.",
+          "Marvel at majestic Nohkalikai Falls (India's tallest plunge waterfall).",
+          "Visit Seven Sisters Falls and tiered Wei Sawdong Waterfalls.",
+          "Explore prehistoric limestone formations at Mawsmai Caves and Arwah Caves.",
+          "Overnight stay in Cherrapunji."
+        ]
+      },
+      {
+        day: "Day 3",
+        title: "Nongriat Trek Adventure",
+        meals: "Village trail meals",
+        activities: [
+          "Begin thrilling trek down into the tropical valley of Nongriat.",
+          "Trek to the world-famous Double Decker Living Root Bridge bio-engineering marvel.",
+          "Visit peaceful local village church and crystal forest streams.",
+          "Explore untouched Meghalaya tribal hamlets and lush nature trails.",
+          "Overnight stay in Nongriat / Cherrapunji."
+        ]
+      },
+      {
+        day: "Day 4",
+        title: "Dawki & Mawlynnong",
+        meals: "Traditional border meals",
+        activities: [
+          "Drive to Mawlynnong — celebrated as Asia's Cleanest Village.",
+          "Explore the village living root bridge and eco balancing rock.",
+          "Transfer to Dawki River along the India-Bangladesh border.",
+          "Experience unforgettable boating on crystal clear, glass-like transparent waters.",
+          "Explore adventurous campsite village Shnongpdeng.",
+          "Overnight stay."
+        ]
+      },
+      {
+        day: "Day 5",
+        title: "Return with Memories",
+        meals: "Breakfast Included",
+        activities: [
+          "Explore more peaceful corners of Mawlynnong and Dawki River viewpoints.",
+          "Capture final photos amidst Meghalaya's lush emerald green hills.",
+          "Return transfer for departure with unforgettable memories and adventure vibes."
+        ]
+      }
+    ],
+    included: [
+      "Local Transportation throughout trip",
+      "Complete Local Sightseeing as per itinerary",
+      "Accommodation (Sharing Basis)",
+      "Trip Captain Support throughout",
+      "All Permits Included",
+      "Driver Charges, Bata, Parking, Toll & Taxes Included",
+      "Basic First Aid Assistance"
+    ],
+    excluded: [
+      "Food Expenses",
+      "Entry Tickets & Paid Activities (Dawki boating, cave passes)",
+      "Personal Expenses",
+      "Anything Not Mentioned in Inclusions"
+    ],
+    upcoming_dates: ["Every Weekend Departure", "Oct to May (Best Season)", "Nov 06, 2026", "Nov 13, 2026", "Nov 20, 2026"]
+  },
+  {
+    id: 17,
+    title: "5D 4N Ooty & Kodaikanal Group Trip",
+    slug: "ooty-kodaikanal-group",
+    tagline: "Nilgiri Toy Train, Isha Foundation Adiyogi Laser Show, Pillar Rocks & Kodai Lake",
+    destination_name: "Ooty & Kodaikanal",
+    destination_slug: "ooty-kodaikanal",
+    category_name: "Ooty, Coonoor & Isha Circuits",
+    category_slug: "ooty-nilgiris",
+    duration_days: 5,
+    difficulty: "Easy",
+    max_altitude: "2,240 m",
+    group_size: "10 - 25 Backpackers",
+    price: 11999,
+    discount_price: 11999,
+    rating: 4.9,
+    reviews_count: 245,
+    is_featured: true,
+    hero_image: "/assets/img/Testimonals/15.webp",
+    gallery: [
+      "/assets/img/Testimonals/15.webp",
+      "/assets/img/Testimonals/05.webp",
+      "/assets/img/Testimonals/16.webp"
+    ],
+    overview: "Organized by The Spirit Adventures (Contact / WhatsApp: 96665 67551). Package Cost: ₹11,999/- Per Person Only (Round-trip Sleeper Class Train Tickets Included). Experience the premier 5 Days • 4 Nights Hill Station Escape combining Ooty, Isha Foundation, and Kodaikanal. Ride the historic UNESCO Toy Train, visit Doddabetta Peak, Pykara Falls, Botanical Gardens, immerse in spiritual energy with the 112-ft Adiyogi Statue & spectacular Laser Show at Isha Foundation, and discover Kodaikanal's mist-covered Pillar Rocks, Guna Caves, Pine Forest, and serene Kodai Lake.",
+    highlights: [
+      "Round-trip Sleeper Class Train Tickets Included",
+      "Contact / WhatsApp Hotline: 96665 67551",
+      "Bandipur Forest wildlife drive & Pykara Waterfalls",
+      "Ooty Boat House, Tea Factory & Homemade Chocolate Factory",
+      "Doddabetta Peak, Botanical Garden & Rose Garden",
+      "UNESCO Nilgiri Mountain Toy Train Joy Ride (Subject to availability)",
+      "Isha Foundation: 112ft Adiyogi Statue, Dhyanalinga & Spectacular Laser Show",
+      "Kodaikanal: Pillar Rocks, Silent Valley, Guna Caves & Pine Forest",
+      "Echo Point, Kodai Lake boating, Bryant Park & Vattakanal Waterfalls",
+      "Dedicated trip captain & verified hotel stays"
+    ],
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Journey to Ooty",
+        meals: "En-route meal stops",
+        activities: [
+          "Board train; morning arrival and scenic drive through Bandipur Forest.",
+          "Visit roaring Pykara Waterfalls and iconic movie Shooting Point.",
+          "Enjoy scenic mountain roads, cool pine breeze, and tea estate views.",
+          "Check in and overnight stay in Ooty."
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Ooty Sightseeing",
+        meals: "Local hill dining stops",
+        activities: [
+          "Morning pedal / row boating at Ooty Boat House lake.",
+          "Guided tour of authentic Tea Factory and homemade Chocolate Factory.",
+          "Panoramic valley views from Doddabetta Peak (highest Nilgiri point).",
+          "Stroll through blooming Government Botanical Garden and Rose Garden.",
+          "Overnight stay in Ooty."
+        ]
+      },
+      {
+        day: "Day 3",
+        title: "Isha Foundation Experience",
+        meals: "Temple dining stops",
+        activities: [
+          "Ride the famous UNESCO Nilgiri Mountain Toy Train (subject to availability).",
+          "Walk through emerald Tea Gardens.",
+          "Visit Isha Yoga Center Coimbatore.",
+          "Darshan at Linga Bhairavi Temple and deep meditation in Dhyanalinga.",
+          "Marvel at the colossal 112-ft Adiyogi Shiva Statue.",
+          "Witness the spectacular evening Adiyogi Divya Rupa 3D Laser Show.",
+          "Overnight stay near Isha / Coimbatore."
+        ]
+      },
+      {
+        day: "Day 4",
+        title: "Kodaikanal Exploration",
+        meals: "Kodai cafe stops",
+        activities: [
+          "Scenic mountain drive into Princess of Hill Stations — Kodaikanal.",
+          "Marvel at dramatic vertical cliff formations at Pillar Rocks.",
+          "View deep Silent Valley and explore mysterious Guna Caves.",
+          "Walk through towering ancient Pine Forests and shout across Echo Point.",
+          "Evening leisurely stroll around star-shaped Kodai Lake.",
+          "Overnight stay in Kodaikanal."
+        ]
+      },
+      {
+        day: "Day 5",
+        title: "Kodaikanal & Return",
+        meals: "Breakfast Included",
+        activities: [
+          "Stroll through landscaped flowerbeds at Bryant Park.",
+          "Visit cascading Vattakanal Waterfalls.",
+          "Explore cozy Tibetan cafes, homemade chocolate shops, and essential oil boutiques.",
+          "Transfer to railway station; board return train home with cherished memories."
+        ]
+      }
+    ],
+    included: [
+      "Sleeper Class Train Tickets (Round Trip)",
+      "Accommodation Stay on Sharing Basis",
+      "Local Transportation in private vehicle",
+      "Complete Local Sightseeing as per itinerary",
+      "Trip Captain Support (10 Members Minimum)",
+      "Toy Train Tickets (Subject to Availability)",
+      "All Permits, Toll, Tax, Driver Bata & Driver Charges Included",
+      "First Aid Assistance"
+    ],
+    excluded: [
+      "Food Expenses",
+      "Entry Tickets & Activities",
+      "Anything Not Mentioned in Inclusions"
+    ],
+    upcoming_dates: ["Every Weekend Departure", "Nov 06, 2026", "Nov 13, 2026", "Nov 20, 2026", "Dec 04, 2026"]
+  },
+  {
+    id: 18,
+    title: "5D 4N Delhi, Shimla & Manali Group Trip",
+    slug: "delhi-shimla-manali",
+    tagline: "UNESCO Kalka-Shimla Toy Train, Kufri Valley, Solang Snow Adventures & Jogini Falls",
+    destination_name: "Delhi, Shimla & Manali",
+    destination_slug: "shimla-manali",
+    category_name: "Manali, Kasol & Kashmir",
+    category_slug: "himalayan-escapes",
+    duration_days: 5,
+    difficulty: "Moderate",
+    max_altitude: "2,276 m",
+    group_size: "10 - 25 Backpackers",
+    price: 12999,
+    discount_price: 12999,
+    rating: 4.9,
+    reviews_count: 280,
+    is_featured: true,
+    hero_image: "/assets/img/Testimonals/20.webp",
+    gallery: [
+      "/assets/img/Testimonals/20.webp",
+      "/assets/img/Testimonals/13.webp",
+      "/assets/img/Testimonals/18.webp"
+    ],
+    overview: "Organized by SPIRIT ADVENTURES (Contact / WhatsApp: 96665 67551). Package Cost: ₹12,999/- Per Person (EX DELHI). Embark on the 5 Days • 4 Nights classic Himalayan escape covering Delhi, the colonial summer capital Shimla, and the alpine wonderland Manali. Highlights include Delhi monuments (Qutub Minar, Lotus Temple, India Gate), the UNESCO World Heritage Kalka–Shimla Toy Train traversing 96.6 km and 969 bridges, horse riding in Kufri Valley, ancient Hadimba Devi Temple, Jogini Falls, and snow sports at Solang Valley with daily breakfast and dinner included.",
+    highlights: [
+      "EX DELHI with Sleeper Class train tickets & Volvo transfers",
+      "Contact / WhatsApp Hotline: 96665 67551",
+      "Delhi Sightseeing: Qutub Minar, Lotus Temple, India Gate, Rashtrapati Bhavan & Chandni Chowk",
+      "Shimla Exploration: Kufri Valley, Jakhu Temple, Ridge Church, Horse Riding & Mall Road",
+      "UNESCO Heritage Kalka–Shimla Toy Train Ride (96.6 KM, 969 Bridges, 103 Tunnels)",
+      "Manali Local Sightseeing: Hadimba Devi Temple, Van Vihar, Vashisht Temple & Jogini Waterfalls",
+      "Solang Valley Snow Excursion: Paragliding, River Rafting, ATV rides & snow games",
+      "Breakfast & Dinner Included daily",
+      "Trip Captain Support (10 Pax Minimum)"
+    ],
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Delhi Sightseeing",
+        meals: "En-route meals",
+        activities: [
+          "Arrive in Delhi; explore iconic landmarks: Qutub Minar, Lotus Temple, and India Gate.",
+          "Drive past Rashtrapati Bhavan and explore vibrant bazaars of Chandni Chowk.",
+          "Visit the monumental Akshardham Temple.",
+          "Board evening Volvo coach / train for overnight journey into Himachal hills."
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Shimla Exploration",
+        meals: "Dinner Included",
+        activities: [
+          "Morning arrival in Shimla; check in and freshen up.",
+          "Excursion to scenic Kufri Valley; optional horse riding and apple orchard walks.",
+          "Visit hilltop Jakhu Temple and historic neo-Gothic Christ Church on The Ridge.",
+          "Evening stroll through bustling colonial Mall Road & Lakkar Bazaar.",
+          "Overnight stay in Shimla."
+        ]
+      },
+      {
+        day: "Day 3",
+        title: "Heritage Toy Train Experience",
+        meals: "Breakfast & Dinner Included",
+        activities: [
+          "Board the world-famous UNESCO Heritage Kalka–Shimla Toy Train.",
+          "Glide past 96.6 km of alpine scenery, 969 bridges, and 103 tunnels.",
+          "Panoramic pine forest views and charming colonial mountain railway stations.",
+          "Afternoon scenic mountain highway transfer towards Manali.",
+          "Check in and overnight stay in Manali."
+        ]
+      },
+      {
+        day: "Day 4",
+        title: "Manali Local Sightseeing",
+        meals: "Breakfast & Dinner Included",
+        activities: [
+          "Visit 16th-century cedar-wood Hadimba Devi Temple & Ghatothkach Temple.",
+          "Stroll through towering deodars at Van Vihar and hot springs at Vashisht Temple.",
+          "Visit Mall Road and Club House.",
+          "Scenic hike to cascading Jogini Waterfalls with valley panoramas.",
+          "Explore riverside cafes in Old Manali; overnight stay in Manali."
+        ]
+      },
+      {
+        day: "Day 5",
+        title: "Solang Valley Adventures",
+        meals: "Breakfast Included",
+        activities: [
+          "Morning excursion to snow-capped Solang Valley.",
+          "Adventure activities: Paragliding, River Rafting, ATV rides, and snow tubing.",
+          "Capture thrilling action shots against Himalayan snow peaks.",
+          "Board evening Volvo coach for return journey to Delhi with lifelong memories."
+        ]
+      }
+    ],
+    included: [
+      "Sleeper Class Train Tickets",
+      "Local Transportation in dedicated vehicle",
+      "Complete Local Sightseeing as per itinerary",
+      "Accommodation on Sharing Basis",
+      "Toy Train Ride Included",
+      "Breakfast & Dinner Included",
+      "Trip Captain Support (10 Pax Minimum)",
+      "All Permits, Toll, Taxes & Driver Bata Included",
+      "Basic First Aid Assistance"
+    ],
+    excluded: [
+      "Lunch & Other Food Expenses",
+      "Entry Tickets & Adventure Activities",
+      "River Rafting, Paragliding & Paid Activities",
+      "Anything Not Mentioned in Inclusions"
+    ],
+    upcoming_dates: ["Every Weekend Departure", "Year-round (Snow Dec-April)", "Nov 06, 2026", "Nov 13, 2026", "Nov 20, 2026"]
+  },
+  {
+    id: 19,
+    title: "2D 1N Coorg Weekend Backpacking Trip",
+    slug: "coorg-weekend-backpacking",
+    tagline: "Golden Temple, Harangi Elephant Camp, Mandalpatti Peak 4x4 Jeep Safari & Abbey Falls",
+    destination_name: "Coorg",
+    destination_slug: "coorg-weekend",
+    category_name: "Wayanad & Coorg Circuits",
+    category_slug: "wayanad-coorg",
+    duration_days: 2,
+    difficulty: "Easy",
+    max_altitude: "1,750 m",
+    group_size: "10 - 20 Backpackers",
+    price: 4200,
+    discount_price: 4200,
+    rating: 4.8,
+    reviews_count: 165,
+    is_featured: true,
+    hero_image: "/assets/img/Testimonals/01.webp",
+    gallery: [
+      "/assets/img/Testimonals/01.webp",
+      "/assets/img/Testimonals/03.webp",
+      "/assets/img/Testimonals/08.webp"
+    ],
+    overview: "Organized by Spirit Adventures. Package Cost: ₹4,200/- Per Person Only (Round-trip Sleeper Class Train Tickets Included). A quick, refreshing 1 Night / 2 Days weekend getaway to the Scotland of India. Designed for backpackers and friend groups looking for coffee hill vibes without taking leaves. Explore the Tibetan Golden Temple in Bylakuppe, Chiklihole Reservoir, Harangi Elephant Camp, musical fountain show, open 4x4 Jeep safari up Mandalpatti Peak, cascading Abbey Waterfalls, and sunset at Raja Seat.",
+    highlights: [
+      "Package Cost: ₹4,200/- Per Person Only",
+      "Round-trip Sleeper Class Train Tickets Included",
+      "Tibetan Golden Temple (Namdroling Monastery) & Chiklihole Reservoir",
+      "Harangi Elephant Camp interaction & Musical Fountain Show",
+      "Mandalpatti Peak high-altitude ridge view",
+      "Roaring Abbey Waterfalls surrounded by private coffee estates",
+      "Sunset panorama from historic Raja Seat View Point",
+      "Trip Manager & verified accommodation (Optional couple room upgrade at ₹1,500)"
+    ],
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Start to Coorg",
+        meals: "En-route meal stops",
+        activities: [
+          "Arrival and scenic transfer to Coorg hills.",
+          "Visit Tibetan Namdroling Monastery (Golden Temple) in Bylakuppe.",
+          "Explore peaceful waters of Chiklihole Reservoir.",
+          "Interaction with elephants at Harangi Elephant Camp.",
+          "Watch evening Musical Fountain Show with your travel gang.",
+          "Overnight stay in Coorg."
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Coorg Exploration",
+        meals: "Breakfast stop",
+        activities: [
+          "Early morning 4x4 Jeep safari to rugged heights of Mandalpatti Peak.",
+          "Visit thunderous Abbey Waterfalls nestled in spice plantations.",
+          "Stroll through historic Raja Seat View Point overlooking misty rolling valleys.",
+          "Capture final group photos and return transfer to railway station."
+        ]
+      }
+    ],
+    included: [
+      "Sleeper Class Train Tickets (Both Ways)",
+      "Local Transfers in private vehicle",
+      "Accommodation Stay on Sharing Basis",
+      "Trip Manager (10 PAX MAX)",
+      "All Required Permits Included",
+      "Driver Charges, Toll & Taxes Included",
+      "Trip Host & First Aid Support"
+    ],
+    excluded: [
+      "Food During Travel",
+      "Adventure Activities & Jeep Rides",
+      "Tatkal Charges (If applicable)",
+      "GST (5%)",
+      "Anything Not Mentioned in Inclusions"
+    ],
+    upcoming_dates: ["Every Weekend Departure", "Nov 06, 2026", "Nov 13, 2026", "Nov 20, 2026", "Nov 27, 2026"]
+  },
+  {
+    id: 20,
+    title: "2D 1N Dandeli Adventure Trip",
+    slug: "dandeli-weekend-adventure",
+    tagline: "Kali River Boating, Kayaking, Zorbing, Jungle Walk, Rain Dance & Campfire Resort Stay",
+    destination_name: "Dandeli",
+    destination_slug: "dandeli-weekend",
+    category_name: "Dandeli & River Watersports",
+    category_slug: "dandeli-adventure",
+    duration_days: 2,
+    difficulty: "Moderate",
+    max_altitude: "473 m",
+    group_size: "10 - 25 Backpackers",
+    price: 4200,
+    discount_price: 4200,
+    rating: 4.9,
+    reviews_count: 195,
+    is_featured: true,
+    hero_image: "/assets/img/Testimonals/12.webp",
+    gallery: [
+      "/assets/img/Testimonals/12.webp",
+      "/assets/img/Testimonals/02.webp",
+      "/assets/img/Testimonals/17.webp"
+    ],
+    overview: "Organized by Spirit Adventures. Package Cost: ₹4,200/- Per Person Only (Round-trip Sleeper Class Train Tickets Included + Resort Food Included). The ultimate 1 Night / 2 Days quick weekend adrenaline rush in Dandeli. Includes resort stay with swimming pool, jungle nature walk, evening DJ rain dance with music, delicious buffet meals (Breakfast, Lunch & Campfire Dinner), starlit bonfire night, and thrill water activities on the Kali River: boating, kayaking, and zorbing.",
+    highlights: [
+      "Package Cost: ₹4,200/- Per Person Only",
+      "Round-trip Sleeper Class Train Tickets Included",
+      "Buffet Resort Meals Included (Breakfast, Lunch & Dinner)",
+      "Water activities included: Boating, Kayaking & Zorbing",
+      "Swimming pool fun & Evening DJ Rain Dance with music",
+      "Guided Dandeli jungle nature walk",
+      "Campfire night under the stars with music",
+      "Overnight stay at verified Dandeli Adventure Resort (Optional couple room upgrade at ₹1,500)"
+    ],
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Welcome to Dandeli",
+        meals: "Breakfast, Lunch & Campfire Dinner Included",
+        activities: [
+          "Arrival at Hubli; transfer to Dandeli Adventure Resort.",
+          "Check in, freshen up, and enjoy hot breakfast.",
+          "Guided jungle nature walk amidst dense Western Ghats canopy.",
+          "Buffet lunch followed by swimming pool relaxation.",
+          "Evening DJ Rain Dance with energetic party music.",
+          "Bonfire night under starry skies with delicious buffet dinner.",
+          "Overnight stay at Dandeli Resort."
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Water Adventure Day",
+        meals: "Breakfast Included",
+        activities: [
+          "Early morning wake up in fresh forest breeze; breakfast included.",
+          "Transfer to Kali River water sports zone in nylon gear.",
+          "Enjoy thrilling water sports: Boating, Kayaking, and Zorbing.",
+          "Optional whitewater river rafting and zipline available.",
+          "Return transfer to Hubli railway station with unforgettable memories."
+        ]
+      }
+    ],
+    included: [
+      "Sleeper Class Train Tickets (Both Ways)",
+      "Local Transfers in private vehicle",
+      "Accommodation at Dandeli Resort",
+      "Buffet Meals Included at Resort",
+      "Boating, Kayaking & Zorbing Activities",
+      "Trip Manager (10 PAX MAX)",
+      "All Permits, Driver Charges, Toll & Taxes Included",
+      "Trip Host & First Aid Support"
+    ],
+    excluded: [
+      "Food During Train Journey",
+      "Long-Stretch Whitewater River Rafting & Zipline (Optional add-on)",
+      "Tatkal Charges (If applicable)",
+      "GST (5%)",
+      "Anything Not Mentioned in Inclusions"
+    ],
+    upcoming_dates: ["Every Weekend Departure", "Nov 06, 2026", "Nov 13, 2026", "Nov 20, 2026", "Dec 04, 2026"]
   }
 ];
 

@@ -186,6 +186,11 @@ export default function HeroSection() {
                   <option value="kashmir-paradise" className="bg-[#0C231B] text-white">Kashmir Paradise Group Trip (5D/4N)</option>
                   <option value="kerala-varkala-alleppey" className="bg-[#0C231B] text-white">Kerala Grand Escape: Munnar, Alleppey & Varkala (5D/4N)</option>
                   <option value="manali-delhi-hyd" className="bg-[#0C231B] text-white">Manali, Kullu & Kasol (Ex-HYD via Delhi) (5D/4N)</option>
+                  <option value="meghalaya" className="bg-[#0C231B] text-white">Meghalaya Group Trip: Shillong & Cherrapunji (5D/4N)</option>
+                  <option value="ooty-kodaikanal" className="bg-[#0C231B] text-white">Ooty & Kodaikanal Group Trip (5D/4N)</option>
+                  <option value="shimla-manali" className="bg-[#0C231B] text-white">Delhi, Shimla & Manali Group Trip (5D/4N)</option>
+                  <option value="coorg-weekend" className="bg-[#0C231B] text-white">Coorg Weekend Backpacking Trip (2D/1N)</option>
+                  <option value="dandeli-weekend" className="bg-[#0C231B] text-white">Dandeli Weekend Adventure Trip (2D/1N)</option>
                 </select>
               </div>
             </div>
