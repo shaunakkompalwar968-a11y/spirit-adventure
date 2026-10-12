@@ -3,6 +3,7 @@ import HeroSection from '@/components/HeroSection';
 import TourPackagesSection from '@/components/TourPackagesSection';
 import AboutSection from '@/components/AboutSection';
 import DestinationsGrid from '@/components/DestinationsGrid';
+import MediaGalleryPreview from '@/components/MediaGalleryPreview';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import FAQSection from '@/components/FAQSection';
 import CtaBanner from '@/components/CtaBanner';
@@ -39,6 +40,9 @@ export default async function HomePage() {
 
       {/* Destinations Explorer Grid */}
       <DestinationsGrid destinations={destinations} />
+
+      {/* Authentic Expedition Gallery & Reels Preview */}
+      <MediaGalleryPreview />
 
       {/* Verified Explorer Testimonials */}
       <TestimonialsSection testimonials={testimonials} />

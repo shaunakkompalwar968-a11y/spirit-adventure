@@ -15,7 +15,9 @@ import {
   ArrowRight, 
   Sparkles, 
   Users,
-  Flame
+  Flame,
+  Play,
+  X
 } from 'lucide-react';
 
 export default function HeroSection() {
@@ -23,6 +25,7 @@ export default function HeroSection() {
   const [selectedDestination, setSelectedDestination] = useState('');
   const [travelDate, setTravelDate] = useState('');
   const [travelersCount, setTravelersCount] = useState('1 Person');
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,13 +36,19 @@ export default function HeroSection() {
 
   return (
     <div className="relative min-h-[96vh] flex items-center justify-center overflow-hidden pt-28 sm:pt-36 pb-20">
-      {/* Background Mountain/Trekking Photograph */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 transform motion-safe:animate-subtle-zoom"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2400&q=90')`
-        }}
-      />
+      {/* Background Cinematic Travel Video with Poster fallback */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster="/assets/img/hero-poster.jpg"
+        className="absolute inset-0 w-full h-full object-cover scale-105"
+      >
+        <source src="/assets/video/Bgvideo.mp4" type="video/mp4" />
+        <source src="/assets/video/travel-coast.mp4" type="video/mp4" />
+        <source src="/assets/video/travel-loop.mp4" type="video/mp4" />
+      </video>
 
       {/* Specified Overlay: rgba(12, 35, 27, 0.58) */}
       <div 
@@ -126,6 +135,17 @@ export default function HeroSection() {
           >
             Customize Your Tour
           </Link>
+
+          <button
+            type="button"
+            onClick={() => setShowVideoModal(true)}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-white transition-all duration-300 bg-black/40 hover:bg-black/60 border border-white/30 backdrop-blur-md active:scale-95 shadow-lg"
+          >
+            <span className="w-5 h-5 rounded-full bg-[#0787E8] flex items-center justify-center">
+              <Play className="w-2.5 h-2.5 fill-white text-white translate-x-0.5" />
+            </span>
+            <span>Watch Welcome Film</span>
+          </button>
         </motion.div>
 
         {/* Cinematic Floating Search Bar from Screenshot 1 */}
@@ -261,6 +281,43 @@ export default function HeroSection() {
           </div>
         </motion.div>
       </div>
+
+      {/* Welcome Video Modal */}
+      {showVideoModal && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-md animate-fadeIn"
+          onClick={() => setShowVideoModal(false)}
+        >
+          <div 
+            className="relative w-full max-w-4xl bg-[#183B2A] rounded-3xl overflow-hidden shadow-2xl border border-white/20"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-b from-black/80 to-transparent absolute top-0 left-0 right-0 z-10">
+              <div className="flex items-center gap-2.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#0787E8] animate-ping" />
+                <span className="text-white text-sm font-bold tracking-wide">Spirit Adventures • Official Film</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowVideoModal(false)}
+                className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors"
+                aria-label="Close video"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <video
+              autoPlay
+              controls
+              playsInline
+              className="w-full max-h-[75vh] object-contain aspect-video bg-black pt-12"
+            >
+              <source src="/assets/video/Openingvideo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

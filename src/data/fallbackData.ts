@@ -1,4 +1,4 @@
-import { Category, Destination, TourPackage, Testimonial, AgencyStats } from '@/types';
+import { Category, Destination, TourPackage, Testimonial, AgencyStats, GalleryItem } from '@/types';
 
 export const FALLBACK_CATEGORIES: Category[] = [
   {
@@ -44,7 +44,7 @@ export const FALLBACK_DESTINATIONS: Destination[] = [
     name: "Coorg (Kodagu)",
     country: "Karnataka, India",
     slug: "coorg",
-    image_url: "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=80",
+    image_url: "/assets/img/Testimonals/03.webp",
     description: "The Scotland of India, renowned for aromatic coffee estates, Abbey Falls, and Raja's Seat.",
     best_season: "October to March",
     altitude: "900m - 1,750m",
@@ -55,7 +55,7 @@ export const FALLBACK_DESTINATIONS: Destination[] = [
     name: "Goa Coastline",
     country: "Goa, India",
     slug: "goa",
-    image_url: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80",
+    image_url: "/assets/img/Testimonals/02.webp",
     description: "Sun-kissed beaches, parasailing, historic Aguada Fort, and Mandovi sunset river cruises.",
     best_season: "September to April",
     altitude: "Sea Level",
@@ -66,7 +66,7 @@ export const FALLBACK_DESTINATIONS: Destination[] = [
     name: "Hampi & Gokarna",
     country: "Karnataka, India",
     slug: "hampi",
-    image_url: "https://images.unsplash.com/photo-1600100397608-f010f443b785?auto=format&fit=crop&w=1200&q=80",
+    image_url: "/assets/img/Hampi.png",
     description: "Vijayanagara boulder kingdom, monolithic temples, and pristine cliffs of Om Beach.",
     best_season: "September to March",
     altitude: "450m",
@@ -77,7 +77,7 @@ export const FALLBACK_DESTINATIONS: Destination[] = [
     name: "Ooty & Kodaikanal",
     country: "Tamil Nadu, India",
     slug: "ooty",
-    image_url: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=1200&q=80",
+    image_url: "/assets/img/Testimonals/05.webp",
     description: "Queen of Hill Stations, UNESCO Nilgiri toy train, Mysore Palace, and tea gardens.",
     best_season: "Year-round",
     altitude: "2,240m",
@@ -88,7 +88,7 @@ export const FALLBACK_DESTINATIONS: Destination[] = [
     name: "Chikmagalur",
     country: "Karnataka, India",
     slug: "chikmagalur",
-    image_url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+    image_url: "/assets/img/Testimonals/08.webp",
     description: "Mullayanagiri peak trek, Baba Budangiri, and lush Western Ghats rainforests.",
     best_season: "September to March",
     altitude: "1,090m",
@@ -99,7 +99,7 @@ export const FALLBACK_DESTINATIONS: Destination[] = [
     name: "Dandeli",
     country: "Karnataka, India",
     slug: "dandeli",
-    image_url: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80",
+    image_url: "/assets/img/Testimonals/12.webp",
     description: "Kali River whitewater rafting, jungle camping, coracle boating, and hornbill sightings.",
     best_season: "October to May",
     altitude: "473m",
@@ -126,11 +126,11 @@ export const FALLBACK_PACKAGES: TourPackage[] = [
     rating: 4.9,
     reviews_count: 184,
     is_featured: true,
-    hero_image: "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1600&q=80",
+    hero_image: "/assets/img/Testimonals/03.webp",
     gallery: [
-      "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
+      "/assets/img/Testimonals/03.webp",
+      "/assets/img/Testimonals/01.webp",
+      "/assets/img/Testimonals/08.webp"
     ],
     overview: "Escape into the tranquil, emerald hills of Coorg (Kodagu). Known affectionately as the \"Scotland of India,\" Coorg offers refreshing mountain air, cascading silver waterfalls, and endless aromatic coffee and spice plantations. Our weekend package includes cozy estate accommodations, guided waterfall treks, authentic Kodava cuisine, and magical sunset viewpoints at Raja's Seat.",
     highlights: [
@@ -164,10 +164,11 @@ export const FALLBACK_PACKAGES: TourPackage[] = [
     rating: 4.8,
     reviews_count: 240,
     is_featured: true,
-    hero_image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1600&q=80",
+    hero_image: "/assets/img/Testimonals/02.webp",
     gallery: [
-      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1527004013197-933c4bb611b3?auto=format&fit=crop&w=1200&q=80"
+      "/assets/img/Testimonals/02.webp",
+      "/assets/img/Testimonals/07.webp",
+      "/assets/img/Testimonals/14.webp"
     ],
     overview: "Feel the tropical breeze and soak in the vibrant coastal charm of Goa. From buzzing sandy shores in North Goa and exhilarating water sports to centuries-old Portuguese forts, Dudhsagar waterfalls, and laid-back sunset shacks, this 3 Days, 2 Nights holiday package provides the ultimate mix of thrill and beachside bliss.",
     highlights: [
@@ -200,10 +201,11 @@ export const FALLBACK_PACKAGES: TourPackage[] = [
     rating: 4.9,
     reviews_count: 320,
     is_featured: true,
-    hero_image: "/hampi.png",
+    hero_image: "/assets/img/Hampi.png",
     gallery: [
-      "/hampi.png",
-      "https://images.unsplash.com/photo-1600100397608-f010f443b785?auto=format&fit=crop&w=1200&q=80"
+      "/assets/img/Hampi.png",
+      "/assets/img/Testimonals/04.png",
+      "/assets/img/Testimonals/12.webp"
     ],
     overview: "The ultimate 3-in-1 adventure experience! Journey through the mystical boulder-strewn kingdom and monolithic temples of the Vijayanagara Empire in Hampi. Unwind on the serene, sacred cliffs of Om Beach in Gokarna, and conquer rushing whitewater rapids on the Kali River in Dandeli.",
     highlights: [
@@ -236,10 +238,11 @@ export const FALLBACK_PACKAGES: TourPackage[] = [
     rating: 4.9,
     reviews_count: 290,
     is_featured: true,
-    hero_image: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=1600&q=80",
+    hero_image: "/assets/img/Testimonals/05.webp",
     gallery: [
-      "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=1600&q=80",
-      "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=1200&q=80"
+      "/assets/img/Testimonals/05.webp",
+      "/assets/img/Testimonals/19.webp",
+      "/assets/img/Testimonals/15.webp"
     ],
     overview: "Traverse the regal splendor of the Wadiyars in Mysore and ascend into the cool, misty paradise of the Nilgiri Hills. Ride the historic UNESCO mountain railway in Ooty, stroll through endless rolling emerald tea gardens in Coonoor, walk among giant ancient pine forests, and watch the illuminated brilliance of Mysore Palace.",
     highlights: [
@@ -272,9 +275,11 @@ export const FALLBACK_PACKAGES: TourPackage[] = [
     rating: 4.8,
     reviews_count: 135,
     is_featured: false,
-    hero_image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=85",
+    hero_image: "/assets/img/Testimonals/08.webp",
     gallery: [
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
+      "/assets/img/Testimonals/08.webp",
+      "/assets/img/Testimonals/01.webp",
+      "/assets/img/Testimonals/09.webp"
     ],
     overview: "Chikmagalur is the birthplace of Indian coffee. Trek to Mullayanagiri (the highest peak in Karnataka), witness rolling misty shola grasslands of Baba Budangiri, stand beneath cascading Jhari Waterfalls, and relax in heritage estate homestays with authentic Malnad feasts.",
     highlights: [
@@ -320,9 +325,11 @@ export const FALLBACK_PACKAGES: TourPackage[] = [
     rating: 4.9,
     reviews_count: 160,
     is_featured: false,
-    hero_image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1600&q=85",
+    hero_image: "/assets/img/Testimonals/12.webp",
     gallery: [
-      "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80"
+      "/assets/img/Testimonals/12.webp",
+      "/assets/img/Testimonals/11.webp",
+      "/assets/img/Testimonals/17.webp"
     ],
     overview: "Experience heart-pounding whitewater rafting on the Kali River. Dandeli is South India's premier adventure hub offering natural jacuzzi baths, river kayaking, tranquil coracle rides, wildlife jungle treks, and campfire barbecue under starry canopies.",
     highlights: [
@@ -357,7 +364,7 @@ export const FALLBACK_TESTIMONIALS: Testimonial[] = [
     id: 1,
     name: "Avinash Bollaram",
     location: "Hyderabad, Telangana",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80",
+    avatar: "/assets/img/Testimonals/01.webp",
     role: "Verified Coorg Traveler",
     rating: 5,
     comment: "Great hospitality and service on our Coorg family trip. The estate stay amidst coffee plantations was surreal, and Abbey Falls was breathtaking. Everything went smoothly with our coordinator Sathvik!",
@@ -367,7 +374,7 @@ export const FALLBACK_TESTIMONIALS: Testimonial[] = [
     id: 2,
     name: "Sneha Kulkarni",
     location: "Pune, Maharashtra",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=250&q=80",
+    avatar: "/assets/img/Testimonals/02.webp",
     role: "Goa Trip Explorer",
     rating: 5,
     comment: "Goa with Spirit Adventures was super hassle-free! The resort was right next to the beach, and the water sports package was fully taken care of with zero waiting in lines. 10/10 recommendation!",
@@ -377,7 +384,7 @@ export const FALLBACK_TESTIMONIALS: Testimonial[] = [
     id: 3,
     name: "Vikramaditya Reddy",
     location: "Bangalore, Karnataka",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=250&q=80",
+    avatar: "/assets/img/Testimonals/08.webp",
     role: "Hampi & Dandeli Adventurer",
     rating: 5,
     comment: "Hampi's stone architecture was mind-blowing, and the Dandeli river rafting was pure adrenaline. Spirit Adventures organized everything seamlessly from pickup to drop.",
@@ -387,7 +394,7 @@ export const FALLBACK_TESTIMONIALS: Testimonial[] = [
     id: 4,
     name: "Priya & Karthik",
     location: "Hyderabad, Telangana",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80",
+    avatar: "/assets/img/Testimonals/09.webp",
     role: "Couple Vacationers",
     rating: 5,
     comment: "We booked the Ooty and Kodaikanal trip for our anniversary. The Nilgiri toy train ride and Mysore Palace illumination were magical. Highly recommend Spirit Adventures!",
@@ -402,3 +409,228 @@ export const FALLBACK_STATS: AgencyStats = {
   expert_guides: 35,
   safety_record_percentage: 99.8
 };
+
+export const FALLBACK_GALLERY_ITEMS: GalleryItem[] = [
+  {
+    id: 1,
+    title: "Mountain Escapade",
+    category: "Mountains",
+    type: "image",
+    src: "/assets/img/Testimonals/01.webp",
+    caption: "Misty mountain trails and sunrise peaks across the Western Ghats.",
+    location: "Kudremukh & Chikmagalur"
+  },
+  {
+    id: 2,
+    title: "Sun & Beaches",
+    category: "Beaches",
+    type: "image",
+    src: "/assets/img/Testimonals/02.webp",
+    caption: "Golden sands, azure ocean waves and vibrant beach vibes.",
+    location: "Goa & Gokarna"
+  },
+  {
+    id: 3,
+    title: "Coorg Greenery",
+    category: "Mountains",
+    type: "image",
+    src: "/assets/img/Testimonals/03.webp",
+    caption: "Sprawling emerald coffee estates and fragrant spice plantations in Kodagu.",
+    location: "Coorg (Kodagu)"
+  },
+  {
+    id: 4,
+    title: "Ancient Hampi",
+    category: "Adventure",
+    type: "image",
+    src: "/assets/img/Testimonals/04.png",
+    caption: "Majestic boulder ruins and monolithic stone architecture of the Vijayanagara Empire.",
+    location: "Hampi, Karnataka"
+  },
+  {
+    id: 5,
+    title: "Ooty Hill Station",
+    category: "Mountains",
+    type: "image",
+    src: "/assets/img/Testimonals/05.webp",
+    caption: "Rolling tea gardens and pine-fringed roads in the Queen of Hill Stations.",
+    location: "Nilgiris, Ooty"
+  },
+  {
+    id: 6,
+    title: "Coastal Paradise",
+    category: "Beaches",
+    type: "image",
+    src: "/assets/img/Testimonals/07.webp",
+    caption: "Unspoiled shorelines, cliffside viewpoints and serene tropical sunsets.",
+    location: "Om Beach, Gokarna"
+  },
+  {
+    id: 7,
+    title: "Misty Trails",
+    category: "Mountains",
+    type: "image",
+    src: "/assets/img/Testimonals/08.webp",
+    caption: "Trekking through rolling clouds and whispering winds at high altitude.",
+    location: "Mullayanagiri Peak"
+  },
+  {
+    id: 8,
+    title: "Adventure Road Trip",
+    category: "Adventure",
+    type: "image",
+    src: "/assets/img/Testimonals/09.webp",
+    caption: "Cruising winding ghat roads and scenic countryside with our adventure crew.",
+    location: "Western Ghats"
+  },
+  {
+    id: 9,
+    title: "Campfire & Stargazing",
+    category: "Camping",
+    type: "image",
+    src: "/assets/img/Testimonals/11.webp",
+    caption: "Cozy nights around glowing embers under crystal-clear starlit skies.",
+    location: "Dandeli & Coorg Camps"
+  },
+  {
+    id: 10,
+    title: "Dandeli Water Rafting",
+    category: "Adventure",
+    type: "image",
+    src: "/assets/img/Testimonals/12.webp",
+    caption: "Conquering whitewater rapids on the Kali River with certified river guides.",
+    location: "Kali River, Dandeli"
+  },
+  {
+    id: 11,
+    title: "Backpacker Journey",
+    category: "Adventure",
+    type: "image",
+    src: "/assets/img/Testimonals/13.webp",
+    caption: "Meeting like-minded explorers and creating memories that last a lifetime.",
+    location: "Group Expeditions"
+  },
+  {
+    id: 12,
+    title: "Golden Horizon",
+    category: "Beaches",
+    type: "image",
+    src: "/assets/img/Testimonals/14.webp",
+    caption: "Mesmerizing sunset glow over the Arabian Sea horizon.",
+    location: "Goa Coastline"
+  },
+  {
+    id: 13,
+    title: "Alpine Lake Retreat",
+    category: "Mountains",
+    type: "image",
+    src: "/assets/img/Testimonals/15.webp",
+    caption: "Tranquil reflections and placid waters surrounded by forested hills.",
+    location: "Kodaikanal Lake"
+  },
+  {
+    id: 14,
+    title: "Serene Boat Cruise",
+    category: "Beaches",
+    type: "image",
+    src: "/assets/img/Testimonals/16.webp",
+    caption: "Evening Mandovi river cruise with music, breeze, and coastal sights.",
+    location: "Panjim, Goa"
+  },
+  {
+    id: 15,
+    title: "Starlit Night Camping",
+    category: "Camping",
+    type: "image",
+    src: "/assets/img/Testimonals/17.webp",
+    caption: "Tented camps pitched in deep forests with warm acoustic music.",
+    location: "Jungle Campsites"
+  },
+  {
+    id: 16,
+    title: "Jungle Safari Trip",
+    category: "Camping",
+    type: "image",
+    src: "/assets/img/Testimonals/18.webp",
+    caption: "Wildlife tracking, exotic birds, and lush wilderness trails.",
+    location: "Dandeli Wildlife Reserve"
+  },
+  {
+    id: 17,
+    title: "Deep Pine Forest",
+    category: "Mountains",
+    type: "image",
+    src: "/assets/img/Testimonals/19.webp",
+    caption: "Towering ancient pine trees and mystical canopy walks.",
+    location: "Kodaikanal Pines"
+  },
+  {
+    id: 18,
+    title: "Golden Sand Dunes",
+    category: "Adventure",
+    type: "image",
+    src: "/assets/img/Testimonals/20.webp",
+    caption: "Desert safari and campfire beats under the vast open night sky.",
+    location: "Desert Expedition"
+  },
+  {
+    id: 19,
+    title: "Coastal Breeze Reel",
+    category: "Videos",
+    type: "video",
+    src: "/assets/video/travel-coast.mp4",
+    poster: "/assets/img/hero-poster.jpg",
+    caption: "Aerial flight and ocean waves crashing onto pristine tropical sands.",
+    location: "Coastal Expeditions"
+  },
+  {
+    id: 20,
+    title: "Hot Air Balloons Sky",
+    category: "Videos",
+    type: "video",
+    src: "/assets/video/travel-cappadocia.mp4",
+    poster: "/assets/img/hero-poster.jpg",
+    caption: "Spectacular flight over fairy chimneys and glowing sunrises.",
+    location: "International Specials"
+  },
+  {
+    id: 21,
+    title: "Expedition Flight Loop",
+    category: "Videos",
+    type: "video",
+    src: "/assets/video/travel-flight.mp4",
+    poster: "/assets/img/hero-poster.jpg",
+    caption: "Flying high above mountain peaks and coastal wonders.",
+    location: "Global Adventures"
+  },
+  {
+    id: 22,
+    title: "Wilderness Discovery Loop",
+    category: "Videos",
+    type: "video",
+    src: "/assets/video/travel-loop.mp4",
+    poster: "/assets/img/hero-poster.jpg",
+    caption: "Cinematic glimpses of unchartered trails and pure wanderlust.",
+    location: "South India Circuits"
+  },
+  {
+    id: 23,
+    title: "Island Paradise Waters",
+    category: "Videos",
+    type: "video",
+    src: "/assets/video/travel-maldives.mp4",
+    poster: "/assets/img/hero-poster.jpg",
+    caption: "Crystal turquoise lagoons, water villas and coral reef wonderlands.",
+    location: "Tropical Escapes"
+  },
+  {
+    id: 24,
+    title: "Spirit Adventures Stamp Reel",
+    category: "Videos",
+    type: "video",
+    src: "/assets/video/StampVideo.mp4",
+    poster: "/assets/img/hero-poster.jpg",
+    caption: "Official top-rated Spirit Adventures moments captured on camera.",
+    location: "Spirit Adventures Highlights"
+  }
+];

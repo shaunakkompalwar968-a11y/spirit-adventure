@@ -108,3 +108,14 @@ export interface AgencyStats {
   expert_guides: number;
   safety_record_percentage: number;
 }
+
+export interface GalleryItem {
+  id: number;
+  title: string;
+  category: 'All' | 'Mountains' | 'Beaches' | 'Camping' | 'Adventure' | 'Videos';
+  type: 'image' | 'video';
+  src: string;
+  poster?: string;
+  caption?: string;
+  location?: string;
+}

@@ -150,25 +150,37 @@ export default function AboutSection({ stats }: AboutSectionProps) {
             </div>
           </div>
 
-          {/* Right Column: Imagery with Floating Badge */}
+          {/* Right Column: Imagery with Floating Badge & Authentic Stamp Video */}
           <div className="lg:col-span-5 relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-              <img
-                src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=85"
-                alt="Coorg coffee plantation landscape with travelers"
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-black">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                poster="/assets/img/hero-poster.jpg"
                 className="w-full h-[520px] object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#183B2A]/85 via-transparent to-transparent" />
+              >
+                <source src="/assets/video/StampVideo.mp4" type="video/mp4" />
+                <source src="/assets/video/travel-loop.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#183B2A]/90 via-black/20 to-transparent pointer-events-none" />
 
-              <div className="absolute bottom-6 left-6 right-6 text-white">
+              {/* Stamp Badge from original website */}
+              <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-lg border border-[#0787E8]/30 flex items-center gap-1.5 pointer-events-none">
+                <span className="w-2 h-2 rounded-full bg-[#0787E8] animate-ping" />
+                <span className="text-[11px] font-black uppercase tracking-wider text-[#183B2A]">TOP RATED EXPERIENCE</span>
+              </div>
+
+              <div className="absolute bottom-6 left-6 right-6 text-white pointer-events-none">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#0787E8]">
-                  Verified Stays & Verified Guidance
+                  Verified Stays & Expert Guidance
                 </span>
-                <h4 className="text-xl font-bold text-white">
+                <h4 className="text-xl font-bold text-white mt-1">
                   Spirit Adventures Travel Desk
                 </h4>
-                <p className="text-xs text-[#D5E2D7] mt-1">
-                  KPHB, Kukatpally, Hyderabad • Serving travelers across South India & beyond
+                <p className="text-xs text-[#D5E2D7] mt-1 leading-relaxed">
+                  KPHB, Kukatpally, Hyderabad • Serving 22,000+ happy explorers across South India & beyond
                 </p>
               </div>
             </div>
