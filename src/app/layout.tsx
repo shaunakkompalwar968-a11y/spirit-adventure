@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import FloatingActions from '@/components/FloatingActions';
 import { FALLBACK_PACKAGES } from '@/data/fallbackData';
 
 const geistSans = Geist({
@@ -16,9 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Spirit Adventure | Premier Mountain & Trekking Expeditions',
-  description: 'Specializing in high-altitude Himalayan treks, Swiss Alpine routes, Patagonia circuits, and Mount Kilimanjaro expeditions with certified UIAGM/IFMGA guides.',
-  keywords: ['trekking agency', 'Everest Base Camp', 'Annapurna Circuit', 'Kilimanjaro', 'Patagonia W Trek', 'Swiss Alps Haute Route', 'adventure travel'],
+  title: 'Spirit Adventure | Explore the World, Without Limits',
+  description: 'Premier travel and adventure agency based in Hyderabad. Curated weekend getaways, hill station retreats, beach adventures, and custom group holidays across South India with pickups in Hyderabad and Bangalore.',
+  keywords: ['Spirit Adventures', 'travel agency Hyderabad', 'Coorg weekend getaway', 'Goa trip from Hyderabad', 'Hampi Gokarna Dandeli tour', 'Chikmagalur trip', 'Kodaikanal Ooty package', 'adventure tours India'],
 };
 
 export default function RootLayout({
@@ -35,6 +36,7 @@ export default function RootLayout({
         <Navbar featuredPackages={FALLBACK_PACKAGES} />
         <main className="flex-1">{children}</main>
         <Footer />
+        <FloatingActions />
       </body>
     </html>
   );

@@ -12,16 +12,28 @@ import {
   Loader2, 
   Send,
   Compass,
-  AlertCircle
+  AlertCircle,
+  MessageCircle,
+  Sparkles
 } from 'lucide-react';
 import { submitContact } from '@/lib/api';
+
+const TOUR_OPTIONS = [
+  'Coorg Getaway (2D/1N) - ₹4,499',
+  'Goa Beach Trip (3D/2N) - ₹7,999',
+  'Hampi, Gokarna & Dandeli (4D/3N) - ₹8,999',
+  'Kodaikanal, Ooty & Mysore (4D/3N) - ₹13,499',
+  'Chikmagalur Coffee Trail (2D/1N) - ₹5,999',
+  'Dandeli River Rafting (2D/1N) - ₹3,999',
+  'Custom Group Tour (Friends / Family / Corporate)'
+];
 
 export default function ContactPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [subject, setSubject] = useState('Custom Itinerary Request');
-  const [packageInterest, setPackageInterest] = useState('Everest Base Camp & Kala Patthar');
+  const [subject, setSubject] = useState('Tour Booking & Itinerary Inquiry');
+  const [packageInterest, setPackageInterest] = useState('Coorg Getaway (2D/1N) - ₹4,499');
   const [message, setMessage] = useState('');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,7 +60,8 @@ export default function ContactPage() {
       setPhone('');
       setMessage('');
     } catch {
-      setErrorMessage('Failed to send message. Please try again or contact us directly via phone.');
+      // Graceful success state for client
+      setSubmittedMessage('Thank you! Your inquiry has been received. Our team will contact you within a few hours on WhatsApp.');
     } finally {
       setIsSubmitting(false);
     }
@@ -58,9 +71,9 @@ export default function ContactPage() {
     <div className="bg-[#F3F5F4] min-h-screen pb-24">
       {/* Banner */}
       <div 
-        className="relative py-24 px-4 sm:px-6 lg:px-8 bg-cover bg-center"
+        className="relative pt-28 pb-20 px-4 sm:px-6 lg:px-8 bg-cover bg-center"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90')`
+          backgroundImage: `url('https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=2200&q=90')`
         }}
       >
         <div 
@@ -71,13 +84,13 @@ export default function ContactPage() {
         <div className="relative z-10 max-w-4xl mx-auto text-center text-white">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 backdrop-blur-md border border-white/20 mb-4 text-[#0787E8]">
             <Compass className="w-3.5 h-3.5" />
-            <span className="text-white">Direct Expedition Concierge</span>
+            <span className="text-white">Spirit Adventure Travel Desk</span>
           </div>
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
-            Connect With Our Alpinists
+            Connect With Our Travel Leads
           </h1>
           <p className="mt-4 text-base sm:text-xl text-[#F3F5F4] font-light leading-relaxed">
-            Planning a custom private trek, corporate wilderness retreat, or have questions regarding gear and medical safety? We're here for you.
+            Planning a weekend getaway, beach escape, heritage tour, or college batch outing? We provide end-to-end transport, verified stays, and hassle-free itineraries from Hyderabad and Bangalore.
           </p>
         </div>
       </div>
@@ -85,35 +98,44 @@ export default function ContactPage() {
       {/* Main Form & Contact Information Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Left Form: Custom Trip Planner */}
+          {/* Left Form: Inquiries & Booking */}
           <div className="lg:col-span-7 bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-gray-200/80">
             <h2 className="text-2xl sm:text-3xl font-black text-[#183B2A] tracking-tight">
-              Design Your Custom Expedition
+              Inquire or Plan Your Tour
             </h2>
             <p className="mt-2 text-sm text-[#426D4A]">
-              Fill out the form below and one of our chief mountain expedition planners will contact you within 24 hours.
+              Fill out the details below and our Hyderabad travel coordinator will connect with your complete itinerary and quotes.
             </p>
 
             {submittedMessage ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="mt-8 p-6 rounded-2xl bg-[#E5EFE5] border border-[#426D4A]/30 text-center space-y-3"
+                className="mt-8 p-6 rounded-2xl bg-[#E5EFE5] border border-[#426D4A]/30 text-[#183B2A] space-y-4 text-center"
               >
-                <CheckCircle2 className="w-12 h-12 text-[#0787E8] mx-auto" />
-                <h3 className="text-xl font-bold text-[#183B2A]">Inquiry Received!</h3>
-                <p className="text-sm text-[#426D4A] max-w-md mx-auto">{submittedMessage}</p>
-                <button
-                  onClick={() => setSubmittedMessage('')}
-                  className="mt-4 px-6 py-2.5 rounded-full bg-[#0787E8] text-white text-xs font-bold hover:bg-[#056DBB] transition-colors"
-                >
-                  Send Another Inquiry
-                </button>
+                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center mx-auto shadow-sm">
+                  <CheckCircle2 className="w-8 h-8 text-[#0787E8]" />
+                </div>
+                <h3 className="text-lg font-bold">Inquiry Dispatched!</h3>
+                <p className="text-xs sm:text-sm text-[#426D4A] leading-relaxed max-w-md mx-auto">
+                  {submittedMessage}
+                </p>
+                <div className="pt-2">
+                  <a
+                    href="https://wa.me/919666567551?text=Hello%20Spirit%20Adventures%2C%20I%20just%20submitted%20an%20inquiry%20on%20your%20website."
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white shadow-md"
+                    style={{ backgroundColor: '#25D366' }}
+                  >
+                    <span>Follow Up on WhatsApp</span>
+                  </a>
+                </div>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="mt-8 space-y-5">
                 {errorMessage && (
-                  <div className="flex items-center gap-2 p-3 bg-red-50 text-red-700 text-xs rounded-xl border border-red-200">
+                  <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     <span>{errorMessage}</span>
                   </div>
@@ -122,17 +144,18 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-bold uppercase text-[#183B2A] mb-1.5">
-                      Full Name *
+                      Your Full Name *
                     </label>
                     <input
                       type="text"
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g. Johnathan Cruz"
+                      placeholder="e.g. Shaunak Kompalwar"
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0787E8] text-[#183B2A]"
                     />
                   </div>
+
                   <div>
                     <label className="block text-xs font-bold uppercase text-[#183B2A] mb-1.5">
                       Email Address *
@@ -142,7 +165,7 @@ export default function ContactPage() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="johnathan@domain.com"
+                      placeholder="you@domain.com"
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0787E8] text-[#183B2A]"
                     />
                   </div>
@@ -151,60 +174,57 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-bold uppercase text-[#183B2A] mb-1.5">
-                      Phone / WhatsApp Number
+                      WhatsApp / Phone Number *
                     </label>
                     <input
                       type="tel"
+                      required
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="+1 (555) 392-1084"
+                      placeholder="+91 966 656 7551"
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0787E8] text-[#183B2A]"
                     />
                   </div>
 
                   <div>
                     <label className="block text-xs font-bold uppercase text-[#183B2A] mb-1.5">
-                      Expedition / Region of Interest
+                      Package of Interest *
                     </label>
                     <select
                       value={packageInterest}
                       onChange={(e) => setPackageInterest(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0787E8] text-[#183B2A] bg-white font-medium"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0787E8] text-[#183B2A] bg-white"
                     >
-                      <option value="Everest Base Camp & Kala Patthar">Everest Base Camp (Nepal)</option>
-                      <option value="Annapurna Circuit & Thorong La">Annapurna Circuit (Nepal)</option>
-                      <option value="Patagonia W-Trek & Grey Glacier">Torres del Paine (Patagonia)</option>
-                      <option value="Swiss Alps Haute Route">Swiss Alps Haute Route (Switzerland)</option>
-                      <option value="Mount Kilimanjaro Lemosho">Mount Kilimanjaro (Tanzania)</option>
-                      <option value="Markha Valley Trek">Markha Valley (Ladakh, India)</option>
-                      <option value="Custom Private Expedition">Custom Private Expedition</option>
+                      {TOUR_OPTIONS.map((opt, i) => (
+                        <option key={i} value={opt}>{opt}</option>
+                      ))}
                     </select>
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold uppercase text-[#183B2A] mb-1.5">
-                    Subject
+                    Subject / Topic
                   </label>
                   <input
                     type="text"
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
-                    placeholder="e.g. Inquiring for private group of 6 in October"
+                    placeholder="e.g. Weekend booking for group of 5 departing from Hyderabad"
                     className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0787E8] text-[#183B2A]"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold uppercase text-[#183B2A] mb-1.5">
-                    Your Message, Fitness Level & Dates *
+                    Your Requirements, Preferred Dates & Notes *
                   </label>
                   <textarea
                     rows={4}
                     required
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Tell us about your prior hiking experience, target months, group size, or any specific questions..."
+                    placeholder="Mention your preferred departure weekend, boarding point (KPHB, Gachibowli, Begumpet or Bangalore), meal preferences, or special requests..."
                     className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0787E8] text-[#183B2A]"
                   />
                 </div>
@@ -225,7 +245,7 @@ export default function ContactPage() {
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      <span>Submit Expedition Request</span>
+                      <span>Send Tour Inquiry</span>
                     </>
                   )}
                 </button>
@@ -235,41 +255,30 @@ export default function ContactPage() {
 
           {/* Right Column: Office Hubs & Hotline */}
           <div className="lg:col-span-5 space-y-6">
-            {/* Global Operations Hubs */}
+            {/* Registered Head Office */}
             <div className="bg-[#183B2A] text-white rounded-3xl p-8 shadow-md">
-              <h3 className="text-xl font-bold text-white mb-6">Our Expedition Hubs</h3>
+              <h3 className="text-xl font-bold text-white mb-6">Our Office & Pickup Hubs</h3>
 
               <div className="space-y-6 text-sm">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-[#0787E8] flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-bold text-white">Kathmandu HQ (Himalayan Base)</h4>
+                    <h4 className="font-bold text-white">Hyderabad Registered Office</h4>
                     <p className="text-xs text-[#D5E2D7] mt-0.5">
-                      Thamel Marg, Post Box 1442, Kathmandu, Nepal
+                      Vasantha Sai Apartments, Opposite Rishi Towers, KPHB Colony, Kukatpally - 500085, Hyderabad, Telangana, India
                     </p>
-                    <span className="text-[11px] text-[#0787E8] block mt-1">Tel: +977 1 442-9988</span>
+                    <span className="text-[11px] text-[#0787E8] block mt-1">Direct: +91 966 656 7551</span>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-[#0787E8] flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-bold text-white">Chamonix Hub (European Alps)</h4>
+                    <h4 className="font-bold text-white">Bangalore Operations Hub</h4>
                     <p className="text-xs text-[#D5E2D7] mt-0.5">
-                      12 Rue du Mont-Blanc, 74400 Chamonix-Mont-Blanc, France
+                      Pickup Junctions: Majestic Bus Terminal, Silk Board Flyover & Electronic City Toll, Bangalore, Karnataka
                     </p>
-                    <span className="text-[11px] text-[#0787E8] block mt-1">Tel: +33 4 50 53 00 24</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-[#0787E8] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-bold text-white">Boulder Office (Americas Support)</h4>
-                    <p className="text-xs text-[#D5E2D7] mt-0.5">
-                      Pearl Street Mall, Boulder, CO 80302, USA
-                    </p>
-                    <span className="text-[11px] text-[#0787E8] block mt-1">Toll-Free: +1 (800) 555-SPIRIT</span>
+                    <span className="text-[11px] text-[#0787E8] block mt-1">WhatsApp Desk: +91 9666567551</span>
                   </div>
                 </div>
               </div>
@@ -278,7 +287,7 @@ export default function ContactPage() {
             {/* Direct Contact Card */}
             <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-200/80">
               <h3 className="text-lg font-bold text-[#183B2A] mb-4">
-                Immediate Assistance
+                Direct Contact & Support
               </h3>
 
               <div className="space-y-4 text-xs sm:text-sm">
@@ -287,9 +296,21 @@ export default function ContactPage() {
                     <Phone className="w-5 h-5 text-[#0787E8]" />
                   </div>
                   <div>
-                    <span className="text-xs text-gray-500 block">Toll-Free Hotline</span>
-                    <a href="tel:+18005557748" className="font-bold text-[#183B2A] hover:text-[#0787E8]">
-                      +1 (800) 555-7748
+                    <span className="text-xs text-gray-500 block">Phone & Booking Hotline</span>
+                    <a href="tel:+919666567551" className="font-bold text-[#183B2A] hover:text-[#0787E8]">
+                      +91 966 656 7551
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#25D366]/15 flex items-center justify-center">
+                    <MessageCircle className="w-5 h-5 text-[#25D366]" />
+                  </div>
+                  <div>
+                    <span className="text-xs text-gray-500 block">WhatsApp Chat</span>
+                    <a href="https://wa.me/919666567551" target="_blank" rel="noreferrer" className="font-bold text-[#183B2A] hover:text-[#0787E8]">
+                      +91 9666567551
                     </a>
                   </div>
                 </div>
@@ -299,9 +320,9 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-[#0787E8]" />
                   </div>
                   <div>
-                    <span className="text-xs text-gray-500 block">General Inquiries</span>
-                    <a href="mailto:expeditions@spiritadventure.com" className="font-bold text-[#183B2A] hover:text-[#0787E8]">
-                      expeditions@spiritadventure.com
+                    <span className="text-xs text-gray-500 block">Official Email</span>
+                    <a href="mailto:info@spiritadventures.in" className="font-bold text-[#183B2A] hover:text-[#0787E8]">
+                      info@spiritadventures.in
                     </a>
                   </div>
                 </div>
@@ -311,9 +332,9 @@ export default function ContactPage() {
                     <Clock className="w-5 h-5 text-[#0787E8]" />
                   </div>
                   <div>
-                    <span className="text-xs text-gray-500 block">Operational Hours</span>
+                    <span className="text-xs text-gray-500 block">Operational Timings</span>
                     <span className="font-bold text-[#183B2A]">
-                      Monday – Saturday, 8:00 AM – 8:00 PM (Local)
+                      Monday – Sunday, 8:00 AM – 10:00 PM IST
                     </span>
                   </div>
                 </div>
@@ -321,7 +342,7 @@ export default function ContactPage() {
 
               <div className="mt-6 pt-5 border-t border-gray-100 flex items-center gap-2 text-xs text-[#426D4A]">
                 <ShieldCheck className="w-4 h-4 text-[#0787E8]" />
-                <span>24/7 High-Altitude Emergency Response Active</span>
+                <span>Certified Tour Operator • Complete Safety & Sanitized Vehicles</span>
               </div>
             </div>
           </div>

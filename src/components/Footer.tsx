@@ -3,8 +3,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { 
-  Mountain, 
-  Compass, 
   Mail, 
   Phone, 
   MapPin, 
@@ -36,15 +34,16 @@ export default function Footer() {
           {/* Brand & Agency Column */}
           <div className="lg:col-span-4">
             <Link href="/" className="flex items-center gap-3 group inline-flex">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 p-2 flex items-center justify-center text-white">
-                <Mountain className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-md">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/logo.png" alt="Spirit Adventures Logo" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-black tracking-tight text-white font-sans">
                   SPIRIT<span className="text-[#0787E8]">.</span>ADVENTURE
                 </span>
                 <span className="text-[10px] tracking-widest uppercase font-bold text-[#D5E2D7]">
-                  Beyond Boundaries
+                  Explore the World, Without Limits
                 </span>
               </div>
             </Link>
@@ -54,7 +53,7 @@ export default function Footer() {
               className="mt-4 text-sm leading-relaxed max-w-sm"
               style={{ color: '#D5E2D7' }}
             >
-              Certified premier mountaineering and wilderness trekking operator. Delivering safe, ethical, and soul-stirring high-altitude expeditions across the world’s greatest ranges since 2012.
+              Premier travel and adventure agency based in Hyderabad. Specialized in curated weekend getaways, hill station retreats, beach adventures, and custom group holidays across South India and beyond.
             </p>
 
             {/* Social Media Icons: #FFFFFF */}
@@ -87,16 +86,16 @@ export default function Footer() {
                 </svg>
               </a>
 
-              {/* Twitter / X */}
+              {/* WhatsApp */}
               <a 
-                href="https://twitter.com" 
+                href="https://wa.me/919666567551" 
                 target="_blank" 
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#0787E8] transition-colors flex items-center justify-center text-white"
-                aria-label="Twitter"
+                className="w-9 h-9 rounded-full bg-[#25D366] hover:bg-[#128C7E] transition-colors flex items-center justify-center text-white"
+                aria-label="WhatsApp"
               >
-                <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
                 </svg>
               </a>
 
@@ -109,7 +108,7 @@ export default function Footer() {
                 aria-label="YouTube"
               >
                 <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
                   <polygon points="10 15 15 12 10 9 10 15" fill="currentColor"/>
                 </svg>
               </a>
@@ -117,85 +116,85 @@ export default function Footer() {
 
             <div className="mt-6 flex items-center gap-2 text-xs text-[#D5E2D7]">
               <ShieldCheck className="w-4 h-4 text-[#0787E8]" />
-              <span>Signatory: IPPG & Leave No Trace Alliance</span>
+              <span>Certified Tour Operator • Hyderabad & Bangalore Pickups</span>
             </div>
           </div>
 
-          {/* Column 2: Expeditions */}
+          {/* Column 2: Popular Tours */}
           <div className="lg:col-span-2">
             {/* Headings: #FFFFFF */}
             <h4 
               className="text-sm font-bold uppercase tracking-wider mb-4"
               style={{ color: '#FFFFFF' }}
             >
-              Expeditions
+              Popular Tours
             </h4>
             {/* Links: #E5EFE5, Link hover: #0787E8 */}
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link 
-                  href="/packages/everest-base-camp-kala-patthar" 
+                  href="/packages/coorg" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Everest Base Camp
+                  Coorg Getaway
                 </Link>
               </li>
               <li>
                 <Link 
-                  href="/packages/annapurna-circuit-thorong-la-pass" 
+                  href="/packages/goa" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Annapurna Circuit
+                  Goa Beach Trip
                 </Link>
               </li>
               <li>
                 <Link 
-                  href="/packages/patagonia-w-trek-grey-glacier" 
+                  href="/packages/hampi" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Patagonia W-Trek
+                  Hampi & Gokarna
                 </Link>
               </li>
               <li>
                 <Link 
-                  href="/packages/swiss-alps-haute-route" 
+                  href="/packages/ooty" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Swiss Haute Route
+                  Kodaikanal & Ooty
                 </Link>
               </li>
               <li>
                 <Link 
-                  href="/packages/kilimanjaro-lemosho-route" 
+                  href="/packages/chikmagalur" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Mount Kilimanjaro
+                  Chikmagalur Trail
                 </Link>
               </li>
               <li>
                 <Link 
-                  href="/packages/markha-valley-ladakh" 
+                  href="/packages/dandeli" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Markha Valley Ladakh
+                  Dandeli Rafting
                 </Link>
               </li>
             </ul>
@@ -208,7 +207,7 @@ export default function Footer() {
               className="text-sm font-bold uppercase tracking-wider mb-4"
               style={{ color: '#FFFFFF' }}
             >
-              Company
+              Quick Links
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
@@ -219,7 +218,7 @@ export default function Footer() {
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  About Our Agency
+                  About Spirit Adventures
                 </Link>
               </li>
               <li>
@@ -241,18 +240,18 @@ export default function Footer() {
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  All Packages
+                  All Tour Packages
                 </Link>
               </li>
               <li>
                 <Link 
-                  href="/about#guides" 
+                  href="/customize" 
                   className="transition-colors"
                   style={{ color: '#E5EFE5' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  UIAGM Mountain Guides
+                  Customize Your Trip
                 </Link>
               </li>
               <li>
@@ -263,7 +262,7 @@ export default function Footer() {
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
                 >
-                  Custom Trip Planner
+                  Contact Us
                 </Link>
               </li>
             </ul>
@@ -276,20 +275,20 @@ export default function Footer() {
               className="text-sm font-bold uppercase tracking-wider mb-2"
               style={{ color: '#FFFFFF' }}
             >
-              Mountain Dispatch
+              Stay Connected
             </h4>
             {/* Paragraphs: #D5E2D7 */}
             <p 
               className="text-xs sm:text-sm leading-relaxed mb-4"
               style={{ color: '#D5E2D7' }}
             >
-              Subscribe for season opening alerts, high-altitude gear guides, and exclusive early booking perks.
+              Subscribe for weekend departure alerts, holiday discount codes, and new destination releases.
             </p>
 
             {subscribed ? (
               <div className="flex items-center gap-2 p-3 bg-white/10 rounded-xl text-white text-xs border border-white/20">
                 <CheckCircle2 className="w-4 h-4 text-[#0787E8]" />
-                <span>You're subscribed! Welcome to the Spirit Expedition Club.</span>
+                <span>You are subscribed! Thank you for joining Spirit Adventures.</span>
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="flex gap-2">
@@ -315,17 +314,17 @@ export default function Footer() {
             )}
 
             <div className="mt-6 pt-5 border-t border-[#426D4A]/30 space-y-2 text-xs">
-              <div className="flex items-center gap-2" style={{ color: '#D5E2D7' }}>
-                <MapPin className="w-3.5 h-3.5 text-[#0787E8]" />
-                <span>Expedition HQ: Thamel Marg, Kathmandu / European Ops: Chamonix, France</span>
+              <div className="flex items-start gap-2" style={{ color: '#D5E2D7' }}>
+                <MapPin className="w-4 h-4 text-[#0787E8] flex-shrink-0 mt-0.5" />
+                <span>Vasantha Sai Apartments, Opposite Rishi Towers, KPHB, Kukatpally - 500085, Hyderabad, India</span>
               </div>
               <div className="flex items-center gap-2" style={{ color: '#D5E2D7' }}>
-                <Phone className="w-3.5 h-3.5 text-[#0787E8]" />
-                <span>Direct Hotline: +1 (800) 555-SPIRIT / +977 1 442-9988</span>
+                <Phone className="w-3.5 h-3.5 text-[#0787E8] flex-shrink-0" />
+                <a href="tel:+919666567551" className="hover:text-white transition-colors">+91 966 656 7551</a>
               </div>
               <div className="flex items-center gap-2" style={{ color: '#D5E2D7' }}>
-                <Mail className="w-3.5 h-3.5 text-[#0787E8]" />
-                <span>expeditions@spiritadventure.com</span>
+                <Mail className="w-3.5 h-3.5 text-[#0787E8] flex-shrink-0" />
+                <a href="mailto:info@spiritadventures.in" className="hover:text-white transition-colors">info@spiritadventures.in</a>
               </div>
             </div>
           </div>
@@ -334,7 +333,7 @@ export default function Footer() {
         {/* Bottom Copyright & Disclaimer */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           <p style={{ color: '#D5E2D7' }}>
-            © {new Date().getFullYear()} Spirit Adventure Travel Agency. All rights reserved. Registered Alpine Operator #7829-NP.
+            © {new Date().getFullYear()} Spirit Adventure Travel Agency. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <Link 
@@ -354,7 +353,7 @@ export default function Footer() {
               onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
               onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
             >
-              Expedition Terms
+              Terms of Service
             </Link>
             <span style={{ color: '#426D4A' }}>•</span>
             <Link 
@@ -364,7 +363,7 @@ export default function Footer() {
               onMouseEnter={(e) => (e.currentTarget.style.color = '#0787E8')}
               onMouseLeave={(e) => (e.currentTarget.style.color = '#E5EFE5')}
             >
-              Safety Standards
+              Safety Guidelines
             </Link>
           </div>
         </div>

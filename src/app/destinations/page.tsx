@@ -11,9 +11,9 @@ export default function DestinationsPage() {
     <div className="bg-[#F3F5F4] min-h-screen pb-24">
       {/* Banner */}
       <div 
-        className="relative py-24 px-4 sm:px-6 lg:px-8 bg-cover bg-center"
+        className="relative pt-28 pb-20 px-4 sm:px-6 lg:px-8 bg-cover bg-center"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1527004013197-933c4bb611b3?auto=format&fit=crop&w=2200&q=90')`
+          backgroundImage: `url('https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=2200&q=90')`
         }}
       >
         <div 
@@ -24,13 +24,13 @@ export default function DestinationsPage() {
         <div className="relative z-10 max-w-4xl mx-auto text-center text-white">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 backdrop-blur-md border border-white/20 mb-4 text-[#0787E8]">
             <Compass className="w-3.5 h-3.5" />
-            <span className="text-white">Global Mountain Corridors</span>
+            <span className="text-white">Iconic South India Circuits</span>
           </div>
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
-            Our Iconic Destinations
+            Top Travel Destinations
           </h1>
-          <p className="mt-4 text-base sm:text-xl text-[#F3F5F4] font-light leading-relaxed">
-            From the roof of the Himalayas to the jagged granite towers of Patagonia, traverse earth's most spectacular mountain geography.
+          <p className="mt-4 text-base sm:text-xl text-[#F3F5F4] font-light leading-relaxed max-w-3xl mx-auto">
+            From the misty coffee trails of Coorg and sunny shores of Goa to the boulder empire of Hampi and river rapids of Dandeli, explore handpicked weekend getaways with departures from Hyderabad and Bangalore.
           </p>
         </div>
       </div>
@@ -47,10 +47,11 @@ export default function DestinationsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className={`bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200/80 grid grid-cols-1 lg:grid-cols-12`}
+                className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200/80 grid grid-cols-1 lg:grid-cols-12"
               >
                 {/* Photo Column */}
                 <div className={`lg:col-span-6 relative h-72 sm:h-96 lg:h-auto overflow-hidden group ${isReversed ? 'lg:order-2' : ''}`}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={dest.image_url}
                     alt={dest.name}
@@ -61,7 +62,7 @@ export default function DestinationsPage() {
                     {dest.country}
                   </div>
                   <div className="absolute bottom-4 left-4 text-white text-xs font-bold">
-                    <span>{dest.treks_count} Curated Expeditions</span>
+                    <span>{dest.treks_count} Curated Weekend Tours</span>
                   </div>
                 </div>
 
@@ -107,7 +108,7 @@ export default function DestinationsPage() {
 
                   <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between">
                     <span className="text-xs text-[#426D4A] font-medium">
-                      Guaranteed Small Groups (4-12)
+                      Hyderabad & Bangalore Pickups
                     </span>
                     <Link
                       href={`/packages?destination=${dest.slug}`}
@@ -116,7 +117,7 @@ export default function DestinationsPage() {
                       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0787E8')}
                     >
-                      <span>Explore {dest.name.split(' ')[0]} Treks</span>
+                      <span>Explore {dest.name.split(' ')[0]} Tours</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>

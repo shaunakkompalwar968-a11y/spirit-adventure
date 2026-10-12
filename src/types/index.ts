@@ -19,11 +19,12 @@ export interface Destination {
 }
 
 export interface ItineraryDay {
-  day: number;
+  day: number | string;
   title: string;
-  description: string;
-  accommodation: string;
-  meals: string;
+  description?: string;
+  accommodation?: string;
+  meals?: string;
+  activities?: string[];
 }
 
 export interface TourPackage {
@@ -67,10 +68,12 @@ export interface BookingPayload {
 }
 
 export interface BookingResponse {
-  id: number;
+  id?: number | string;
+  booking_id?: string;
   package_title: string;
   full_name: string;
   email: string;
+  phone?: string;
   start_date: string;
   travelers_count: number;
   total_price: number;

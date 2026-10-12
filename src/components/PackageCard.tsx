@@ -9,17 +9,22 @@ import {
   Mountain, 
   MapPin, 
   ArrowUpRight,
-  ShieldAlert,
-  Calendar
+  ShieldCheck,
+  CalendarCheck
 } from 'lucide-react';
 import { TourPackage } from '@/types';
 
 interface PackageCardProps {
-  packageData: TourPackage;
+  packageData?: TourPackage;
+  pkg?: TourPackage;
+  priorityIndex?: number;
   onBookNow: (pkg: TourPackage) => void;
 }
 
-export default function PackageCard({ packageData, onBookNow }: PackageCardProps) {
+export default function PackageCard({ packageData, pkg, priorityIndex, onBookNow }: PackageCardProps) {
+  const currentTour = pkg || packageData;
+  if (!currentTour) return null;
+
   const {
     title,
     slug,
@@ -34,7 +39,7 @@ export default function PackageCard({ packageData, onBookNow }: PackageCardProps
     reviews_count,
     hero_image,
     tagline,
-  } = packageData;
+  } = currentTour;
 
   const currentPrice = discount_price ?? price;
 
@@ -66,22 +71,18 @@ export default function PackageCard({ packageData, onBookNow }: PackageCardProps
 
         {/* Top Badges */}
         <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-          <span className="px-3 py-1 rounded-full text-[11px] font-bold text-white bg-[#183B2A]/85 backdrop-blur-md border border-white/20">
-            {category_name || 'Alpine Trek'}
+          <span className="px-3 py-1 rounded-full text-[11px] font-bold text-white bg-[#183B2A]/90 backdrop-blur-md border border-white/20">
+            {duration_days}D {duration_days > 1 ? `${duration_days - 1}N` : 'Day Trip'}
           </span>
-          <span className={`px-2.5 py-1 rounded-full text-[11px] font-bold text-white backdrop-blur-md ${
-            difficulty === 'Extreme' || difficulty === 'Strenuous' 
-              ? 'bg-red-600/85' 
-              : 'bg-emerald-700/85'
-          }`}>
-            {difficulty}
+          <span className="px-2.5 py-1 rounded-full text-[11px] font-bold text-white bg-emerald-700/90 backdrop-blur-md">
+            {category_name || 'Getaway'}
           </span>
         </div>
 
         {/* Destination & Location */}
         <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-white text-xs font-semibold drop-shadow">
           <MapPin className="w-3.5 h-3.5 text-[#0787E8]" />
-          <span>{destination_name || 'Himalayas'}</span>
+          <span>{destination_name || 'India'}</span>
         </div>
       </div>
 
@@ -100,12 +101,12 @@ export default function PackageCard({ packageData, onBookNow }: PackageCardProps
                 ))}
               </div>
               <span>{rating.toFixed(1)}</span>
-              <span className="text-gray-400 font-normal">({reviews_count})</span>
+              <span className="text-gray-400 font-normal">({reviews_count}+)</span>
             </div>
 
             <div className="flex items-center gap-1 text-[#426D4A] font-semibold">
               <Clock className="w-3.5 h-3.5" />
-              <span>{duration_days} Days</span>
+              <span>{duration_days} Days Trip</span>
             </div>
           </div>
 
@@ -127,12 +128,12 @@ export default function PackageCard({ packageData, onBookNow }: PackageCardProps
           {/* Highlights Row */}
           <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-600">
             <div className="flex items-center gap-1">
-              <Mountain className="w-3.5 h-3.5 text-[#0787E8]" />
-              <span className="font-medium">{max_altitude}</span>
+              <ShieldCheck className="w-3.5 h-3.5 text-[#0787E8]" />
+              <span className="font-medium">Hyd / Blr Pickups</span>
             </div>
             <div className="flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5 text-[#0787E8]" />
-              <span className="font-medium">Guaranteed Departures</span>
+              <CalendarCheck className="w-3.5 h-3.5 text-[#0787E8]" />
+              <span className="font-medium">Weekend Batches</span>
             </div>
           </div>
         </div>
@@ -146,11 +147,11 @@ export default function PackageCard({ packageData, onBookNow }: PackageCardProps
                 className="text-2xl font-black"
                 style={{ color: '#0787E8' }}
               >
-                ${currentPrice.toLocaleString()}
+                ₹{currentPrice.toLocaleString()}
               </span>
-              {discount_price && (
+              {discount_price && discount_price < price && (
                 <span className="text-xs text-gray-400 line-through">
-                  ${price.toLocaleString()}
+                  ₹{price.toLocaleString()}
                 </span>
               )}
             </div>
@@ -160,14 +161,14 @@ export default function PackageCard({ packageData, onBookNow }: PackageCardProps
             <Link
               href={`/packages/${slug}`}
               className="p-2.5 rounded-full border border-gray-200 text-[#183B2A] hover:bg-[#E5EFE5] hover:text-[#0787E8] transition-colors"
-              title="View Itinerary & Highlights"
+              title="View Itinerary & Details"
             >
               <ArrowUpRight className="w-4 h-4" />
             </Link>
 
             {/* Book Now button: #0787E8 */}
             <button
-              onClick={() => onBookNow(packageData)}
+              onClick={() => onBookNow(currentTour)}
               className="px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold text-white transition-all duration-200 shadow-md active:scale-95"
               style={{ backgroundColor: '#0787E8' }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}

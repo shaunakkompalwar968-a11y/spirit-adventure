@@ -5,13 +5,16 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { 
   ShieldCheck, 
+  MapPin, 
+  Plane, 
+  Hotel, 
   HeartHandshake, 
-  MountainSnow, 
-  Award, 
-  CheckCircle,
   ArrowRight,
-  Flame,
-  Users2
+  Sparkles,
+  Compass,
+  Headphones,
+  CheckCircle2,
+  CalendarCheck
 } from 'lucide-react';
 import { AgencyStats } from '@/types';
 
@@ -21,35 +24,35 @@ interface AboutSectionProps {
 
 export default function AboutSection({ stats }: AboutSectionProps) {
   const defaultStats = {
-    years_experience: 14,
-    expeditions_completed: 1250,
-    happy_explorers: 15400,
-    expert_guides: 48,
+    years_experience: 8,
+    expeditions_completed: 1850,
+    happy_explorers: 22400,
+    expert_guides: 35,
     safety_record_percentage: 99.8
   };
 
   const currentStats = stats || defaultStats;
 
-  const corePillars = [
+  const coreServices = [
     {
-      title: 'Uncompromising Alpine Safety',
-      desc: 'Daily medical pulse-oximeter monitoring, high-altitude hyperbaric chambers, portable oxygen, and 24/7 direct satellite emergency evacuation protocols on every expedition.',
-      icon: ShieldCheck,
+      title: 'Personalized Travel Planning',
+      desc: 'Bespoke itineraries designed around your preferences, budget, and travel style for couples, friends, families, or corporate groups.',
+      icon: Compass,
     },
     {
-      title: 'UIAGM / IFMGA Certified Leadership',
-      desc: 'Our lead expedition guides are internationally accredited alpine masters with an average of 12+ seasons traversing the Karakoram, Himalayas, and Swiss Alps.',
-      icon: Award,
+      title: 'Flight & Resort Bookings',
+      desc: 'Handpicked 3-star and 4-star boutique resorts, estate homestays, private pool villas, and flight reservations at unbeatable rates.',
+      icon: Hotel,
     },
     {
-      title: 'Ethical Sherpa & Porter Welfare',
-      desc: 'We are strict signatories to the International Porter Protection Group (IPPG) guidelines: living wages, medical insurance, quality high-altitude gear, and strict load limits.',
-      icon: HeartHandshake,
+      title: 'All-Inclusive Holiday Packages',
+      desc: 'All-in-one packages including guided sightseeing, campfire feasts, water sports, AC transfers, and entry permits.',
+      icon: CalendarCheck,
     },
     {
-      title: 'Leave No Trace Eco-Tourism',
-      desc: 'Committed to zero single-use plastics on trails, solar-charged basecamp operations, and active participation in annual high-altitude glacier cleanups.',
-      icon: MountainSnow,
+      title: '24/7 Dedicated On-Trip Guidance',
+      desc: 'Live trip coordinators tracking your transfers, safety, and check-ins every step of the journey so you travel stress-free.',
+      icon: Headphones,
     },
   ];
 
@@ -65,8 +68,8 @@ export default function AboutSection({ stats }: AboutSectionProps) {
           {/* Left Column: Mission & Narrative */}
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/70 backdrop-blur-sm border border-[#426D4A]/20 mb-4" style={{ color: '#0787E8' }}>
-              <Flame className="w-3.5 h-3.5" style={{ color: '#0787E8' }} />
-              <span style={{ color: '#183B2A' }}>Our Story & Philosophy</span>
+              <Sparkles className="w-3.5 h-3.5" style={{ color: '#0787E8' }} />
+              <span style={{ color: '#183B2A' }}>ABOUT US • Your Trusted Travel Partner</span>
             </div>
 
             {/* Headings: #183B2A */}
@@ -74,8 +77,8 @@ export default function AboutSection({ stats }: AboutSectionProps) {
               className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.15]"
               style={{ color: '#183B2A' }}
             >
-              Born in the High Passes, <br />
-              Driven by Mountain Reverence
+              Passionate Explorers, <br />
+              Dedicated To Your Happiness
             </h2>
 
             {/* Paragraphs: #426D4A */}
@@ -83,24 +86,24 @@ export default function AboutSection({ stats }: AboutSectionProps) {
               className="mt-6 text-base sm:text-lg leading-relaxed"
               style={{ color: '#426D4A' }}
             >
-              Founded in 2012 by a brotherhood of veteran Sherpa mountaineers and international alpine explorers, <strong className="font-bold" style={{ color: '#183B2A' }}>Spirit Adventure</strong> was built on a simple conviction: true adventure is not about conquering peaks, but letting the wild transform you.
+              We are passionate travel experts dedicated to creating unforgettable journeys across India and the globe. <strong className="font-bold" style={{ color: '#183B2A' }}>Spirit Adventures</strong> makes domestic weekend getaways and international holidays easy, thrilling, and 100% hassle-free.
             </p>
 
             <p 
               className="mt-4 text-sm sm:text-base leading-relaxed"
               style={{ color: '#426D4A' }}
             >
-              We craft small-group expeditions that delve deep into remote cultures, sacred mountain corridors, and pristine ecosystems. With meticulous acclimatization schedules and genuine human warmth, we turn intimidating summits into life-affirming journeys.
+              From the misty coffee trails of Coorg and pristine waters of Gokarna, to romantic desert camps, Himalayan peaks, shopping in Dubai, and relaxing on tropical beaches in Bali and the Maldives — Spirit Adventures crafts customized itineraries tailored to your unique rhythm and budget.
             </p>
 
-            {/* 4 Pillars Grid */}
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {corePillars.map((item, idx) => {
+            {/* 4 Core Services Grid */}
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {coreServices.map((item, idx) => {
                 const IconComponent = item.icon;
                 return (
                   <div 
                     key={idx}
-                    className="p-5 rounded-2xl bg-white/80 backdrop-blur-sm border border-white/60 shadow-sm hover:shadow-md transition-shadow"
+                    className="p-5 rounded-2xl bg-white/85 backdrop-blur-sm border border-white/60 shadow-sm hover:shadow-md transition-shadow"
                   >
                     {/* Icons: #0787E8 */}
                     <div className="w-10 h-10 rounded-xl bg-[#E5EFE5] flex items-center justify-center mb-3">
@@ -125,13 +128,21 @@ export default function AboutSection({ stats }: AboutSectionProps) {
               })}
             </div>
 
-            <div className="mt-8 flex items-center gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
-                href="/about"
+                href="/customize"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold text-white transition-all shadow-md active:scale-95"
                 style={{ backgroundColor: '#0787E8' }}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0787E8')}
+              >
+                <span>Customize Tour Package</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-1.5 text-sm font-bold text-[#183B2A] hover:text-[#0787E8] transition-colors"
               >
                 <span>Read Full Agency Story</span>
                 <ArrowRight className="w-4 h-4" />
@@ -139,31 +150,30 @@ export default function AboutSection({ stats }: AboutSectionProps) {
             </div>
           </div>
 
-          {/* Right Column: Imagery with Floating Stats Overlay */}
+          {/* Right Column: Imagery with Floating Badge */}
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
               <img
-                src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=85"
-                alt="Sherpa mountain guide looking out at Himalayan summit"
-                className="w-full h-[540px] object-cover"
+                src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=85"
+                alt="Coorg coffee plantation landscape with travelers"
+                className="w-full h-[520px] object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#183B2A]/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#183B2A]/85 via-transparent to-transparent" />
 
-              {/* In-image caption */}
               <div className="absolute bottom-6 left-6 right-6 text-white">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#0787E8]">
-                  Chief Expedition Leader
+                  Verified Stays & Verified Guidance
                 </span>
                 <h4 className="text-xl font-bold text-white">
-                  Tenzing Dawa Sherpa
+                  Spirit Adventures Travel Desk
                 </h4>
-                <p className="text-xs text-[#D5E2D7] mt-0.5">
-                  11× Everest Summit, UIAGM / IFMGA Master Guide
+                <p className="text-xs text-[#D5E2D7] mt-1">
+                  KPHB, Kukatpally, Hyderabad • Serving travelers across South India & beyond
                 </p>
               </div>
             </div>
 
-            {/* Floating Top Card */}
+            {/* Floating Trust Card */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -171,12 +181,12 @@ export default function AboutSection({ stats }: AboutSectionProps) {
               className="absolute -top-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-[#426D4A]/10 hidden sm:flex items-center gap-3"
             >
               <div className="w-12 h-12 rounded-xl bg-[#E5EFE5] flex items-center justify-center">
-                <Users2 className="w-6 h-6" style={{ color: '#0787E8' }} />
+                <ShieldCheck className="w-6 h-6" style={{ color: '#0787E8' }} />
               </div>
               <div>
-                <span className="text-xs font-bold text-[#426D4A] block">Global Explorers</span>
-                <span className="text-xl font-black" style={{ color: '#183B2A' }}>
-                  15,400+ Summits
+                <span className="text-xs font-bold text-[#426D4A] block">Best Price Guarantee</span>
+                <span className="text-lg font-black" style={{ color: '#183B2A' }}>
+                  100% Transparent
                 </span>
               </div>
             </motion.div>
@@ -198,7 +208,7 @@ export default function AboutSection({ stats }: AboutSectionProps) {
                 className="text-xs sm:text-sm font-semibold mt-1 block"
                 style={{ color: '#183B2A' }}
               >
-                Years Experience
+                Years of Excellence
               </span>
             </div>
 
@@ -214,7 +224,7 @@ export default function AboutSection({ stats }: AboutSectionProps) {
                 className="text-xs sm:text-sm font-semibold mt-1 block"
                 style={{ color: '#183B2A' }}
               >
-                Expeditions Guided
+                Trips Completed
               </span>
             </div>
 
@@ -246,7 +256,7 @@ export default function AboutSection({ stats }: AboutSectionProps) {
                 className="text-xs sm:text-sm font-semibold mt-1 block"
                 style={{ color: '#183B2A' }}
               >
-                Certified Mountain Guides
+                Expert Tour Leads
               </span>
             </div>
 
@@ -262,7 +272,7 @@ export default function AboutSection({ stats }: AboutSectionProps) {
                 className="text-xs sm:text-sm font-semibold mt-1 block"
                 style={{ color: '#183B2A' }}
               >
-                Safety & Evac Record
+                Guest Satisfaction
               </span>
             </div>
           </div>

@@ -18,7 +18,9 @@ import {
   PhoneCall, 
   ArrowLeft,
   Share2,
-  FileText
+  FileText,
+  Bus,
+  Sparkles
 } from 'lucide-react';
 import { FALLBACK_PACKAGES } from '@/data/fallbackData';
 import BookingModal from '@/components/BookingModal';
@@ -38,8 +40,8 @@ export default function PackageDetailPage({
   if (!pkg) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center p-8 bg-[#F3F5F4] text-center">
-        <h2 className="text-3xl font-black text-[#183B2A]">Expedition Not Found</h2>
-        <p className="mt-2 text-sm text-[#426D4A]">The tour package you were looking for does not exist or has been archived.</p>
+        <h2 className="text-3xl font-black text-[#183B2A]">Tour Package Not Found</h2>
+        <p className="mt-2 text-sm text-[#426D4A]">The tour package you were looking for does not exist or has been updated.</p>
         <Link
           href="/packages"
           className="mt-6 px-6 py-3 rounded-full bg-[#0787E8] text-white font-bold text-sm hover:bg-[#056DBB] transition-colors"
@@ -58,7 +60,7 @@ export default function PackageDetailPage({
   return (
     <div className="bg-[#F3F5F4] min-h-screen pb-24">
       {/* Top Breadcrumb Navigation */}
-      <div className="bg-white border-b border-gray-200 py-3.5 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white border-b border-gray-200 pt-28 pb-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between text-xs sm:text-sm">
           <div className="flex items-center gap-2 text-[#426D4A] overflow-hidden">
             <Link href="/" className="hover:text-[#0787E8] transition-colors">Home</Link>
@@ -81,6 +83,7 @@ export default function PackageDetailPage({
       {/* Hero Visual Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="relative rounded-3xl overflow-hidden h-[420px] sm:h-[500px] shadow-2xl">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={galleryImages[activeGalleryIndex]}
             alt={pkg.title}
@@ -96,37 +99,41 @@ export default function PackageDetailPage({
           <div className="absolute top-6 left-6 right-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-[#183B2A]/90 backdrop-blur-md border border-white/20 shadow">
-                {pkg.category_name || 'High Altitude Trekking'}
+                {pkg.category_name || 'Curated Weekend Trip'}
               </span>
-              <span className="px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-emerald-700/90 backdrop-blur-md shadow">
-                Grade: {pkg.difficulty}
+              <span className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#FF9D42] text-[#183B2A] flex items-center gap-1 shadow">
+                <Star className="w-3.5 h-3.5 fill-[#183B2A]" />
+                <span>{pkg.rating} ({pkg.reviews_count} reviews)</span>
               </span>
             </div>
-            <div className="flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full text-white text-xs font-bold border border-white/20">
-              <MapPin className="w-3.5 h-3.5 text-[#0787E8]" />
-              <span>{pkg.destination_name}</span>
+
+            <div className="hidden sm:flex items-center gap-2">
+              <button 
+                onClick={() => {
+                  if (navigator.share) {
+                    navigator.share({ title: pkg.title, url: window.location.href });
+                  } else {
+                    navigator.clipboard.writeText(window.location.href);
+                    alert('Tour link copied to clipboard!');
+                  }
+                }}
+                className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md hover:bg-white/30 text-white flex items-center justify-center transition-colors"
+                title="Share Package"
+              >
+                <Share2 className="w-4 h-4" />
+              </button>
             </div>
           </div>
 
-          {/* Bottom Heading & Key Badges */}
-          <div className="absolute bottom-6 left-6 right-6 text-white max-w-4xl">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="flex items-center">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-4 h-4 fill-[#FF9D42] text-[#FF9D42]"
-                  />
-                ))}
-              </div>
-              <span className="font-bold text-sm">{pkg.rating.toFixed(1)}</span>
-              <span className="text-white/80 text-xs">({pkg.reviews_count} verified reviews)</span>
+          {/* Content on Bottom */}
+          <div className="absolute bottom-8 left-6 right-6 sm:left-10 sm:right-10 text-white">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0787E8] mb-2">
+              <MapPin className="w-4 h-4" />
+              <span>{pkg.destination_name}</span>
             </div>
-
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
               {pkg.title}
             </h1>
-
             <p className="mt-2 text-sm sm:text-base text-[#F3F5F4] font-light max-w-3xl line-clamp-2">
               {pkg.tagline}
             </p>
@@ -146,6 +153,7 @@ export default function PackageDetailPage({
                     : 'border-transparent opacity-70 hover:opacity-100'
                 }`}
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={img} alt="thumbnail" className="w-full h-full object-cover" />
               </button>
             ))}
@@ -168,11 +176,11 @@ export default function PackageDetailPage({
 
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-xl bg-[#E5EFE5] flex items-center justify-center">
-              <Mountain className="w-6 h-6 text-[#0787E8]" />
+              <Bus className="w-6 h-6 text-[#0787E8]" />
             </div>
             <div>
-              <span className="text-xs text-[#426D4A] font-bold uppercase block">Max Altitude</span>
-              <span className="text-base sm:text-lg font-black text-[#183B2A]">{pkg.max_altitude}</span>
+              <span className="text-xs text-[#426D4A] font-bold uppercase block">Pickups</span>
+              <span className="text-base sm:text-lg font-black text-[#183B2A]">Hyd & Blr</span>
             </div>
           </div>
 
@@ -191,8 +199,8 @@ export default function PackageDetailPage({
               <ShieldCheck className="w-6 h-6 text-[#0787E8]" />
             </div>
             <div>
-              <span className="text-xs text-[#426D4A] font-bold uppercase block">Lead Guides</span>
-              <span className="text-base sm:text-lg font-black text-[#183B2A]">UIAGM / IFMGA</span>
+              <span className="text-xs text-[#426D4A] font-bold uppercase block">Coordination</span>
+              <span className="text-base sm:text-lg font-black text-[#183B2A]">24/7 Trip Captain</span>
             </div>
           </div>
         </div>
@@ -203,10 +211,10 @@ export default function PackageDetailPage({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Left Column: Itinerary, Highlights, Inclusions */}
           <div className="lg:col-span-8 space-y-10">
-            {/* Expedition Overview */}
+            {/* Tour Overview */}
             <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200/80">
               <h2 className="text-2xl font-black text-[#183B2A] mb-4">
-                Expedition Overview
+                Tour Overview
               </h2>
               <p className="text-base text-[#426D4A] leading-relaxed">
                 {pkg.overview}
@@ -219,10 +227,10 @@ export default function PackageDetailPage({
                     Trip Highlights
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {pkg.highlights.map((hl, i) => (
+                    {pkg.highlights.map((h, i) => (
                       <div key={i} className="flex items-start gap-2.5">
                         <CheckCircle2 className="w-5 h-5 text-[#0787E8] flex-shrink-0 mt-0.5" />
-                        <span className="text-sm text-[#183B2A] font-medium leading-snug">{hl}</span>
+                        <span className="text-sm text-[#183B2A] leading-snug">{h}</span>
                       </div>
                     ))}
                   </div>
@@ -230,72 +238,81 @@ export default function PackageDetailPage({
               )}
             </div>
 
-            {/* Detailed Day-by-Day Itinerary */}
+            {/* Day-by-Day Itinerary Accordion */}
             {pkg.itinerary && pkg.itinerary.length > 0 && (
               <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200/80">
                 <div className="flex items-center justify-between mb-6">
                   <div>
                     <h2 className="text-2xl font-black text-[#183B2A]">
-                      Day-by-Day Itinerary
+                      Detailed Day-by-Day Itinerary
                     </h2>
-                    <p className="text-xs sm:text-sm text-[#426D4A] mt-1">
-                      Designed with gradual acclimatization protocols for maximum summit safety.
+                    <p className="text-xs text-[#426D4A] mt-1">
+                      Designed with optimal relaxation, sightseeing spots & campfire fun.
                     </p>
                   </div>
-                  <button
-                    onClick={() => setActiveDayAccordion(activeDayAccordion === -1 ? 1 : -1)}
-                    className="text-xs font-bold text-[#0787E8] hover:underline"
-                  >
-                    {activeDayAccordion === -1 ? 'Collapse All' : 'Expand All'}
-                  </button>
+                  <span className="text-xs font-bold px-3 py-1 bg-[#E5EFE5] text-[#183B2A] rounded-full">
+                    {pkg.itinerary.length} Days Schedule
+                  </span>
                 </div>
 
-                <div className="space-y-3">
-                  {pkg.itinerary.map((day) => {
-                    const isExpanded = activeDayAccordion === day.day || activeDayAccordion === -1;
+                <div className="space-y-4">
+                  {pkg.itinerary.map((dayItem, index) => {
+                    const dayNum = index + 1;
+                    const isOpen = activeDayAccordion === dayNum;
+
                     return (
                       <div
-                        key={day.day}
-                        className="border border-gray-200 rounded-xl overflow-hidden transition-all"
+                        key={dayNum}
+                        className="border border-gray-200 rounded-xl overflow-hidden transition-colors"
                       >
                         <button
-                          onClick={() => setActiveDayAccordion(isExpanded ? null : day.day)}
-                          className="w-full p-4 text-left flex items-center justify-between gap-4 bg-gray-50/70 hover:bg-[#E5EFE5]/50 transition-colors"
+                          onClick={() => setActiveDayAccordion(isOpen ? null : dayNum)}
+                          className={`w-full p-4 sm:p-5 flex items-center justify-between text-left transition-colors ${
+                            isOpen ? 'bg-[#E5EFE5]/50' : 'bg-white hover:bg-gray-50'
+                          }`}
                         >
                           <div className="flex items-center gap-3">
-                            <span className="w-8 h-8 rounded-lg bg-[#183B2A] text-white flex items-center justify-center text-xs font-bold flex-shrink-0">
-                              D{day.day}
+                            <span className="w-8 h-8 rounded-lg bg-[#0787E8] text-white flex items-center justify-center font-black text-xs">
+                              {dayNum}
                             </span>
-                            <span className="font-bold text-sm sm:text-base text-[#183B2A]">
-                              {day.title}
-                            </span>
+                            <div>
+                              <span className="text-xs font-bold text-[#0787E8] uppercase tracking-wider block">
+                                {dayItem.day}
+                              </span>
+                              <h3 className="text-sm sm:text-base font-bold text-[#183B2A]">
+                                {dayItem.title}
+                              </h3>
+                            </div>
                           </div>
-                          <ChevronDown className={`w-4 h-4 text-[#0787E8] transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                          <ChevronDown
+                            className={`w-5 h-5 text-[#183B2A] transition-transform duration-200 ${
+                              isOpen ? 'transform rotate-180 text-[#0787E8]' : ''
+                            }`}
+                          />
                         </button>
 
                         <AnimatePresence>
-                          {isExpanded && (
+                          {isOpen && (
                             <motion.div
                               initial={{ height: 0, opacity: 0 }}
                               animate={{ height: 'auto', opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.2 }}
+                              className="p-5 border-t border-gray-200 bg-white"
                             >
-                              <div className="p-5 border-t border-gray-200 text-sm text-[#426D4A] leading-relaxed space-y-3 bg-white">
-                                <p>{day.description}</p>
-                                <div className="pt-2 flex flex-wrap gap-4 text-xs font-semibold text-[#183B2A]">
-                                  {day.accommodation && (
-                                    <span className="px-2.5 py-1 rounded-md bg-[#F3F5F4] border border-gray-200">
-                                      🏠 Stay: {day.accommodation}
-                                    </span>
-                                  )}
-                                  {day.meals && (
-                                    <span className="px-2.5 py-1 rounded-md bg-[#F3F5F4] border border-gray-200">
-                                      🍽️ Meals: {day.meals}
-                                    </span>
-                                  )}
+                              {dayItem.meals && (
+                                <div className="inline-block px-3 py-1 rounded-md bg-[#E5EFE5] text-[11px] font-bold text-[#183B2A] mb-3">
+                                  Included: {dayItem.meals}
                                 </div>
-                              </div>
+                              )}
+                              <ul className="space-y-2 text-xs sm:text-sm text-[#426D4A]">
+                                {dayItem.activities?.map((act, actIdx) => (
+                                  <li key={actIdx} className="flex items-start gap-2">
+                                    <span className="text-[#0787E8] font-bold mt-0.5">•</span>
+                                    <span>{act}</span>
+                                  </li>
+                                ))}
+                              </ul>
                             </motion.div>
                           )}
                         </AnimatePresence>
@@ -350,27 +367,27 @@ export default function PackageDetailPage({
                 <span className="text-xs text-gray-400 font-semibold uppercase block">Package Price Per Person</span>
                 <div className="flex items-baseline gap-2 mt-1 mb-4">
                   <span className="text-3xl sm:text-4xl font-black text-[#0787E8]">
-                    ${currentPrice.toLocaleString()}
+                    ₹{currentPrice.toLocaleString()}
                   </span>
                   {pkg.discount_price && (
                     <span className="text-base text-gray-400 line-through">
-                      ${pkg.price.toLocaleString()}
+                      ₹{pkg.price.toLocaleString()}
                     </span>
                   )}
-                  <span className="text-xs text-gray-500 font-medium">USD</span>
+                  <span className="text-xs text-gray-500 font-medium">INR</span>
                 </div>
 
                 {/* Rating review snapshot */}
                 <div className="flex items-center gap-1.5 p-3 rounded-xl bg-[#E5EFE5] text-xs font-semibold text-[#183B2A] mb-5">
                   <ShieldCheck className="w-4 h-4 text-[#0787E8]" />
-                  <span>Guaranteed Departure • No Surcharges</span>
+                  <span>Guaranteed Weekend Departures • Hyd & Blr</span>
                 </div>
 
                 {/* Upcoming Departure Dates */}
                 {pkg.upcoming_dates && pkg.upcoming_dates.length > 0 && (
                   <div className="mb-6">
                     <span className="text-xs font-bold uppercase tracking-wider text-[#183B2A] block mb-2">
-                      Available 2026/2027 Batches:
+                      Upcoming Batches:
                     </span>
                     <div className="space-y-1.5">
                       {pkg.upcoming_dates.map((d, i) => (
@@ -382,7 +399,7 @@ export default function PackageDetailPage({
                             <Calendar className="w-3.5 h-3.5 text-[#0787E8]" />
                             {d}
                           </span>
-                          <span className="text-[11px] font-bold text-emerald-700">Open (4 spots)</span>
+                          <span className="text-[11px] font-bold text-emerald-700">Booking Open</span>
                         </div>
                       ))}
                     </div>
@@ -397,28 +414,42 @@ export default function PackageDetailPage({
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#056DBB')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0787E8')}
                 >
-                  Book This Expedition
+                  Book This Tour
                 </button>
 
+                {/* WhatsApp Quick Link */}
+                <a
+                  href={`https://wa.me/919666567551?text=Hello%20Spirit%20Adventures%2C%20I%20want%20to%20book%20the%20${encodeURIComponent(pkg.title)}%20(₹${currentPrice})`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 w-full py-3 rounded-full font-bold text-xs text-white shadow-md transition-all flex items-center justify-center gap-2"
+                  style={{ backgroundColor: '#25D366' }}
+                >
+                  <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+                  </svg>
+                  <span>Inquire on WhatsApp</span>
+                </a>
+
                 <p className="mt-3 text-center text-[11px] text-[#426D4A]">
-                  Reserve now with 20% deposit • Free cancellation within 30 days
+                  Lock seats with advance deposit • AC transport & stays included
                 </p>
               </div>
 
               {/* Specialist Assistance Box */}
               <div className="bg-[#183B2A] text-white rounded-2xl p-6 shadow-md">
-                <h4 className="text-lg font-bold">Have Questions About This Trek?</h4>
+                <h4 className="text-lg font-bold">Need Customization or Group Discount?</h4>
                 <p className="text-xs text-[#D5E2D7] mt-1.5 leading-relaxed">
-                  Our certified high-altitude expedition specialists are available 24/7 to review your fitness profile and gear.
+                  Traveling with a college batch, family or corporate team of 6+? We offer private buses and custom dates.
                 </p>
                 <div className="mt-4 pt-4 border-t border-[#426D4A]/40 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
                     <PhoneCall className="w-5 h-5 text-[#0787E8]" />
                   </div>
                   <div>
-                    <span className="text-[11px] text-[#D5E2D7] block font-medium">Direct Expedition Desk</span>
-                    <a href="tel:+18005557748" className="text-sm font-bold text-white hover:text-[#0787E8] transition-colors">
-                      +1 (800) 555-SPIRIT
+                    <span className="text-[11px] text-[#D5E2D7] block font-medium">Spirit Adventures Helpline</span>
+                    <a href="tel:+919666567551" className="text-sm font-bold text-white hover:text-[#0787E8] transition-colors">
+                      +91 966 656 7551
                     </a>
                   </div>
                 </div>
