@@ -28,6 +28,11 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
   const pathname = usePathname();
   const router = useRouter();
 
+  // Hide public navbar on admin dashboard pages
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   // Navigation states
   const [isScrolled, setIsScrolled] = useState(false);
   const [bookingModalOpen, setBookingModalOpen] = useState(false);

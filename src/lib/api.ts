@@ -185,3 +185,146 @@ export async function submitContact(payload: ContactPayload): Promise<{ status: 
     message: `Thank you, ${payload.name}! Your message has been received. Our mountain expedition team will respond promptly.`
   };
 }
+
+// ==========================================
+// ADMIN DASHBOARD CLIENT API
+// ==========================================
+export async function fetchAdminDashboard(period: string = 'year') {
+  try {
+    const res = await fetch(`${API_BASE}/admin/dashboard?period=${period}`, {
+      cache: 'no-store'
+    });
+    if (res.ok) return await res.json();
+  } catch (err) {
+    console.error('Failed to fetch admin dashboard:', err);
+  }
+  return null;
+}
+
+export async function fetchAdminBookings(params?: { status?: string; search?: string; employee_id?: number }) {
+  try {
+    const query = new URLSearchParams();
+    if (params?.status) query.set('status', params.status);
+    if (params?.search) query.set('search', params.search);
+    if (params?.employee_id) query.set('employee_id', String(params.employee_id));
+
+    const res = await fetch(`${API_BASE}/admin/bookings?${query.toString()}`, {
+      cache: 'no-store'
+    });
+    if (res.ok) return await res.json();
+  } catch (err) {
+    console.error('Failed to fetch admin bookings:', err);
+  }
+  return [];
+}
+
+export async function updateAdminBooking(bookingId: string, payload: any) {
+  try {
+    const res = await fetch(`${API_BASE}/admin/bookings/${bookingId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
+  } catch (err) {
+    console.error('Failed to update booking:', err);
+    throw err;
+  }
+}
+
+export async function assignBookingEmployee(bookingId: string, employeeId: number, notes: string = '') {
+  try {
+    const res = await fetch(`${API_BASE}/admin/bookings/${bookingId}/assign`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ employee_id: employeeId, notes })
+    });
+    return await res.json();
+  } catch (err) {
+    console.error('Failed to assign employee:', err);
+    throw err;
+  }
+}
+
+export async function fetchAdminEnquiries(params?: { status?: string; search?: string }) {
+  try {
+    const query = new URLSearchParams();
+    if (params?.status) query.set('status', params.status);
+    if (params?.search) query.set('search', params.search);
+
+    const res = await fetch(`${API_BASE}/admin/enquiries?${query.toString()}`, {
+      cache: 'no-store'
+    });
+    if (res.ok) return await res.json();
+  } catch (err) {
+    console.error('Failed to fetch admin enquiries:', err);
+  }
+  return [];
+}
+
+export async function updateAdminEnquiry(id: number, payload: any) {
+  try {
+    const res = await fetch(`${API_BASE}/admin/enquiries/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
+  } catch (err) {
+    console.error('Failed to update enquiry:', err);
+    throw err;
+  }
+}
+
+export async function convertEnquiryToBooking(id: number) {
+  try {
+    const res = await fetch(`${API_BASE}/admin/enquiries/${id}/convert`, {
+      method: 'POST'
+    });
+    return await res.json();
+  } catch (err) {
+    console.error('Failed to convert enquiry:', err);
+    throw err;
+  }
+}
+
+export async function fetchAdminEmployees() {
+  try {
+    const res = await fetch(`${API_BASE}/admin/employees`, {
+      cache: 'no-store'
+    });
+    if (res.ok) return await res.json();
+  } catch (err) {
+    console.error('Failed to fetch admin employees:', err);
+  }
+  return [];
+}
+
+export async function createAdminEmployee(payload: any) {
+  try {
+    const res = await fetch(`${API_BASE}/admin/employees`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
+  } catch (err) {
+    console.error('Failed to create employee:', err);
+    throw err;
+  }
+}
+
+export async function fetchAdminClients(search?: string) {
+  try {
+    const query = new URLSearchParams();
+    if (search) query.set('search', search);
+    const res = await fetch(`${API_BASE}/admin/clients?${query.toString()}`, {
+      cache: 'no-store'
+    });
+    if (res.ok) return await res.json();
+  } catch (err) {
+    console.error('Failed to fetch admin clients:', err);
+  }
+  return [];
+}
+

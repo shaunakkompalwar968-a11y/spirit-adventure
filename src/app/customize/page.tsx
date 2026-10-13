@@ -21,6 +21,7 @@ import {
   ArrowRight,
   IndianRupee
 } from 'lucide-react';
+import { submitContact } from '@/lib/api';
 
 const DESTINATIONS_OPTIONS = [
   'Coorg',
@@ -143,16 +144,13 @@ export default function CustomizeTourPage() {
     setIsSubmitting(true);
 
     try {
-      await fetch('http://127.0.0.1:8000/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: fullName,
-          email: email,
-          phone: phone,
-          subject: `Custom Tour Request: ${selectedDestinations.join(', ')} from ${startingCity}`,
-          message: `Custom Trip Details:\n- Destinations: ${selectedDestinations.join(', ')} ${otherDestination ? `(+ ${otherDestination})` : ''}\n- Starting City: ${startingCity}\n- Travel Date: ${travelDate}\n- Duration: ${duration}\n- Group: ${adults} Adults (${groupType})\n- Stay: ${stayPreference}\n- Vehicle: ${transportPreference}\n- Budget: ${budgetTier}\n- Notes: ${specialRequests}`
-        })
+      await submitContact({
+        name: fullName,
+        email: email,
+        phone: phone,
+        subject: `Custom Tour Request: ${selectedDestinations.join(', ')} from ${startingCity}`,
+        package_interest: selectedDestinations.join(', '),
+        message: `Custom Trip Details:\n- Destinations: ${selectedDestinations.join(', ')} ${otherDestination ? `(+ ${otherDestination})` : ''}\n- Starting City: ${startingCity}\n- Travel Date: ${travelDate}\n- Duration: ${duration}\n- Group: ${adults} Adults (${groupType})\n- Stay: ${stayPreference}\n- Vehicle: ${transportPreference}\n- Budget: ${budgetTier}\n- Notes: ${specialRequests}`
       });
     } catch {
       console.log('Submitted custom request via fallback');

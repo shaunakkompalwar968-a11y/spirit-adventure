@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { 
   MessageCircle, 
   X, 
@@ -28,6 +29,12 @@ const FAQ_SUGGESTIONS = [
 ];
 
 export default function FloatingActions() {
+  const pathname = usePathname();
+
+  // Hide floating chatbot on admin dashboard pages
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
   // Modal states
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [showChatbot, setShowChatbot] = useState(false);
