@@ -328,3 +328,17 @@ export async function fetchAdminClients(search?: string) {
   return [];
 }
 
+export async function adminLogin(username: string, password: string) {
+  const res = await fetch(`${API_BASE}/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password })
+  });
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.detail || 'Invalid username or password');
+  }
+  return await res.json();
+}
+
+

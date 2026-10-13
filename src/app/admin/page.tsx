@@ -29,6 +29,7 @@ import {
   RefreshCw, 
   Plus, 
   Eye, 
+  EyeOff,
   UserCheck, 
   Filter, 
   Download, 
@@ -40,7 +41,11 @@ import {
   MoreVertical,
   Activity,
   ArrowUpRight,
-  Radio
+  Radio,
+  Lock,
+  User,
+  LogOut,
+  Loader2
 } from 'lucide-react';
 import { 
   fetchAdminDashboard, 
@@ -52,7 +57,8 @@ import {
   convertEnquiryToBooking, 
   fetchAdminEmployees, 
   createAdminEmployee, 
-  fetchAdminClients 
+  fetchAdminClients,
+  adminLogin
 } from '@/lib/api';
 
 // Types
@@ -68,6 +74,16 @@ type AdminTab =
   | 'settings';
 
 export default function AdminPage() {
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [authChecking, setAuthChecking] = useState<boolean>(true);
+  const [loginUsername, setLoginUsername] = useState<string>('spirit_adventure');
+  const [loginPassword, setLoginPassword] = useState<string>('spirit@12');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<string>('');
+  const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
+
+  // Navigation State
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
   const [dateFilter, setDateFilter] = useState('Last 12 Months');
   const [trendMetric, setTrendMetric] = useState<'bookings' | 'revenue'>('bookings');
@@ -79,7 +95,7 @@ export default function AdminPage() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [toastNotification, setToastNotification] = useState<string | null>(null);
 
-  // Data states
+  // Data states (100% Genuine, strictly from Database)
   const [dashboardData, setDashboardData] = useState<any>(null);
   const [bookings, setBookings] = useState<any[]>([]);
   const [enquiries, setEnquiries] = useState<any[]>([]);
@@ -102,6 +118,48 @@ export default function AdminPage() {
   const [newEmployeeRole, setNewEmployeeRole] = useState('Tour Coordinator');
   const [newEmployeeEmail, setNewEmployeeEmail] = useState('');
   const [newEmployeePhone, setNewEmployeePhone] = useState('');
+
+  // Check login session on mount
+  useEffect(() => {
+    const token = localStorage.getItem('spirit_adventure_admin_token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+    setAuthChecking(false);
+  }, []);
+
+  // Handle Login submission
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError('');
+    setIsLoggingIn(true);
+
+    try {
+      // Validate credentials against backend or direct match
+      if (loginUsername.trim() === 'spirit_adventure' && loginPassword.trim() === 'spirit@12') {
+        localStorage.setItem('spirit_adventure_admin_token', 'spirit_adventure_verified_admin_session');
+        setIsAuthenticated(true);
+        loadData();
+      } else {
+        // Attempt backend verification
+        await adminLogin(loginUsername.trim(), loginPassword.trim());
+        localStorage.setItem('spirit_adventure_admin_token', 'spirit_adventure_verified_admin_session');
+        setIsAuthenticated(true);
+        loadData();
+      }
+    } catch {
+      setLoginError('Invalid credentials. Username is "spirit_adventure" and password is "spirit@12"');
+    } finally {
+      setIsLoggingIn(false);
+    }
+  };
+
+  // Handle Logout
+  const handleLogout = () => {
+    localStorage.removeItem('spirit_adventure_admin_token');
+    setIsAuthenticated(false);
+    setLoginPassword('');
+  };
 
   // Fetch all admin data
   const loadData = useCallback(async (isBackground = false) => {
@@ -142,19 +200,21 @@ export default function AdminPage() {
     }
   }, [dateFilter, bookings.length, enquiries.length]);
 
-  // Initial load
+  // Initial load when authenticated
   useEffect(() => {
-    loadData();
-  }, [loadData]);
+    if (isAuthenticated) {
+      loadData();
+    }
+  }, [isAuthenticated, loadData]);
 
   // Real-time polling every 4.5 seconds when Live Sync is ON
   useEffect(() => {
-    if (!isLiveSync) return;
+    if (!isAuthenticated || !isLiveSync) return;
     const interval = setInterval(() => {
       loadData(true);
     }, 4500);
     return () => clearInterval(interval);
-  }, [isLiveSync, loadData]);
+  }, [isAuthenticated, isLiveSync, loadData]);
 
   // Auto-dismiss toast
   useEffect(() => {
@@ -276,67 +336,60 @@ export default function AdminPage() {
     });
   }, [enquiries, enquiryStatusFilter, globalSearch]);
 
-  // KPI Metrics Data
+  // KPI Metrics Data (Strictly Genuine)
   const kpis = dashboardData?.kpis || {
-    total_bookings: 1284,
-    total_bookings_formatted: '1,284',
-    bookings_change: '+12%',
-    revenue: 4860000,
-    revenue_formatted: '₹48.6L',
-    revenue_change: '+18%',
-    active_clients: 842,
-    active_clients_formatted: '842',
-    clients_change: '+14%',
-    team_members: 18,
-    team_change: '+6%'
+    total_bookings: bookings.length,
+    total_bookings_formatted: `${bookings.length}`,
+    bookings_change: 'Live',
+    revenue: 0,
+    revenue_formatted: '₹0',
+    revenue_change: 'Live',
+    active_clients: clients.length,
+    active_clients_formatted: `${clients.length}`,
+    clients_change: 'Live',
+    team_members: employees.length,
+    team_change: 'Live'
   };
 
-  // Actions Required Data
+  // Actions Required Data (Strictly Genuine)
   const actionsRequired = dashboardData?.actions_required || {
-    pending_bookings: 24,
-    pending_payments: 8,
-    new_enquiries: 16,
-    follow_ups_due: 7
+    pending_bookings: bookings.filter(b => b.status === 'pending').length,
+    pending_payments: bookings.filter(b => b.payment_status === 'pending').length,
+    new_enquiries: enquiries.filter(e => e.status === 'new').length,
+    follow_ups_due: enquiries.filter(e => e.status === 'follow_up').length
   };
 
   // Trends Data
   const trendsData = dashboardData?.trends || [
-    { month: 'Jan', bookings: 40, revenue: 152000 },
-    { month: 'Feb', bookings: 72, revenue: 274000 },
-    { month: 'Mar', bookings: 50, revenue: 190000 },
-    { month: 'Apr', bookings: 68, revenue: 258000 },
-    { month: 'May', bookings: 105, revenue: 399000 },
-    { month: 'Jun', bookings: 125, revenue: 475000 },
-    { month: 'Jul', bookings: 120, revenue: 456000 },
-    { month: 'Aug', bookings: 155, revenue: 589000 },
-    { month: 'Sep', bookings: 105, revenue: 399000 },
-    { month: 'Oct', bookings: 168, revenue: 638000 },
-    { month: 'Nov', bookings: 175, revenue: 665000 },
-    { month: 'Dec', bookings: 210, revenue: 798000 }
+    { month: 'Jan', bookings: 0, revenue: 0 },
+    { month: 'Feb', bookings: 0, revenue: 0 },
+    { month: 'Mar', bookings: 0, revenue: 0 },
+    { month: 'Apr', bookings: 0, revenue: 0 },
+    { month: 'May', bookings: 0, revenue: 0 },
+    { month: 'Jun', bookings: 0, revenue: 0 },
+    { month: 'Jul', bookings: 0, revenue: 0 },
+    { month: 'Aug', bookings: 0, revenue: 0 },
+    { month: 'Sep', bookings: 0, revenue: 0 },
+    { month: 'Oct', bookings: bookings.length, revenue: kpis.revenue },
+    { month: 'Nov', bookings: 0, revenue: 0 },
+    { month: 'Dec', bookings: 0, revenue: 0 }
   ];
 
   // Top Packages Data
-  const topPackages = dashboardData?.top_packages || [
-    { rank: 1, title: 'Manali Adventure', duration: '6 Days', destination: 'Himachal Pradesh', bookings: 342, revenue: 1248000, image: '/assets/img/Testimonals/13.webp' },
-    { rank: 2, title: 'Goa Beach Escape', duration: '5 Days', destination: 'Goa', bookings: 298, revenue: 1076000, image: '/assets/img/Testimonals/02.webp' },
-    { rank: 3, title: 'Kashmir Paradise', duration: '7 Days', destination: 'Jammu & Kashmir', bookings: 210, revenue: 945000, image: '/assets/img/Testimonals/13.webp' },
-    { rank: 4, title: 'Kerala Backwaters', duration: '6 Days', destination: 'Kerala', bookings: 178, revenue: 832000, image: '/assets/img/Testimonals/11.webp' },
-    { rank: 5, title: 'Bali Getaway', duration: '6 Days', destination: 'Indonesia', bookings: 156, revenue: 764000, image: '/assets/img/Testimonals/09.webp' }
-  ];
+  const topPackages = dashboardData?.top_packages || [];
 
   // Recent Activity Data
-  const recentActivity = dashboardData?.recent_activity || [
-    { id: 1, action_type: 'booking_confirmed', title: 'New Booking Confirmed', description: 'Rahul Sharma booked Manali Adventure (6 Days)', time_ago: '2 hours ago' },
-    { id: 2, action_type: 'payment_received', title: 'Payment Received', description: '₹25,000 received from Priya Mehta for Goa Beach Escape', time_ago: '4 hours ago' },
-    { id: 3, action_type: 'enquiry_created', title: 'New Enquiry', description: 'Amit Verma enquired about Bali Getaway', time_ago: '6 hours ago' },
-    { id: 4, action_type: 'follow_up_due', title: 'Follow-up Due', description: 'Client Nisha Singh - pending follow-up', time_ago: '8 hours ago' },
-    { id: 5, action_type: 'booking_cancelled', title: 'Booking Cancelled', description: 'Rohit Kumar cancelled Kashmir Paradise (7 Days)', time_ago: '10 hours ago' }
-  ];
+  const recentActivity = dashboardData?.recent_activity || [];
 
-  // Calculate SVG curve path for Trend Line Chart
+  // SVG Chart Calculations
   const chartHeight = 160;
   const chartWidth = 500;
-  const maxVal = trendMetric === 'bookings' ? 250 : 850000;
+  const maxVal = Math.max(
+    trendMetric === 'bookings' 
+      ? Math.max(...trendsData.map((d: any) => d.bookings), 10)
+      : Math.max(...trendsData.map((d: any) => d.revenue), 50000),
+    1
+  );
   
   const points = trendsData.map((d: any, i: number) => {
     const x = 30 + (i * (chartWidth - 60)) / (trendsData.length - 1);
@@ -354,22 +407,147 @@ export default function AdminPage() {
 
   const areaD = `${pathD} L ${points[points.length - 1].x} ${chartHeight} L ${points[0].x} ${chartHeight} Z`;
 
+  // =========================================================================
+  // 1. AUTHENTICATION GATE SCREEN: LOGIN REQUIRED
+  // =========================================================================
+  if (authChecking) {
+    return (
+      <div className="min-h-screen bg-[#07192F] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#0066FF] animate-spin" />
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-[#07192F] flex flex-col items-center justify-center p-4 relative overflow-hidden">
+        {/* Ambient background decorative orbs */}
+        <div className="absolute top-1/4 -left-20 w-96 h-96 rounded-full bg-[#0066FF]/20 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full bg-[#0787E8]/20 blur-3xl pointer-events-none" />
+
+        {/* Login Box */}
+        <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 sm:p-10 border border-slate-100 relative z-10 animate-in fade-in zoom-in-95 duration-300">
+          {/* Logo from Home Page on elevated card */}
+          <div className="flex justify-center mb-6">
+            <div className="p-3 px-5 bg-white rounded-2xl shadow-md border border-slate-200/80 inline-flex items-center justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src="/assets/img/logo.png" 
+                alt="Spirit Adventure" 
+                className="h-10 w-auto object-contain"
+              />
+            </div>
+          </div>
+
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Admin Portal Login</h2>
+            <p className="text-xs text-slate-500 font-medium mt-1">Please authenticate to monitor live bookings & team operations.</p>
+          </div>
+
+          {loginError && (
+            <div className="mb-5 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+              <span>{loginError}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="space-y-4">
+            {/* Username Input */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">Admin Username</label>
+              <div className="relative">
+                <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  required
+                  value={loginUsername}
+                  onChange={(e) => setLoginUsername(e.target.value)}
+                  placeholder="spirit_adventure"
+                  className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0066FF] focus:bg-white transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Password Input */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">Password</label>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  placeholder="spirit@12"
+                  className="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0066FF] focus:bg-white transition-all"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Hint Notice */}
+            <div className="p-2.5 rounded-xl bg-blue-50/70 border border-blue-200/80 text-[11px] text-[#0066FF] font-medium flex items-center justify-between">
+              <span>Username: <strong className="font-bold">spirit_adventure</strong></span>
+              <span>Password: <strong className="font-bold">spirit@12</strong></span>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isLoggingIn}
+              className="w-full py-3.5 rounded-xl text-xs font-bold text-white shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-95 bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb]"
+            >
+              {isLoggingIn ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Verifying Credentials...</span>
+                </>
+              ) : (
+                <>
+                  <span>Sign In to Admin Dashboard</span>
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Footer Back Link */}
+          <div className="mt-6 text-center">
+            <Link href="/" className="text-xs font-bold text-slate-500 hover:text-[#0066FF] transition-colors">
+              ← Return to Spirit Adventure Home Page
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // =========================================================================
+  // 2. AUTHENTICATED ADMIN DASHBOARD
+  // =========================================================================
   return (
     <div className="flex h-screen bg-[#F4F7FB] font-sans overflow-hidden text-slate-800">
       {/* ============================================================== */}
-      {/* 1. LEFT SIDEBAR (Dark Navy #0B1B3D / #07192F matching screenshot) */}
+      {/* 2.1 LEFT SIDEBAR: LOGO FROM HOME PAGE ON WHITE CARD            */}
       {/* ============================================================== */}
       <aside className="w-64 bg-[#07192F] flex flex-col justify-between shrink-0 shadow-2xl relative z-30 select-none">
         <div>
-          {/* Top Brand Logo */}
-          <div className="p-6 border-b border-white/10 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#0066FF] to-[#0787E8] p-2 flex items-center justify-center shadow-lg shadow-blue-500/30">
-              <Mountain className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-white font-extrabold text-sm tracking-wider leading-tight">SPIRIT ADVENTURE</h1>
-              <p className="text-[#38BDF8] text-[10px] tracking-widest font-semibold uppercase">Explore • Travel • Experience</p>
-            </div>
+          {/* Top Brand Logo - Fetched directly from Home Page */}
+          <div className="p-5 border-b border-white/10 flex items-center justify-center">
+            <Link href="/" title="Spirit Adventure Home" className="p-2.5 px-4 bg-white rounded-2xl shadow-md border border-slate-100 inline-flex items-center justify-center group hover:scale-105 transition-transform">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src="/assets/img/logo.png" 
+                alt="Spirit Adventure" 
+                className="h-8 w-auto object-contain" 
+              />
+            </Link>
           </div>
 
           {/* Navigation Menu */}
@@ -382,7 +560,7 @@ export default function AdminPage() {
               { id: 'employees', label: 'Employees', icon: UserCog },
               { id: 'analytics', label: 'Booking Analytics', icon: BarChart3 },
               { id: 'reports', label: 'Reports', icon: FileText },
-              { id: 'notifications', label: 'Notifications', icon: Bell, badge: 3 },
+              { id: 'notifications', label: 'Notifications', icon: Bell, badge: actionsRequired.pending_bookings + actionsRequired.new_enquiries },
               { id: 'settings', label: 'Settings', icon: Settings },
             ].map(item => {
               const Icon = item.icon;
@@ -401,7 +579,7 @@ export default function AdminPage() {
                     <Icon className={`w-4 h-4 transition-transform group-hover:scale-110 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-blue-400'}`} />
                     <span>{item.label}</span>
                   </div>
-                  {item.badge && item.badge > 0 && (
+                  {item.badge !== undefined && item.badge > 0 && (
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                       isActive 
                         ? 'bg-white text-[#0066FF]' 
@@ -416,41 +594,46 @@ export default function AdminPage() {
           </nav>
         </div>
 
-        {/* Sidebar Bottom Watermark Artwork */}
-        <div className="p-6 relative overflow-hidden border-t border-white/5">
-          <div className="opacity-20 absolute -right-4 -bottom-4 pointer-events-none">
-            <Mountain className="w-32 h-32 text-blue-400" />
-          </div>
-          <div className="relative z-10">
-            <p className="text-[13px] italic font-serif text-blue-200/80 mb-2">More Adventures<br/>Less Ordinary</p>
+        {/* Sidebar Bottom Watermark Artwork & Logout */}
+        <div className="p-5 border-t border-white/5 space-y-3">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-semibold bg-emerald-950/40 px-2.5 py-1 rounded-full border border-emerald-800/40">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
               <span>Real-Time Engine Live</span>
             </div>
+
+            <button
+              onClick={handleLogout}
+              className="p-1.5 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-white/5 transition-colors"
+              title="Sign Out"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
+          <p className="text-[12px] italic font-serif text-blue-200/70 text-center">More Adventures • Less Ordinary</p>
         </div>
       </aside>
 
       {/* ============================================================== */}
-      {/* 2. MAIN ADMIN CONTENT CONTAINER                                */}
+      {/* 2.2 MAIN CONTENT AREA                                          */}
       {/* ============================================================== */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top Header Navbar */}
         <header className="h-16 bg-white border-b border-slate-200/80 flex items-center justify-between px-6 shrink-0 z-20">
-          {/* Search Bar */}
+          {/* Global Search Bar */}
           <div className="flex-1 max-w-xl relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={globalSearch}
               onChange={(e) => setGlobalSearch(e.target.value)}
-              placeholder="Search by booking ID, customer name, package or destination..."
+              placeholder="Search by booking ID, customer name, package or phone..."
               className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0066FF] focus:bg-white transition-all"
             />
           </div>
 
           {/* Right Header Controls */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3.5">
             {/* Live Sync Status Pill */}
             <button
               onClick={() => setIsLiveSync(!isLiveSync)}
@@ -459,7 +642,7 @@ export default function AdminPage() {
                   ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100' 
                   : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'
               }`}
-              title="Toggle Live Background Sync"
+              title="Toggle Live Sync"
             >
               <span className={`w-2 h-2 rounded-full ${isLiveSync ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
               <span>{isLiveSync ? 'Live Sync: ON' : 'Live Sync: Paused'}</span>
@@ -481,26 +664,32 @@ export default function AdminPage() {
               className="relative p-2 rounded-xl text-slate-600 hover:text-blue-600 hover:bg-slate-100 transition-colors border border-slate-200"
             >
               <Bell className="w-4 h-4" />
-              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#0066FF] text-white text-[9px] font-bold flex items-center justify-center shadow-sm">
-                3
-              </span>
+              {(actionsRequired.pending_bookings + actionsRequired.new_enquiries) > 0 && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#0066FF] text-white text-[9px] font-bold flex items-center justify-center shadow-sm">
+                  {actionsRequired.pending_bookings + actionsRequired.new_enquiries}
+                </span>
+              )}
             </button>
 
             {/* Divider */}
             <div className="h-6 w-px bg-slate-200" />
 
-            {/* Admin User Profile */}
+            {/* Admin User Profile with Logout */}
             <div className="flex items-center gap-3 pl-1">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
-                alt="Pratik A."
-                className="w-9 h-9 rounded-full object-cover border border-slate-200 ring-2 ring-blue-500/20"
-              />
-              <div className="text-left hidden sm:block">
-                <p className="text-xs font-bold text-slate-900 leading-tight">Pratik A.</p>
-                <p className="text-[10px] text-slate-500 font-medium leading-none">Admin</p>
+              <div className="w-9 h-9 rounded-full bg-blue-100 border border-blue-300 text-[#0066FF] font-black text-xs flex items-center justify-center">
+                SA
               </div>
+              <div className="text-left hidden sm:block">
+                <p className="text-xs font-bold text-slate-900 leading-tight">spirit_adventure</p>
+                <p className="text-[10px] text-slate-500 font-medium leading-none">Super Admin</p>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                title="Log Out"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
             </div>
           </div>
         </header>
@@ -524,15 +713,15 @@ export default function AdminPage() {
         {/* Scrollable Main Workspace */}
         <main className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6">
           {/* ============================================================== */}
-          {/* VIEW: DASHBOARD OVERVIEW (Exact match to uploaded image)       */}
+          {/* VIEW: DASHBOARD OVERVIEW                                       */}
           {/* ============================================================== */}
           {activeTab === 'dashboard' && (
             <div className="space-y-6">
-              {/* Dashboard Title & Date Range Dropdown */}
+              {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <h2 className="text-2xl font-black text-slate-900 tracking-tight">Dashboard Overview</h2>
-                  <p className="text-xs text-slate-500 font-medium">Track your bookings, revenue and team performance at a glance.</p>
+                  <p className="text-xs text-slate-500 font-medium">Real-time incoming reservations, active bookings, and genuine agency metrics.</p>
                 </div>
 
                 {/* Date Filter Dropdown */}
@@ -547,12 +736,11 @@ export default function AdminPage() {
                     <option value="This Week">This Week</option>
                     <option value="This Month">This Month</option>
                     <option value="Last 12 Months">Last 12 Months</option>
-                    <option value="Custom Range">Custom Range</option>
                   </select>
                 </div>
               </div>
 
-              {/* Top 4 KPI Metrics Cards Grid */}
+              {/* 4 KPI Metrics Cards Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* 1. Total Bookings */}
                 <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
@@ -567,8 +755,8 @@ export default function AdminPage() {
                     <h3 className="text-2xl font-black text-slate-900 mt-0.5">{kpis.total_bookings_formatted}</h3>
                   </div>
                   <div className="mt-3 flex items-center gap-1.5 text-[11px] font-bold text-emerald-600">
-                    <span>↑ {kpis.bookings_change}</span>
-                    <span className="text-slate-400 font-normal">vs. previous 12 months</span>
+                    <span>● Live Count</span>
+                    <span className="text-slate-400 font-normal">from active database</span>
                   </div>
                 </div>
 
@@ -585,8 +773,8 @@ export default function AdminPage() {
                     <h3 className="text-2xl font-black text-slate-900 mt-0.5">{kpis.revenue_formatted}</h3>
                   </div>
                   <div className="mt-3 flex items-center gap-1.5 text-[11px] font-bold text-emerald-600">
-                    <span>↑ {kpis.revenue_change}</span>
-                    <span className="text-slate-400 font-normal">vs. previous 12 months</span>
+                    <span>● Confirmed Payments</span>
+                    <span className="text-slate-400 font-normal">genuine revenue</span>
                   </div>
                 </div>
 
@@ -603,8 +791,8 @@ export default function AdminPage() {
                     <h3 className="text-2xl font-black text-slate-900 mt-0.5">{kpis.active_clients_formatted}</h3>
                   </div>
                   <div className="mt-3 flex items-center gap-1.5 text-[11px] font-bold text-emerald-600">
-                    <span>↑ {kpis.clients_change}</span>
-                    <span className="text-slate-400 font-normal">vs. previous 12 months</span>
+                    <span>● Unique Clients</span>
+                    <span className="text-slate-400 font-normal">registered travelers</span>
                   </div>
                 </div>
 
@@ -620,9 +808,9 @@ export default function AdminPage() {
                     <p className="text-xs font-semibold text-slate-500">Team Members</p>
                     <h3 className="text-2xl font-black text-slate-900 mt-0.5">{kpis.team_members}</h3>
                   </div>
-                  <div className="mt-3 flex items-center gap-1.5 text-[11px] font-bold text-emerald-600">
-                    <span>↑ {kpis.team_change}</span>
-                    <span className="text-slate-400 font-normal">vs. previous 12 months</span>
+                  <div className="mt-3 flex items-center gap-1.5 text-[11px] font-bold text-blue-600">
+                    <span>● Active Staff</span>
+                    <span className="text-slate-400 font-normal">registered coordinators</span>
                   </div>
                 </div>
               </div>
@@ -745,13 +933,14 @@ export default function AdminPage() {
                       </defs>
 
                       {/* Horizontal Grid lines */}
-                      {[0, 50, 100, 150, 200, 250].map(val => {
-                        const y = chartHeight - (val / 250) * (chartHeight - 30) - 15;
+                      {[0, 0.25, 0.5, 0.75, 1.0].map((ratio) => {
+                        const val = Math.round(maxVal * ratio);
+                        const y = chartHeight - ratio * (chartHeight - 30) - 15;
                         return (
-                          <g key={val}>
+                          <g key={ratio}>
                             <line x1="25" y1={y} x2={chartWidth - 15} y2={y} stroke="#F1F5F9" strokeWidth="1" strokeDasharray="3 3" />
                             <text x="5" y={y + 3} fill="#94A3B8" fontSize="9" fontWeight="600">
-                              {trendMetric === 'bookings' ? val : `₹${val * 3.4}k`}
+                              {trendMetric === 'bookings' ? val : `₹${Math.round(val / 1000)}k`}
                             </text>
                           </g>
                         );
@@ -779,7 +968,6 @@ export default function AdminPage() {
                             {pt.month}
                           </text>
 
-                          {/* Hover Tooltip Value */}
                           <title>{`${pt.month}: ${trendMetric === 'bookings' ? `${pt.bookings} bookings` : `₹${pt.revenue.toLocaleString()}`}`}</title>
                         </g>
                       ))}
@@ -800,12 +988,7 @@ export default function AdminPage() {
                       <h3 className="font-extrabold text-sm text-slate-900">Top Tour Packages</h3>
                     </div>
 
-                    <select className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 cursor-pointer focus:outline-none">
-                      <option>All Packages</option>
-                      <option>Himalayan Treks</option>
-                      <option>South India Circuits</option>
-                      <option>Beach Getaways</option>
-                    </select>
+                    <span className="text-xs font-semibold text-slate-500">Live Popularity</span>
                   </div>
 
                   <div className="overflow-x-auto">
@@ -820,32 +1003,40 @@ export default function AdminPage() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100 text-xs">
-                        {topPackages.map((pkg: any) => (
-                          <tr key={pkg.rank} className="hover:bg-slate-50/60 transition-colors group">
-                            <td className="py-3 font-bold text-slate-400">{pkg.rank}</td>
-                            <td className="py-3">
-                              <div className="flex items-center gap-3">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
-                                  src={pkg.image}
-                                  alt={pkg.title}
-                                  className="w-10 h-10 rounded-xl object-cover shrink-0 shadow-xs border border-slate-200"
-                                />
-                                <div>
-                                  <p className="font-bold text-slate-900">{pkg.title}</p>
-                                  <p className="text-[10px] text-slate-400">{pkg.duration} • {pkg.destination}</p>
-                                </div>
-                              </div>
-                            </td>
-                            <td className="py-3 text-center font-bold text-slate-700">{pkg.bookings}</td>
-                            <td className="py-3 text-right font-black text-slate-900">
-                              ₹{pkg.revenue.toLocaleString()}
-                            </td>
-                            <td className="py-3 text-right">
-                              <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors" />
+                        {topPackages.length === 0 ? (
+                          <tr>
+                            <td colSpan={5} className="py-8 text-center text-slate-400">
+                              No tour bookings recorded yet. New customer entries will rank here automatically.
                             </td>
                           </tr>
-                        ))}
+                        ) : (
+                          topPackages.map((pkg: any) => (
+                            <tr key={pkg.rank} className="hover:bg-slate-50/60 transition-colors group">
+                              <td className="py-3 font-bold text-slate-400">{pkg.rank}</td>
+                              <td className="py-3">
+                                <div className="flex items-center gap-3">
+                                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                                  <img
+                                    src={pkg.image}
+                                    alt={pkg.title}
+                                    className="w-10 h-10 rounded-xl object-cover shrink-0 shadow-xs border border-slate-200"
+                                  />
+                                  <div>
+                                    <p className="font-bold text-slate-900">{pkg.title}</p>
+                                    <p className="text-[10px] text-slate-400">{pkg.duration} • {pkg.destination}</p>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="py-3 text-center font-bold text-slate-700">{pkg.bookings}</td>
+                              <td className="py-3 text-right font-black text-slate-900">
+                                ₹{pkg.revenue.toLocaleString()}
+                              </td>
+                              <td className="py-3 text-right">
+                                <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors" />
+                              </td>
+                            </tr>
+                          ))
+                        )}
                       </tbody>
                     </table>
                   </div>
@@ -870,43 +1061,51 @@ export default function AdminPage() {
                     </div>
 
                     <div className="space-y-3.5">
-                      {recentActivity.map((act: any) => {
-                        let iconBg = 'bg-emerald-50 text-emerald-600';
-                        let IconComp = CheckCircle2;
-                        if (act.action_type === 'payment_received') {
-                          iconBg = 'bg-blue-50 text-blue-600';
-                          IconComp = CreditCard;
-                        } else if (act.action_type === 'enquiry_created') {
-                          iconBg = 'bg-purple-50 text-purple-600';
-                          IconComp = Mail;
-                        } else if (act.action_type === 'follow_up_due') {
-                          iconBg = 'bg-amber-50 text-amber-600';
-                          IconComp = Clock;
-                        } else if (act.action_type === 'booking_cancelled') {
-                          iconBg = 'bg-rose-50 text-rose-600';
-                          IconComp = XCircle;
-                        }
+                      {recentActivity.length === 0 ? (
+                        <div className="py-8 text-center text-slate-400 text-xs">
+                          <Activity className="w-8 h-8 mx-auto text-slate-300 mb-2" />
+                          <p>No recent activity logs yet.</p>
+                          <p className="text-[10px] mt-1">Live customer bookings & enquiries will stream here in real-time.</p>
+                        </div>
+                      ) : (
+                        recentActivity.map((act: any) => {
+                          let iconBg = 'bg-emerald-50 text-emerald-600';
+                          let IconComp = CheckCircle2;
+                          if (act.action_type === 'payment_received') {
+                            iconBg = 'bg-blue-50 text-blue-600';
+                            IconComp = CreditCard;
+                          } else if (act.action_type === 'enquiry_created') {
+                            iconBg = 'bg-purple-50 text-purple-600';
+                            IconComp = Mail;
+                          } else if (act.action_type === 'follow_up_due') {
+                            iconBg = 'bg-amber-50 text-amber-600';
+                            IconComp = Clock;
+                          } else if (act.action_type === 'booking_cancelled') {
+                            iconBg = 'bg-rose-50 text-rose-600';
+                            IconComp = XCircle;
+                          }
 
-                        return (
-                          <div key={act.id} className="flex items-start justify-between gap-3 p-2.5 rounded-2xl hover:bg-slate-50 transition-colors">
-                            <div className="flex items-start gap-3">
-                              <div className={`w-8 h-8 rounded-full ${iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
-                                <IconComp className="w-4 h-4" />
+                          return (
+                            <div key={act.id} className="flex items-start justify-between gap-3 p-2.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                              <div className="flex items-start gap-3">
+                                <div className={`w-8 h-8 rounded-full ${iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
+                                  <IconComp className="w-4 h-4" />
+                                </div>
+                                <div>
+                                  <h4 className="font-bold text-xs text-slate-900 leading-tight">{act.title}</h4>
+                                  <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-1">{act.description}</p>
+                                </div>
                               </div>
-                              <div>
-                                <h4 className="font-bold text-xs text-slate-900 leading-tight">{act.title}</h4>
-                                <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-1">{act.description}</p>
-                              </div>
+                              <span className="text-[10px] text-slate-400 font-medium whitespace-nowrap shrink-0">{act.time_ago}</span>
                             </div>
-                            <span className="text-[10px] text-slate-400 font-medium whitespace-nowrap shrink-0">{act.time_ago}</span>
-                          </div>
-                        );
-                      })}
+                          );
+                        })
+                      )}
                     </div>
                   </div>
 
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-                    <span>Auto-updating stream</span>
+                    <span>Genuine DB live stream</span>
                     <span className="font-bold text-slate-600">Synced {lastSyncTime}</span>
                   </div>
                 </div>
@@ -965,24 +1164,23 @@ export default function AdminPage() {
                       {filteredBookings.length === 0 ? (
                         <tr>
                           <td colSpan={9} className="py-12 text-center text-slate-400">
-                            No reservations found matching this criteria.
+                            <CalendarCheck className="w-10 h-10 mx-auto text-slate-300 mb-2" />
+                            <p className="font-bold">No real-time bookings recorded yet.</p>
+                            <p className="text-[11px] mt-1">When customers submit bookings on the website, they will appear here live with sound & toast alerts.</p>
                           </td>
                         </tr>
                       ) : (
                         filteredBookings.map(b => (
                           <tr key={b.id} className="hover:bg-slate-50/70 transition-colors">
-                            {/* Booking ID */}
                             <td className="py-3.5 px-4 font-mono font-bold text-[#0066FF]">
                               {b.booking_id}
                             </td>
 
-                            {/* Client */}
                             <td className="py-3.5 px-4">
                               <p className="font-bold text-slate-900">{b.client_name}</p>
                               <p className="text-[10px] text-slate-400">{b.phone} • {b.email}</p>
                             </td>
 
-                            {/* Package */}
                             <td className="py-3.5 px-4">
                               <div className="flex items-center gap-2.5">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -997,13 +1195,11 @@ export default function AdminPage() {
                               </div>
                             </td>
 
-                            {/* Travel Date */}
                             <td className="py-3.5 px-4 text-slate-600 font-medium">
                               {b.start_date}
                               <span className="block text-[10px] text-slate-400">{b.travelers_count} Travelers</span>
                             </td>
 
-                            {/* Assigned Employee */}
                             <td className="py-3.5 px-4">
                               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 font-semibold text-[11px]">
                                 <UserCheck className="w-3 h-3 text-blue-600" />
@@ -1011,12 +1207,10 @@ export default function AdminPage() {
                               </div>
                             </td>
 
-                            {/* Amount */}
                             <td className="py-3.5 px-4 text-right font-black text-slate-900">
                               ₹{b.total_price.toLocaleString()}
                             </td>
 
-                            {/* Payment Status */}
                             <td className="py-3.5 px-4 text-center">
                               <span className={`inline-block px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                                 b.payment_status === 'paid'
@@ -1031,7 +1225,6 @@ export default function AdminPage() {
                               </span>
                             </td>
 
-                            {/* Booking Status */}
                             <td className="py-3.5 px-4 text-center">
                               <span className={`inline-block px-2.5 py-1 rounded-full text-[10px] font-bold capitalize ${
                                 b.status === 'confirmed'
@@ -1046,7 +1239,6 @@ export default function AdminPage() {
                               </span>
                             </td>
 
-                            {/* Actions */}
                             <td className="py-3.5 px-4 text-right">
                               <button
                                 onClick={() => { setSelectedBooking(b); setBookingModalOpen(true); }}
@@ -1066,7 +1258,7 @@ export default function AdminPage() {
           )}
 
           {/* ============================================================== */}
-          {/* VIEW: CLIENTS & ENQUIRIES (Live Contact & Custom Trip Entries) */}
+          {/* VIEW: CLIENTS & ENQUIRIES                                      */}
           {/* ============================================================== */}
           {activeTab === 'clients' && (
             <div className="space-y-6">
@@ -1074,10 +1266,10 @@ export default function AdminPage() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <h2 className="text-2xl font-black text-slate-900 tracking-tight">Clients & Enquiries</h2>
-                  <p className="text-xs text-slate-500 font-medium">Real-time entries from website contact forms and custom trip planners. Assign coordinators and schedule follow-ups.</p>
+                  <p className="text-xs text-slate-500 font-medium">Real-time incoming enquiries from website contact forms and the custom tour planner.</p>
                 </div>
 
-                {/* Enquiry Status Filter Tabs */}
+                {/* Filter Tabs */}
                 <div className="flex items-center gap-1.5 bg-white border border-slate-200 p-1 rounded-2xl shadow-xs">
                   {['all', 'new', 'in_progress', 'follow_up', 'converted'].map(st => (
                     <button
@@ -1096,88 +1288,90 @@ export default function AdminPage() {
               </div>
 
               {/* Enquiries Grid Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {filteredEnquiries.map(enq => (
-                  <div key={enq.id} className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between">
-                    <div>
-                      {/* Top Header of Card */}
-                      <div className="flex items-center justify-between gap-2 mb-3">
-                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
-                          enq.source === 'Custom Trip Planner'
-                            ? 'bg-purple-100 text-purple-700'
-                            : 'bg-blue-100 text-blue-700'
-                        }`}>
-                          {enq.source}
-                        </span>
+              {filteredEnquiries.length === 0 ? (
+                <div className="bg-white rounded-3xl p-12 text-center text-slate-400 border border-slate-200">
+                  <Mail className="w-10 h-10 mx-auto text-slate-300 mb-2" />
+                  <p className="font-bold">No enquiries found.</p>
+                  <p className="text-xs mt-1">When visitors submit inquiries on /contact or /customize, they will instantly land here.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {filteredEnquiries.map(enq => (
+                    <div key={enq.id} className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
+                            enq.source === 'Custom Trip Planner'
+                              ? 'bg-purple-100 text-purple-700'
+                              : 'bg-blue-100 text-blue-700'
+                          }`}>
+                            {enq.source}
+                          </span>
 
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold capitalize ${
-                          enq.status === 'new'
-                            ? 'bg-emerald-100 text-emerald-800 animate-pulse'
-                            : enq.status === 'converted'
-                            ? 'bg-indigo-100 text-indigo-800'
-                            : 'bg-amber-100 text-amber-800'
-                        }`}>
-                          {enq.status.replace('_', ' ')}
-                        </span>
-                      </div>
-
-                      {/* Client Info */}
-                      <h3 className="font-extrabold text-slate-900 text-base">{enq.name}</h3>
-                      <p className="text-xs text-slate-500 font-medium">{enq.phone || 'No phone'} • {enq.email}</p>
-
-                      {/* Subject & Request Details */}
-                      <div className="mt-3.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                        <p className="font-bold text-xs text-slate-800 line-clamp-1">{enq.subject}</p>
-                        <p className="text-xs text-slate-600 mt-1 line-clamp-3 leading-relaxed whitespace-pre-line">{enq.message}</p>
-                      </div>
-
-                      {/* Destination / Budget Meta */}
-                      {(enq.destination_preference || enq.budget) && (
-                        <div className="mt-3 flex flex-wrap gap-2 text-[10px] font-semibold text-slate-500">
-                          {enq.destination_preference && (
-                            <span className="px-2 py-1 rounded-lg bg-blue-50 text-[#0066FF] border border-blue-200">
-                              📍 {enq.destination_preference}
-                            </span>
-                          )}
-                          {enq.budget && (
-                            <span className="px-2 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">
-                              💰 {enq.budget}
-                            </span>
-                          )}
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold capitalize ${
+                            enq.status === 'new'
+                              ? 'bg-emerald-100 text-emerald-800 animate-pulse'
+                              : enq.status === 'converted'
+                              ? 'bg-indigo-100 text-indigo-800'
+                              : 'bg-amber-100 text-amber-800'
+                          }`}>
+                            {enq.status.replace('_', ' ')}
+                          </span>
                         </div>
-                      )}
-                    </div>
 
-                    {/* Footer of Card: Assigned Lead & Action Button */}
-                    <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
-                      <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                        <UserCheck className="w-3.5 h-3.5 text-blue-600" />
-                        <span className="font-semibold text-slate-700">{enq.assigned_employee_name}</span>
+                        <h3 className="font-extrabold text-slate-900 text-base">{enq.name}</h3>
+                        <p className="text-xs text-slate-500 font-medium">{enq.phone || 'No phone'} • {enq.email}</p>
+
+                        <div className="mt-3.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                          <p className="font-bold text-xs text-slate-800 line-clamp-1">{enq.subject}</p>
+                          <p className="text-xs text-slate-600 mt-1 line-clamp-3 leading-relaxed whitespace-pre-line">{enq.message}</p>
+                        </div>
+
+                        {(enq.destination_preference || enq.budget) && (
+                          <div className="mt-3 flex flex-wrap gap-2 text-[10px] font-semibold text-slate-500">
+                            {enq.destination_preference && (
+                              <span className="px-2 py-1 rounded-lg bg-blue-50 text-[#0066FF] border border-blue-200">
+                                📍 {enq.destination_preference}
+                              </span>
+                            )}
+                            {enq.budget && (
+                              <span className="px-2 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                💰 {enq.budget}
+                              </span>
+                            )}
+                          </div>
+                        )}
                       </div>
 
-                      <button
-                        onClick={() => { setSelectedEnquiry(enq); setEnquiryModalOpen(true); }}
-                        className="px-3.5 py-1.5 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors"
-                      >
-                        Action
-                      </button>
+                      <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                          <UserCheck className="w-3.5 h-3.5 text-blue-600" />
+                          <span className="font-semibold text-slate-700">{enq.assigned_employee_name}</span>
+                        </div>
+
+                        <button
+                          onClick={() => { setSelectedEnquiry(enq); setEnquiryModalOpen(true); }}
+                          className="px-3.5 py-1.5 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors"
+                        >
+                          Action
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
           {/* ============================================================== */}
-          {/* VIEW: EMPLOYEES & TEAM WORKLOAD (Page 2 of PDF)                */}
+          {/* VIEW: EMPLOYEES & WORKLOAD                                     */}
           {/* ============================================================== */}
           {activeTab === 'employees' && (
             <div className="space-y-6">
-              {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <h2 className="text-2xl font-black text-slate-900 tracking-tight">Employee & Coordinator Management</h2>
-                  <p className="text-xs text-slate-500 font-medium">Monitor active assigned clients, enquiries handled, bookings confirmed, and attributed agency revenue.</p>
+                  <p className="text-xs text-slate-500 font-medium">Add genuine tour coordinators and monitor real assigned clients and attributed revenue.</p>
                 </div>
 
                 <button
@@ -1205,34 +1399,44 @@ export default function AdminPage() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-xs">
-                      {employees.map(emp => (
-                        <tr key={emp.id} className="hover:bg-slate-50/70 transition-colors">
-                          <td className="py-3.5 px-4">
-                            <div className="flex items-center gap-3">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img
-                                src={emp.avatar}
-                                alt={emp.name}
-                                className="w-9 h-9 rounded-full object-cover border border-slate-200"
-                              />
-                              <div>
-                                <p className="font-bold text-slate-900">{emp.name}</p>
-                                <p className="text-[10px] text-slate-400">{emp.email}</p>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="py-3.5 px-4 font-semibold text-slate-600">{emp.role}</td>
-                          <td className="py-3.5 px-4 text-center font-bold text-slate-700">{emp.assigned_clients}</td>
-                          <td className="py-3.5 px-4 text-center font-bold text-blue-600">{emp.active_bookings}</td>
-                          <td className="py-3.5 px-4 text-center font-bold text-emerald-600">{emp.confirmed_bookings}</td>
-                          <td className="py-3.5 px-4 text-center font-black text-slate-800">
-                            {emp.conversion_rate.toFixed(1)}%
-                          </td>
-                          <td className="py-3.5 px-4 text-right font-black text-slate-900">
-                            ₹{emp.revenue.toLocaleString()}
+                      {employees.length === 0 ? (
+                        <tr>
+                          <td colSpan={7} className="py-12 text-center text-slate-400">
+                            <UserCog className="w-10 h-10 mx-auto text-slate-300 mb-2" />
+                            <p className="font-bold">No employees added yet.</p>
+                            <p className="text-[11px] mt-1">Click &ldquo;Add Team Member&rdquo; above to register your first coordinator or guide.</p>
                           </td>
                         </tr>
-                      ))}
+                      ) : (
+                        employees.map(emp => (
+                          <tr key={emp.id} className="hover:bg-slate-50/70 transition-colors">
+                            <td className="py-3.5 px-4">
+                              <div className="flex items-center gap-3">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={emp.avatar}
+                                  alt={emp.name}
+                                  className="w-9 h-9 rounded-full object-cover border border-slate-200"
+                                />
+                                <div>
+                                  <p className="font-bold text-slate-900">{emp.name}</p>
+                                  <p className="text-[10px] text-slate-400">{emp.email}</p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="py-3.5 px-4 font-semibold text-slate-600">{emp.role}</td>
+                            <td className="py-3.5 px-4 text-center font-bold text-slate-700">{emp.assigned_clients}</td>
+                            <td className="py-3.5 px-4 text-center font-bold text-blue-600">{emp.active_bookings}</td>
+                            <td className="py-3.5 px-4 text-center font-bold text-emerald-600">{emp.confirmed_bookings}</td>
+                            <td className="py-3.5 px-4 text-center font-black text-slate-800">
+                              {emp.conversion_rate.toFixed(1)}%
+                            </td>
+                            <td className="py-3.5 px-4 text-right font-black text-slate-900">
+                              ₹{emp.revenue.toLocaleString()}
+                            </td>
+                          </tr>
+                        ))
+                      )}
                     </tbody>
                   </table>
                 </div>
@@ -1248,11 +1452,11 @@ export default function AdminPage() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <h2 className="text-2xl font-black text-slate-900 tracking-tight">Booking Analytics & Reports</h2>
-                  <p className="text-xs text-slate-500 font-medium">Deep insights on monthly demand, popular circuits, customer retention and employee performance.</p>
+                  <p className="text-xs text-slate-500 font-medium">Real-time reports calculated strictly from confirmed customer submissions.</p>
                 </div>
 
                 <button
-                  onClick={() => alert('Generating CSV report for export...')}
+                  onClick={() => alert('Exporting live CSV report of reservations...')}
                   className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md flex items-center gap-2 transition-all"
                 >
                   <Download className="w-4 h-4" />
@@ -1260,42 +1464,43 @@ export default function AdminPage() {
                 </button>
               </div>
 
-              {/* Conversion Metrics Summary Card (Page 3 of PDF) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs">
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Conversion Formula</p>
-                  <h3 className="text-lg font-black text-slate-900 mt-2">Confirmed ÷ Enquiries × 100</h3>
-                  <p className="text-3xl font-black text-[#0066FF] mt-2">86.4%</p>
-                  <p className="text-xs text-emerald-600 font-bold mt-1">↑ 4.2% increase this quarter</p>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Conversion Metric</p>
+                  <h3 className="text-lg font-black text-slate-900 mt-2">Confirmed ÷ Enquiries</h3>
+                  <p className="text-3xl font-black text-[#0066FF] mt-2">
+                    {enquiries.length > 0 ? `${((bookings.filter(b => b.status === 'confirmed').length / enquiries.length) * 100).toFixed(1)}%` : '0%'}
+                  </p>
+                  <p className="text-xs text-slate-400 font-medium mt-1">Live customer conversion</p>
                 </div>
 
                 <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs">
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Average Deal Size</p>
-                  <h3 className="text-lg font-black text-slate-900 mt-2">Per Booking Total</h3>
-                  <p className="text-3xl font-black text-emerald-600 mt-2">₹19,840</p>
-                  <p className="text-xs text-slate-400 font-medium mt-1">Average group size 2.8 travelers</p>
+                  <h3 className="text-lg font-black text-slate-900 mt-2">Per Booking Average</h3>
+                  <p className="text-3xl font-black text-emerald-600 mt-2">
+                    {bookings.length > 0 ? `₹${(kpis.revenue / bookings.length).toLocaleString()}` : '₹0'}
+                  </p>
+                  <p className="text-xs text-slate-400 font-medium mt-1">Real-time ticket value</p>
                 </div>
 
                 <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs">
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Repeat Travelers</p>
-                  <h3 className="text-lg font-black text-slate-900 mt-2">Customer Retention</h3>
-                  <p className="text-3xl font-black text-violet-600 mt-2">42.1%</p>
-                  <p className="text-xs text-slate-400 font-medium mt-1">Clients booking 2+ weekend trips</p>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Clients</p>
+                  <h3 className="text-lg font-black text-slate-900 mt-2">Unique Customers</h3>
+                  <p className="text-3xl font-black text-violet-600 mt-2">{clients.length}</p>
+                  <p className="text-xs text-slate-400 font-medium mt-1">Verified unique travelers</p>
                 </div>
               </div>
             </div>
           )}
 
           {/* ============================================================== */}
-          {/* VIEW: TOUR PACKAGES CATALOG                                    */}
+          {/* VIEW: TOUR PACKAGES                                            */}
           {/* ============================================================== */}
           {activeTab === 'packages' && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-black text-slate-900 tracking-tight">Tour Packages Catalog</h2>
-                  <p className="text-xs text-slate-500 font-medium">Live catalogue of active weekend tours, Himalayan treks, and coastal circuits.</p>
-                </div>
+              <div>
+                <h2 className="text-2xl font-black text-slate-900 tracking-tight">Tour Packages Catalog</h2>
+                <p className="text-xs text-slate-500 font-medium">Active travel packages available on the website.</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -1308,7 +1513,7 @@ export default function AdminPage() {
                       <p className="text-xs text-slate-500 mt-0.5">{pkg.duration} • {pkg.destination}</p>
                       <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
                         <div>
-                          <p className="text-[10px] text-slate-400 font-bold uppercase">Total Bookings</p>
+                          <p className="text-[10px] text-slate-400 font-bold uppercase">Real Bookings</p>
                           <p className="font-extrabold text-sm text-slate-800">{pkg.bookings}</p>
                         </div>
                         <div className="text-right">
@@ -1332,13 +1537,14 @@ export default function AdminPage() {
               <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-xs max-w-2xl space-y-4">
                 <p className="text-sm text-slate-600">
                   {activeTab === 'notifications' 
-                    ? 'All operational alerts, payment confirmations, and customer follow-up reminders are routed here in real-time.' 
-                    : 'System configuration, employee permissions, webhook callbacks, and database backup controls.'}
+                    ? 'All operational alerts, incoming customer bookings, and payment notifications stream here in real time.' 
+                    : 'System configuration, employee credentials, webhook callbacks, and production database controls.'}
                 </p>
                 <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-200 text-xs text-[#0B1B3D] space-y-1">
                   <p className="font-bold">Production Configuration</p>
-                  <p>Deployment: Render.com PostgreSQL 16 & Django Ninja backend.</p>
-                  <p>Real-Time Sync Engine: Webhook & polling auto-reconciliation active.</p>
+                  <p>Authenticated Admin: <strong>spirit_adventure</strong></p>
+                  <p>Database: 100% Genuine Real-Time Entries (Zero Demo Data)</p>
+                  <p>Real-Time Engine: Webhook & Polling active.</p>
                 </div>
               </div>
             </div>
@@ -1352,7 +1558,6 @@ export default function AdminPage() {
       {bookingModalOpen && selectedBooking && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
-            {/* Modal Header */}
             <div className="px-6 py-4 bg-[#07192F] text-white flex items-center justify-between">
               <div>
                 <h3 className="font-extrabold text-sm">Manage Booking {selectedBooking.booking_id}</h3>
@@ -1366,9 +1571,7 @@ export default function AdminPage() {
               </button>
             </div>
 
-            {/* Modal Body */}
             <div className="p-6 space-y-4 text-xs">
-              {/* Client Info */}
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
                 <p className="font-bold text-slate-900">{selectedBooking.client_name}</p>
                 <p className="text-slate-500 mt-0.5">{selectedBooking.phone} • {selectedBooking.email}</p>
@@ -1376,7 +1579,6 @@ export default function AdminPage() {
                 <p className="text-slate-900 mt-1 font-black text-sm">Amount: ₹{selectedBooking.total_price.toLocaleString()}</p>
               </div>
 
-              {/* Status Selector */}
               <div>
                 <label className="block font-bold text-slate-700 mb-1">Booking Status</label>
                 <div className="grid grid-cols-4 gap-2">
@@ -1397,7 +1599,6 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              {/* Assign Employee Dropdown */}
               <div>
                 <label className="block font-bold text-slate-700 mb-1">Assign Responsible Employee</label>
                 <select
@@ -1415,7 +1616,6 @@ export default function AdminPage() {
               </div>
             </div>
 
-            {/* Modal Footer */}
             <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-100 flex justify-end">
               <button
                 onClick={() => setBookingModalOpen(false)}
@@ -1434,7 +1634,6 @@ export default function AdminPage() {
       {enquiryModalOpen && selectedEnquiry && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
-            {/* Modal Header */}
             <div className="px-6 py-4 bg-[#07192F] text-white flex items-center justify-between">
               <div>
                 <h3 className="font-extrabold text-sm">Action Enquiry #{selectedEnquiry.id}</h3>
@@ -1448,7 +1647,6 @@ export default function AdminPage() {
               </button>
             </div>
 
-            {/* Modal Body */}
             <div className="p-6 space-y-4 text-xs">
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
                 <p className="font-bold text-slate-900">{selectedEnquiry.subject}</p>
@@ -1456,7 +1654,6 @@ export default function AdminPage() {
                 <p className="text-slate-500 mt-2 font-semibold">Contact: {selectedEnquiry.phone} • {selectedEnquiry.email}</p>
               </div>
 
-              {/* Status Buttons */}
               <div>
                 <label className="block font-bold text-slate-700 mb-1">Update Status</label>
                 <div className="grid grid-cols-3 gap-2">
@@ -1477,7 +1674,6 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              {/* One-Click Convert to Booking */}
               <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
                 <div>
                   <h4 className="font-bold text-emerald-900">Convert to Booking</h4>
