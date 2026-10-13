@@ -45,7 +45,14 @@ import {
   Lock,
   User,
   LogOut,
-  Loader2
+  Loader2,
+  Trash2,
+  ExternalLink,
+  Star,
+  Tag,
+  Image as ImageIcon,
+  Layers,
+  ListChecks
 } from 'lucide-react';
 import { 
   fetchAdminDashboard, 
@@ -58,7 +65,13 @@ import {
   fetchAdminEmployees, 
   createAdminEmployee, 
   fetchAdminClients,
-  adminLogin
+  adminLogin,
+  fetchAdminTourPackages,
+  createAdminTourPackage,
+  deleteAdminTourPackage,
+  toggleAdminTourPackageFeatured,
+  fetchDestinations,
+  fetchCategories
 } from '@/lib/api';
 
 // Types
@@ -119,6 +132,43 @@ export default function AdminPage() {
   const [newEmployeeEmail, setNewEmployeeEmail] = useState('');
   const [newEmployeePhone, setNewEmployeePhone] = useState('');
 
+  // Tour Packages Catalog state
+  const [adminPackages, setAdminPackages] = useState<any[]>([]);
+  const [destinationsList, setDestinationsList] = useState<any[]>([]);
+  const [categoriesList, setCategoriesList] = useState<any[]>([]);
+  const [packageSearch, setPackageSearch] = useState<string>('');
+  const [packageCategoryFilter, setPackageCategoryFilter] = useState<string>('all');
+  const [packageDestinationFilter, setPackageDestinationFilter] = useState<string>('all');
+  const [packageFeaturedFilter, setPackageFeaturedFilter] = useState<string>('all');
+  const [addTourModalOpen, setAddTourModalOpen] = useState<boolean>(false);
+  const [deleteTourModalOpen, setDeleteTourModalOpen] = useState<boolean>(false);
+  const [tourToDelete, setTourToDelete] = useState<any | null>(null);
+  const [isSubmittingTour, setIsSubmittingTour] = useState<boolean>(false);
+  const [isDeletingTour, setIsDeletingTour] = useState<boolean>(false);
+
+  // New Tour Form State
+  const [newTour, setNewTour] = useState({
+    title: '',
+    tagline: '',
+    destination_id: '',
+    destination_name: '',
+    category_id: '',
+    category_name: '',
+    duration_days: 2,
+    difficulty: 'Moderate',
+    price: '',
+    discount_price: '',
+    max_altitude: '2,000 m / 6,560 ft',
+    group_size: '4 - 15 Travelers',
+    is_featured: false,
+    hero_image: '/assets/img/Testimonals/01.webp',
+    overview: '',
+    highlights_raw: 'Curated scenic trails & guided sightseeing\nRound-trip transportation from pickup hub\nComfortable experiential stay included\nExpert certified trek leader & safety gear',
+    included_raw: 'Accommodation\nTransportation\nGuided Sightseeing\nEntry Permits',
+    excluded_raw: 'Personal expenses\nOptional watersports / activities\nTravel insurance',
+    upcoming_dates_raw: 'Every Weekend (Fri - Sun)\nUpcoming Public Holidays'
+  });
+
   // Check login session on mount
   useEffect(() => {
     const token = localStorage.getItem('spirit_adventure_admin_token');
@@ -165,12 +215,15 @@ export default function AdminPage() {
   const loadData = useCallback(async (isBackground = false) => {
     if (!isBackground) setIsRefreshing(true);
     try {
-      const [dash, bList, eList, empList, cList] = await Promise.all([
+      const [dash, bList, eList, empList, cList, pkgsList, destsList, catsList] = await Promise.all([
         fetchAdminDashboard(dateFilter),
         fetchAdminBookings(),
         fetchAdminEnquiries(),
         fetchAdminEmployees(),
-        fetchAdminClients()
+        fetchAdminClients(),
+        fetchAdminTourPackages(),
+        fetchDestinations(),
+        fetchCategories()
       ]);
 
       if (dash) setDashboardData(dash);
@@ -191,6 +244,9 @@ export default function AdminPage() {
       }
       if (empList) setEmployees(empList);
       if (cList) setClients(cList);
+      if (pkgsList) setAdminPackages(pkgsList);
+      if (destsList) setDestinationsList(destsList);
+      if (catsList) setCategoriesList(catsList);
 
       setLastSyncTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
     } catch (err) {
@@ -305,6 +361,140 @@ export default function AdminPage() {
       alert('Failed to add employee');
     }
   };
+
+  // Handle Add Tour
+  const handleAddTourSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTour.title.trim()) {
+      alert('Please enter a tour title.');
+      return;
+    }
+    if (!newTour.price || Number(newTour.price) <= 0) {
+      alert('Please enter a valid tour price.');
+      return;
+    }
+
+    setIsSubmittingTour(true);
+    try {
+      const payload: any = {
+        title: newTour.title.trim(),
+        tagline: newTour.tagline.trim() || `Exciting ${newTour.duration_days}-Day Trip`,
+        duration_days: Number(newTour.duration_days) || 2,
+        difficulty: newTour.difficulty,
+        price: Number(newTour.price),
+        discount_price: newTour.discount_price ? Number(newTour.discount_price) : undefined,
+        max_altitude: newTour.max_altitude,
+        group_size: newTour.group_size,
+        is_featured: Boolean(newTour.is_featured),
+        hero_image: newTour.hero_image || '/assets/img/Testimonals/01.webp',
+        overview: newTour.overview.trim(),
+        highlights: newTour.highlights_raw.split('\n').map(s => s.trim()).filter(Boolean),
+        included: newTour.included_raw.split('\n').map(s => s.trim()).filter(Boolean),
+        excluded: newTour.excluded_raw.split('\n').map(s => s.trim()).filter(Boolean),
+        upcoming_dates: newTour.upcoming_dates_raw.split('\n').map(s => s.trim()).filter(Boolean)
+      };
+
+      if (newTour.destination_id && newTour.destination_id !== 'custom') {
+        payload.destination_id = Number(newTour.destination_id);
+      } else if (newTour.destination_name.trim()) {
+        payload.destination_name = newTour.destination_name.trim();
+      }
+
+      if (newTour.category_id && newTour.category_id !== 'custom') {
+        payload.category_id = Number(newTour.category_id);
+      } else if (newTour.category_name.trim()) {
+        payload.category_name = newTour.category_name.trim();
+      }
+
+      const created = await createAdminTourPackage(payload);
+      setAdminPackages(prev => [created, ...prev]);
+      setAddTourModalOpen(false);
+      setToastNotification(`🚀 Tour Package "${created.title}" successfully added and live on the website!`);
+      // Reset form
+      setNewTour({
+        title: '',
+        tagline: '',
+        destination_id: '',
+        destination_name: '',
+        category_id: '',
+        category_name: '',
+        duration_days: 2,
+        difficulty: 'Moderate',
+        price: '',
+        discount_price: '',
+        max_altitude: '2,000 m / 6,560 ft',
+        group_size: '4 - 15 Travelers',
+        is_featured: false,
+        hero_image: '/assets/img/Testimonals/01.webp',
+        overview: '',
+        highlights_raw: 'Curated scenic trails & guided sightseeing\nRound-trip transportation from pickup hub\nComfortable experiential stay included\nExpert certified trek leader & safety gear',
+        included_raw: 'Accommodation\nTransportation\nGuided Sightseeing\nEntry Permits',
+        excluded_raw: 'Personal expenses\nOptional watersports / activities\nTravel insurance',
+        upcoming_dates_raw: 'Every Weekend (Fri - Sun)\nUpcoming Public Holidays'
+      });
+      loadData(true);
+    } catch (err: any) {
+      alert(`Error creating tour package: ${err.message || err}`);
+    } finally {
+      setIsSubmittingTour(false);
+    }
+  };
+
+  // Handle Confirm Delete Tour
+  const handleConfirmDeleteTour = async () => {
+    if (!tourToDelete) return;
+    setIsDeletingTour(true);
+    try {
+      await deleteAdminTourPackage(tourToDelete.id);
+      setAdminPackages(prev => prev.filter(p => p.id !== tourToDelete.id));
+      setToastNotification(`🗑️ Tour Package "${tourToDelete.title}" was removed from the catalog.`);
+      setDeleteTourModalOpen(false);
+      setTourToDelete(null);
+      loadData(true);
+    } catch (err: any) {
+      alert(`Error deleting tour package: ${err.message || err}`);
+    } finally {
+      setIsDeletingTour(false);
+    }
+  };
+
+  // Handle Toggle Featured
+  const handleToggleFeatured = async (pkg: any) => {
+    try {
+      await toggleAdminTourPackageFeatured(pkg.id);
+      setAdminPackages(prev => prev.map(p => p.id === pkg.id ? { ...p, is_featured: !p.is_featured } : p));
+      setToastNotification(`⭐ "${pkg.title}" is now ${!pkg.is_featured ? 'featured on homepage & navbar' : 'unfeatured'}`);
+      loadData(true);
+    } catch (err: any) {
+      alert(`Error toggling featured status: ${err.message || err}`);
+    }
+  };
+
+  // Filtered Tour Packages for Admin Catalog
+  const filteredPackages = useMemo(() => {
+    let result = [...adminPackages];
+    if (packageSearch.trim()) {
+      const q = packageSearch.toLowerCase();
+      result = result.filter(p =>
+        p.title?.toLowerCase().includes(q) ||
+        p.tagline?.toLowerCase().includes(q) ||
+        p.destination_name?.toLowerCase().includes(q) ||
+        p.category_name?.toLowerCase().includes(q)
+      );
+    }
+    if (packageCategoryFilter !== 'all') {
+      result = result.filter(p => String(p.category_id) === packageCategoryFilter);
+    }
+    if (packageDestinationFilter !== 'all') {
+      result = result.filter(p => String(p.destination_id) === packageDestinationFilter);
+    }
+    if (packageFeaturedFilter === 'featured') {
+      result = result.filter(p => p.is_featured);
+    } else if (packageFeaturedFilter === 'standard') {
+      result = result.filter(p => !p.is_featured);
+    }
+    return result;
+  }, [adminPackages, packageSearch, packageCategoryFilter, packageDestinationFilter, packageFeaturedFilter]);
 
   // Filtered Bookings for Table
   const filteredBookings = useMemo(() => {
@@ -1494,37 +1684,278 @@ export default function AdminPage() {
           )}
 
           {/* ============================================================== */}
-          {/* VIEW: TOUR PACKAGES                                            */}
+          {/* VIEW: TOUR PACKAGES CATALOG (Synced from Website + Add / Remove) */}
           {/* ============================================================== */}
           {activeTab === 'packages' && (
             <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-black text-slate-900 tracking-tight">Tour Packages Catalog</h2>
-                <p className="text-xs text-slate-500 font-medium">Active travel packages available on the website.</p>
+              {/* Header & Controls */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">Tour Packages Catalog</h2>
+                    <span className="px-3 py-1 rounded-full bg-blue-50 text-[#0066FF] font-bold text-xs border border-blue-100">
+                      {adminPackages.length} Packages Live
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-amber-50 text-amber-700 font-bold text-xs border border-amber-100">
+                      {adminPackages.filter(p => p.is_featured).length} Featured on Home
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 font-medium mt-1">
+                    Live tour catalog synced directly with main website. Add new packages, toggle featured highlights, or remove existing tours.
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => setAddTourModalOpen(true)}
+                  className="px-5 py-2.5 rounded-2xl bg-[#0066FF] hover:bg-blue-700 text-white font-bold text-xs shadow-lg shadow-blue-500/25 flex items-center gap-2 transition-all shrink-0 hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add New Tour</span>
+                </button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {topPackages.map((pkg: any) => (
-                  <div key={pkg.rank} className="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-xs">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={pkg.image} alt={pkg.title} className="w-full h-44 object-cover" />
-                    <div className="p-5">
-                      <h3 className="font-black text-slate-900 text-base">{pkg.title}</h3>
-                      <p className="text-xs text-slate-500 mt-0.5">{pkg.duration} • {pkg.destination}</p>
-                      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+              {/* Search & Filters Bar */}
+              <div className="bg-white rounded-3xl p-4 border border-slate-200/80 shadow-xs flex flex-wrap items-center gap-3">
+                {/* Search Input */}
+                <div className="relative flex-1 min-w-[240px]">
+                  <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="text"
+                    value={packageSearch}
+                    onChange={(e) => setPackageSearch(e.target.value)}
+                    placeholder="Search tour by title, destination, or circuit..."
+                    className="w-full pl-9 pr-8 py-2 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  />
+                  {packageSearch && (
+                    <button 
+                      onClick={() => setPackageSearch('')}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+
+                {/* Category Dropdown */}
+                <select
+                  value={packageCategoryFilter}
+                  onChange={(e) => setPackageCategoryFilter(e.target.value)}
+                  className="px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold bg-white text-slate-700"
+                >
+                  <option value="all">All Categories ({categoriesList.length})</option>
+                  {categoriesList.map((cat: any) => (
+                    <option key={cat.id} value={cat.id}>{cat.name}</option>
+                  ))}
+                </select>
+
+                {/* Destination Dropdown */}
+                <select
+                  value={packageDestinationFilter}
+                  onChange={(e) => setPackageDestinationFilter(e.target.value)}
+                  className="px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold bg-white text-slate-700 max-w-[200px] truncate"
+                >
+                  <option value="all">All Destinations ({destinationsList.length})</option>
+                  {destinationsList.map((dest: any) => (
+                    <option key={dest.id} value={dest.id}>{dest.name}</option>
+                  ))}
+                </select>
+
+                {/* Featured Filter */}
+                <select
+                  value={packageFeaturedFilter}
+                  onChange={(e) => setPackageFeaturedFilter(e.target.value)}
+                  className="px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold bg-white text-slate-700"
+                >
+                  <option value="all">All Visibility</option>
+                  <option value="featured">Featured Only</option>
+                  <option value="standard">Standard Only</option>
+                </select>
+
+                {(packageSearch || packageCategoryFilter !== 'all' || packageDestinationFilter !== 'all' || packageFeaturedFilter !== 'all') && (
+                  <button
+                    onClick={() => {
+                      setPackageSearch('');
+                      setPackageCategoryFilter('all');
+                      setPackageDestinationFilter('all');
+                      setPackageFeaturedFilter('all');
+                    }}
+                    className="text-xs font-bold text-rose-600 hover:underline px-2 py-1"
+                  >
+                    Reset Filters
+                  </button>
+                )}
+              </div>
+
+              {/* Tour Cards Grid */}
+              {filteredPackages.length === 0 ? (
+                <div className="bg-white rounded-3xl p-12 text-center border border-slate-200/80 shadow-xs">
+                  <Compass className="w-12 h-12 mx-auto text-slate-300 mb-3" />
+                  <h3 className="font-extrabold text-base text-slate-800">No tour packages match your filters</h3>
+                  <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
+                    Try clearing your search query or adjusting your destination/category filters.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setPackageSearch('');
+                      setPackageCategoryFilter('all');
+                      setPackageDestinationFilter('all');
+                      setPackageFeaturedFilter('all');
+                    }}
+                    className="mt-4 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs"
+                  >
+                    Clear Filters
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {filteredPackages.map((pkg: any) => {
+                    let diffColor = 'bg-blue-50 text-blue-700 border-blue-200';
+                    if (pkg.difficulty === 'Easy') diffColor = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                    else if (pkg.difficulty === 'Challenging') diffColor = 'bg-amber-50 text-amber-700 border-amber-200';
+                    else if (pkg.difficulty === 'Strenuous' || pkg.difficulty === 'Extreme') diffColor = 'bg-rose-50 text-rose-700 border-rose-200';
+
+                    return (
+                      <div 
+                        key={pkg.id} 
+                        className="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+                      >
                         <div>
-                          <p className="text-[10px] text-slate-400 font-bold uppercase">Real Bookings</p>
-                          <p className="font-extrabold text-sm text-slate-800">{pkg.bookings}</p>
+                          {/* Image Banner with Badges */}
+                          <div className="relative h-48 w-full overflow-hidden bg-slate-100">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img 
+                              src={pkg.hero_image || '/assets/img/Testimonals/01.webp'} 
+                              alt={pkg.title} 
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
+
+                            {/* Top Badges */}
+                            <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
+                              <span className="px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-xs text-white text-[10px] font-extrabold flex items-center gap-1 shadow-xs">
+                                <Clock className="w-3 h-3 text-blue-400" />
+                                {pkg.duration_days} Days / {Math.max(1, pkg.duration_days - 1)} Nights
+                              </span>
+
+                              <button
+                                onClick={() => handleToggleFeatured(pkg)}
+                                title={pkg.is_featured ? "Click to unfeature from homepage" : "Click to feature on homepage"}
+                                className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold flex items-center gap-1 shadow-xs transition-all ${
+                                  pkg.is_featured 
+                                    ? 'bg-amber-500 text-white shadow-amber-500/25' 
+                                    : 'bg-white/80 backdrop-blur-xs text-slate-700 hover:bg-white'
+                                }`}
+                              >
+                                <Star className={`w-3 h-3 ${pkg.is_featured ? 'fill-white' : ''}`} />
+                                {pkg.is_featured ? 'Featured' : 'Standard'}
+                              </button>
+                            </div>
+
+                            {/* Destination on bottom of image */}
+                            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
+                              <span className="text-xs font-extrabold flex items-center gap-1 drop-shadow-sm">
+                                <MapPin className="w-3.5 h-3.5 text-blue-400" />
+                                {pkg.destination_name}
+                              </span>
+                              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${diffColor} bg-white/95 backdrop-blur-xs`}>
+                                {pkg.difficulty}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Card Content */}
+                          <div className="p-5">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-md">
+                                {pkg.category_name}
+                              </span>
+                              {pkg.group_size && (
+                                <span className="text-[10px] font-medium text-slate-400">
+                                  • {pkg.group_size}
+                                </span>
+                              )}
+                            </div>
+
+                            <h3 className="font-extrabold text-slate-900 text-base leading-snug line-clamp-2 mt-1">
+                              {pkg.title}
+                            </h3>
+                            
+                            {pkg.tagline && (
+                              <p className="text-xs text-slate-500 line-clamp-1 mt-1 font-medium">
+                                {pkg.tagline}
+                              </p>
+                            )}
+
+                            {/* Price Row */}
+                            <div className="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
+                              <div>
+                                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Starting Price</p>
+                                <div className="flex items-baseline gap-2 mt-0.5">
+                                  <span className="font-black text-lg text-slate-900">
+                                    ₹{Number(pkg.discount_price || pkg.price).toLocaleString()}
+                                  </span>
+                                  {pkg.discount_price && pkg.discount_price < pkg.price && (
+                                    <span className="text-xs text-slate-400 line-through font-semibold">
+                                      ₹{Number(pkg.price).toLocaleString()}
+                                    </span>
+                                  )}
+                                  <span className="text-[10px] text-slate-400 font-medium">/ person</span>
+                                </div>
+                              </div>
+
+                              <div className="text-right">
+                                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Live DB Bookings</p>
+                                <span className="inline-block mt-0.5 px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 font-extrabold text-xs">
+                                  {pkg.bookings_count || 0} Bookings
+                                </span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-right">
-                          <p className="text-[10px] text-slate-400 font-bold uppercase">Revenue</p>
-                          <p className="font-black text-sm text-[#0066FF]">₹{pkg.revenue.toLocaleString()}</p>
+
+                        {/* Card Footer Actions */}
+                        <div className="px-5 py-3.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-2">
+                          <a
+                            href={`/packages/${pkg.slug}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-bold text-xs flex items-center gap-1.5 transition-colors"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5 text-blue-600" />
+                            <span>View on Site</span>
+                          </a>
+
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => handleToggleFeatured(pkg)}
+                              title={pkg.is_featured ? "Remove featured badge" : "Make featured"}
+                              className={`p-1.5 rounded-xl border transition-colors ${
+                                pkg.is_featured 
+                                  ? 'border-amber-300 bg-amber-50 text-amber-600 hover:bg-amber-100' 
+                                  : 'border-slate-200 bg-white text-slate-400 hover:text-amber-500'
+                              }`}
+                            >
+                              <Star className={`w-4 h-4 ${pkg.is_featured ? 'fill-amber-500 text-amber-500' : ''}`} />
+                            </button>
+
+                            <button
+                              onClick={() => {
+                                setTourToDelete(pkg);
+                                setDeleteTourModalOpen(true);
+                              }}
+                              title="Remove tour package"
+                              className="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 hover:text-rose-700 font-bold text-xs flex items-center gap-1.5 transition-colors"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                              <span>Remove</span>
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           )}
 
@@ -1782,6 +2213,419 @@ export default function AdminPage() {
               </button>
             </div>
           </form>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* 6. MODAL: ADD NEW TOUR PACKAGE                                 */}
+      {/* ============================================================== */}
+      {addTourModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto">
+          <form 
+            onSubmit={handleAddTourSubmit} 
+            className="bg-white rounded-3xl shadow-2xl max-w-3xl w-full my-8 overflow-hidden border border-slate-200 animate-in fade-in zoom-in-95 duration-200 flex flex-col max-h-[92vh]"
+          >
+            {/* Modal Header */}
+            <div className="px-6 py-4 bg-[#07192F] text-white flex items-center justify-between shrink-0">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400">
+                  <Compass className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-sm">Add New Tour Package</h3>
+                  <p className="text-[11px] text-blue-200">Will be published immediately to the public website catalog</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setAddTourModalOpen(false)}
+                className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Modal Body - Scrollable */}
+            <div className="p-6 overflow-y-auto space-y-5 text-xs">
+              {/* Basic Details */}
+              <div className="space-y-3">
+                <h4 className="font-bold text-slate-900 text-xs flex items-center gap-1.5 uppercase tracking-wider">
+                  <Tag className="w-3.5 h-3.5 text-blue-600" />
+                  1. Basic Information
+                </h4>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="sm:col-span-2">
+                    <label className="block font-bold text-slate-700 mb-1">
+                      Tour Title <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newTour.title}
+                      onChange={(e) => setNewTour({ ...newTour, title: e.target.value })}
+                      placeholder="e.g. 3D 2N Munnar Cloud Valley & Tea Plantation Trek"
+                      className="w-full p-2.5 rounded-xl border border-slate-200 font-semibold focus:ring-2 focus:ring-blue-500/20 focus:outline-none"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block font-bold text-slate-700 mb-1">Tagline / Short Summary</label>
+                    <input
+                      type="text"
+                      value={newTour.tagline}
+                      onChange={(e) => setNewTour({ ...newTour, tagline: e.target.value })}
+                      placeholder="e.g. Lush tea estates, misty viewpoints & serene waterfalls"
+                      className="w-full p-2.5 rounded-xl border border-slate-200 font-semibold focus:ring-2 focus:ring-blue-500/20 focus:outline-none"
+                    />
+                  </div>
+
+                  {/* Destination */}
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Destination</label>
+                    <select
+                      value={newTour.destination_id}
+                      onChange={(e) => setNewTour({ ...newTour, destination_id: e.target.value })}
+                      className="w-full p-2.5 rounded-xl border border-slate-200 font-semibold bg-white text-slate-800"
+                    >
+                      <option value="">Select Existing Destination</option>
+                      {destinationsList.map((d: any) => (
+                        <option key={d.id} value={d.id}>{d.name} ({d.country})</option>
+                      ))}
+                      <option value="custom">+ Add New Destination</option>
+                    </select>
+
+                    {newTour.destination_id === 'custom' && (
+                      <input
+                        type="text"
+                        value={newTour.destination_name}
+                        onChange={(e) => setNewTour({ ...newTour, destination_name: e.target.value })}
+                        placeholder="Enter destination name (e.g. Wayanad)"
+                        className="mt-2 w-full p-2 rounded-xl border border-blue-200 bg-blue-50/50 font-semibold"
+                      />
+                    )}
+                  </div>
+
+                  {/* Category */}
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Category / Circuit</label>
+                    <select
+                      value={newTour.category_id}
+                      onChange={(e) => setNewTour({ ...newTour, category_id: e.target.value })}
+                      className="w-full p-2.5 rounded-xl border border-slate-200 font-semibold bg-white text-slate-800"
+                    >
+                      <option value="">Select Existing Category</option>
+                      {categoriesList.map((c: any) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                      ))}
+                      <option value="custom">+ Add New Category</option>
+                    </select>
+
+                    {newTour.category_id === 'custom' && (
+                      <input
+                        type="text"
+                        value={newTour.category_name}
+                        onChange={(e) => setNewTour({ ...newTour, category_name: e.target.value })}
+                        placeholder="Enter category name (e.g. Hill Station Retreats)"
+                        className="mt-2 w-full p-2 rounded-xl border border-blue-200 bg-blue-50/50 font-semibold"
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Duration, Difficulty & Pricing */}
+              <div className="space-y-3 pt-3 border-t border-slate-100">
+                <h4 className="font-bold text-slate-900 text-xs flex items-center gap-1.5 uppercase tracking-wider">
+                  <Coins className="w-3.5 h-3.5 text-blue-600" />
+                  2. Pricing & Tour Dynamics
+                </h4>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Duration (Days)</label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={30}
+                      required
+                      value={newTour.duration_days}
+                      onChange={(e) => setNewTour({ ...newTour, duration_days: Number(e.target.value) })}
+                      className="w-full p-2.5 rounded-xl border border-slate-200 font-semibold"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Difficulty</label>
+                    <select
+                      value={newTour.difficulty}
+                      onChange={(e) => setNewTour({ ...newTour, difficulty: e.target.value })}
+                      className="w-full p-2.5 rounded-xl border border-slate-200 font-semibold bg-white text-slate-800"
+                    >
+                      <option value="Easy">Easy</option>
+                      <option value="Moderate">Moderate</option>
+                      <option value="Challenging">Challenging</option>
+                      <option value="Strenuous">Strenuous</option>
+                      <option value="Extreme">Extreme</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      Regular Price (₹) <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      required
+                      min={1}
+                      value={newTour.price}
+                      onChange={(e) => setNewTour({ ...newTour, price: e.target.value })}
+                      placeholder="e.g. 6999"
+                      className="w-full p-2.5 rounded-xl border border-slate-200 font-semibold"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Offer / Discount (₹)</label>
+                    <input
+                      type="number"
+                      min={1}
+                      value={newTour.discount_price}
+                      onChange={(e) => setNewTour({ ...newTour, discount_price: e.target.value })}
+                      placeholder="e.g. 5999"
+                      className="w-full p-2.5 rounded-xl border border-slate-200 font-semibold"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mt-2">
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Max Altitude</label>
+                    <input
+                      type="text"
+                      value={newTour.max_altitude}
+                      onChange={(e) => setNewTour({ ...newTour, max_altitude: e.target.value })}
+                      placeholder="e.g. 2,100 m / 6,890 ft"
+                      className="w-full p-2.5 rounded-xl border border-slate-200 font-semibold"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Group Size</label>
+                    <input
+                      type="text"
+                      value={newTour.group_size}
+                      onChange={(e) => setNewTour({ ...newTour, group_size: e.target.value })}
+                      placeholder="e.g. 4 - 15 Travelers"
+                      className="w-full p-2.5 rounded-xl border border-slate-200 font-semibold"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Hero Image Selection */}
+              <div className="space-y-3 pt-3 border-t border-slate-100">
+                <h4 className="font-bold text-slate-900 text-xs flex items-center gap-1.5 uppercase tracking-wider">
+                  <ImageIcon className="w-3.5 h-3.5 text-blue-600" />
+                  3. Hero Image & Visuals
+                </h4>
+
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Image URL / Path</label>
+                  <input
+                    type="text"
+                    value={newTour.hero_image}
+                    onChange={(e) => setNewTour({ ...newTour, hero_image: e.target.value })}
+                    placeholder="/assets/img/Testimonals/01.webp or https://..."
+                    className="w-full p-2.5 rounded-xl border border-slate-200 font-semibold"
+                  />
+                </div>
+
+                <div>
+                  <p className="text-[11px] font-bold text-slate-500 mb-2">Or select from website presets:</p>
+                  <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
+                    {[
+                      '/assets/img/Testimonals/01.webp',
+                      '/assets/img/Testimonals/07.webp',
+                      '/assets/img/Testimonals/12.webp',
+                      '/assets/img/Testimonals/02.webp',
+                      '/assets/img/Testimonals/03.webp',
+                      '/assets/img/Testimonals/08.webp',
+                      '/assets/img/Hampi.png',
+                      '/assets/img/Testimonals/05.webp'
+                    ].map((imgUrl, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setNewTour({ ...newTour, hero_image: imgUrl })}
+                        className={`relative rounded-xl overflow-hidden border-2 h-14 transition-all ${
+                          newTour.hero_image === imgUrl ? 'border-blue-600 scale-95 ring-2 ring-blue-500/30' : 'border-transparent hover:border-slate-300'
+                        }`}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={imgUrl} alt="preset" className="w-full h-full object-cover" />
+                        {newTour.hero_image === imgUrl && (
+                          <div className="absolute inset-0 bg-blue-600/30 flex items-center justify-center">
+                            <Check className="w-4 h-4 text-white" />
+                          </div>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Overview & Highlights */}
+              <div className="space-y-3 pt-3 border-t border-slate-100">
+                <h4 className="font-bold text-slate-900 text-xs flex items-center gap-1.5 uppercase tracking-wider">
+                  <ListChecks className="w-3.5 h-3.5 text-blue-600" />
+                  4. Overview & Itinerary Highlights
+                </h4>
+
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Tour Overview</label>
+                  <textarea
+                    rows={2}
+                    value={newTour.overview}
+                    onChange={(e) => setNewTour({ ...newTour, overview: e.target.value })}
+                    placeholder="Brief description highlighting scenic experiences, terrain, and culture..."
+                    className="w-full p-2.5 rounded-xl border border-slate-200 font-semibold"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Highlights (One per line)</label>
+                  <textarea
+                    rows={3}
+                    value={newTour.highlights_raw}
+                    onChange={(e) => setNewTour({ ...newTour, highlights_raw: e.target.value })}
+                    className="w-full p-2.5 rounded-xl border border-slate-200 font-medium font-mono text-[11px]"
+                  />
+                </div>
+
+                {/* Featured Checkbox */}
+                <div className="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200 flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    id="is_featured_check"
+                    checked={newTour.is_featured}
+                    onChange={(e) => setNewTour({ ...newTour, is_featured: e.target.checked })}
+                    className="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500"
+                  />
+                  <label htmlFor="is_featured_check" className="font-bold text-amber-900 cursor-pointer select-none">
+                    Feature on Website Homepage & Navbar Highlights
+                    <span className="block text-[11px] font-normal text-amber-700 mt-0.5">
+                      Check this to highlight this tour in the top recommended packages.
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-3 shrink-0">
+              <button
+                type="button"
+                onClick={() => setAddTourModalOpen(false)}
+                className="px-4 py-2 rounded-xl text-slate-600 hover:text-slate-900 font-bold text-xs"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isSubmittingTour}
+                className="px-5 py-2.5 rounded-xl bg-[#0066FF] hover:bg-blue-700 disabled:opacity-50 text-white font-bold text-xs shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all"
+              >
+                {isSubmittingTour ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Publishing Tour...</span>
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-4 h-4" />
+                    <span>Publish Tour to Website</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* 7. MODAL: CONFIRM REMOVE TOUR PACKAGE                           */}
+      {/* ============================================================== */}
+      {deleteTourModalOpen && tourToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
+            <div className="px-6 py-4 bg-rose-600 text-white flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Trash2 className="w-4 h-4" />
+                <h3 className="font-extrabold text-sm">Remove Tour Package</h3>
+              </div>
+              <button
+                onClick={() => setDeleteTourModalOpen(false)}
+                className="w-7 h-7 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="p-6 space-y-4 text-xs">
+              <div className="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={tourToDelete.hero_image || '/assets/img/Testimonals/01.webp'}
+                  alt={tourToDelete.title}
+                  className="w-14 h-14 rounded-xl object-cover shrink-0 border border-slate-200"
+                />
+                <div className="min-w-0">
+                  <h4 className="font-bold text-slate-900 line-clamp-1">{tourToDelete.title}</h4>
+                  <p className="text-slate-500 text-[11px]">{tourToDelete.destination_name} • {tourToDelete.duration_days} Days</p>
+                  <p className="font-black text-slate-800 text-xs mt-0.5">₹{Number(tourToDelete.price).toLocaleString()}</p>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800">
+                <p className="font-bold flex items-center gap-1.5">
+                  <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                  Are you sure you want to remove this tour?
+                </p>
+                <p className="text-[11px] text-rose-700 mt-1">
+                  This tour package will be permanently removed from the website catalog, search, and navigation.
+                </p>
+              </div>
+            </div>
+
+            <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-100 flex justify-end gap-2.5">
+              <button
+                type="button"
+                onClick={() => setDeleteTourModalOpen(false)}
+                className="px-4 py-2 rounded-xl text-slate-600 font-bold text-xs hover:bg-slate-100"
+              >
+                Keep Tour
+              </button>
+              <button
+                type="button"
+                disabled={isDeletingTour}
+                onClick={handleConfirmDeleteTour}
+                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 disabled:opacity-50 text-white font-bold text-xs shadow-md shadow-rose-600/20 flex items-center gap-1.5 transition-all"
+              >
+                {isDeletingTour ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Removing...</span>
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Yes, Remove Tour</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

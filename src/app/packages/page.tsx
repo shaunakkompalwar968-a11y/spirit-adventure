@@ -16,13 +16,36 @@ import {
   FALLBACK_CATEGORIES, 
   FALLBACK_DESTINATIONS 
 } from '@/data/fallbackData';
+import { 
+  fetchPackages, 
+  fetchCategories, 
+  fetchDestinations 
+} from '@/lib/api';
 
 function PackagesCatalogContent() {
   const searchParams = useSearchParams();
   
-  const [packages] = useState<TourPackage[]>(FALLBACK_PACKAGES);
-  const [categories] = useState<Category[]>(FALLBACK_CATEGORIES);
-  const [destinations] = useState<Destination[]>(FALLBACK_DESTINATIONS);
+  const [packages, setPackages] = useState<TourPackage[]>(FALLBACK_PACKAGES);
+  const [categories, setCategories] = useState<Category[]>(FALLBACK_CATEGORIES);
+  const [destinations, setDestinations] = useState<Destination[]>(FALLBACK_DESTINATIONS);
+
+  useEffect(() => {
+    async function loadLiveCatalog() {
+      try {
+        const [pkgs, cats, dests] = await Promise.all([
+          fetchPackages(),
+          fetchCategories(),
+          fetchDestinations()
+        ]);
+        if (pkgs && pkgs.length > 0) setPackages(pkgs);
+        if (cats && cats.length > 0) setCategories(cats);
+        if (dests && dests.length > 0) setDestinations(dests);
+      } catch (err) {
+        console.error('Failed to load live packages catalog:', err);
+      }
+    }
+    loadLiveCatalog();
+  }, []);
 
   // Filters state initialized from URL search params if present
   const [searchQuery, setSearchQuery] = useState('');

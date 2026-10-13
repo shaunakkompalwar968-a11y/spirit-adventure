@@ -341,4 +341,62 @@ export async function adminLogin(username: string, password: string) {
   return await res.json();
 }
 
+export async function fetchAdminTourPackages(params?: {
+  search?: string;
+  category_id?: number;
+  destination_id?: number;
+  featured?: boolean;
+}) {
+  try {
+    const query = new URLSearchParams();
+    if (params?.search) query.set('search', params.search);
+    if (params?.category_id) query.set('category_id', String(params.category_id));
+    if (params?.destination_id) query.set('destination_id', String(params.destination_id));
+    if (params?.featured !== undefined) query.set('featured', String(params.featured));
+
+    const res = await fetch(`${API_BASE}/admin/packages?${query.toString()}`, {
+      cache: 'no-store'
+    });
+    if (res.ok) return await res.json();
+  } catch (err) {
+    console.error('Failed to fetch admin packages:', err);
+  }
+  return [];
+}
+
+export async function createAdminTourPackage(payload: any) {
+  const res = await fetch(`${API_BASE}/admin/packages`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.detail || 'Failed to create tour package');
+  }
+  return await res.json();
+}
+
+export async function deleteAdminTourPackage(packageId: number) {
+  const res = await fetch(`${API_BASE}/admin/packages/${packageId}`, {
+    method: 'DELETE'
+  });
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.detail || 'Failed to delete tour package');
+  }
+  return await res.json();
+}
+
+export async function toggleAdminTourPackageFeatured(packageId: number) {
+  const res = await fetch(`${API_BASE}/admin/packages/${packageId}/featured`, {
+    method: 'PATCH'
+  });
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.detail || 'Failed to toggle featured status');
+  }
+  return await res.json();
+}
+
 
