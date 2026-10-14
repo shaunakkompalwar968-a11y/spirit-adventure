@@ -177,7 +177,7 @@ export default function PackageDetailPage({
             </div>
             <div>
               <span className="text-xs text-slate-500 font-bold uppercase block">Pickups</span>
-              <span className="text-base sm:text-lg font-black text-[#0B1B3D]">Hyd & Blr</span>
+              <span className="text-sm sm:text-base font-black text-[#0B1B3D]">Hyderabad And Banglore</span>
             </div>
           </div>
 
@@ -377,7 +377,7 @@ export default function PackageDetailPage({
                 {/* Rating review snapshot */}
                 <div className="flex items-center gap-1.5 p-3 rounded-xl bg-blue-50 text-xs font-semibold text-[#0787E8] mb-5">
                   <ShieldCheck className="w-4 h-4 text-[#0787E8]" />
-                  <span>Guaranteed Weekend Departures • Hyd & Blr</span>
+                  <span>Guaranteed Weekend Departures • Hyderabad And Banglore</span>
                 </div>
 
                 {/* Upcoming Departure Dates */}

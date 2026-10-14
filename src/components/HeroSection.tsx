@@ -91,14 +91,6 @@ export default function HeroSection() {
               One Journey at a Time
             </span>
           </h1>
-
-          {/* Cursive Tagline "Adventure Changes You" */}
-          <div className="hidden lg:block absolute -right-28 top-8 transform rotate-6 pointer-events-none">
-            <span className="font-serif italic text-2xl text-[#38BDF8] font-extrabold drop-shadow-md tracking-wide">
-              Adventure <br />
-              <span className="text-3xl text-white">Changes You ~</span>
-            </span>
-          </div>
         </motion.div>
 
         {/* Description */}
@@ -167,7 +159,7 @@ export default function HeroSection() {
                   onChange={(e) => setSelectedDestination(e.target.value)}
                   className="w-full bg-transparent text-xs font-bold text-slate-800 focus:outline-none cursor-pointer"
                 >
-                  <option value="" className="bg-white text-slate-800">Choose Tour Circuit</option>
+                  <option value="" className="bg-white text-slate-800">Choose Tour</option>
                   <option value="wayanad" className="bg-white text-slate-800">Wayanad Adventure Trip (3D/2N)</option>
                   <option value="coorg-wayanad" className="bg-white text-slate-800">Coorg & Wayanad Circuit (4D/3N)</option>
                   <option value="gokarna-dandeli-udupi" className="bg-white text-slate-800">Gokarna, Dandeli & Udupi (4D/3N)</option>

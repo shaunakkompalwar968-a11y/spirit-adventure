@@ -80,10 +80,10 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
       {/* ========================================================= */}
       <header className="hidden md:block fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto transition-all duration-300">
         <div 
-          className={`rounded-full px-6 py-2.5 flex items-center justify-between text-slate-800 transition-all duration-300 border ${
+          className={`rounded-full px-6 py-2.5 flex items-center justify-between text-slate-900 transition-all duration-300 border ${
             isScrolled
-              ? 'bg-white/98 backdrop-blur-2xl border-slate-300 shadow-2xl py-2'
-              : 'bg-white/92 backdrop-blur-xl border-slate-200/90 shadow-lg'
+              ? 'bg-white/45 backdrop-blur-2xl border-white/50 shadow-2xl py-2'
+              : 'bg-white/25 backdrop-blur-xl border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.12)]'
           }`}
         >
           {/* Brand Logo - Crisp on white background */}
@@ -272,7 +272,7 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
             {/* Search Icon */}
             <button
               onClick={() => setSearchModalOpen(true)}
-              className="w-9 h-9 rounded-full bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-[#0787E8] flex items-center justify-center transition-colors border border-slate-200/60"
+              className="w-9 h-9 rounded-full bg-white/40 hover:bg-white/70 text-slate-800 hover:text-[#0787E8] flex items-center justify-center transition-colors border border-white/50 shadow-xs"
               title="Search Tours"
             >
               <Search className="w-4 h-4" />
@@ -281,7 +281,7 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
             {/* Wishlist Icon */}
             <button
               onClick={() => setWishlistModalOpen(true)}
-              className="w-9 h-9 rounded-full bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-[#0787E8] flex items-center justify-center transition-colors border border-slate-200/60 relative"
+              className="w-9 h-9 rounded-full bg-white/40 hover:bg-white/70 text-slate-800 hover:text-[#0787E8] flex items-center justify-center transition-colors border border-white/50 relative shadow-xs"
               title="View Saved Trips"
             >
               <Heart className="w-4 h-4" />
@@ -293,7 +293,7 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
             </button>
 
             {/* Vertical Divider */}
-            <div className="h-5 w-[1px] bg-slate-200 mx-1" />
+            <div className="h-5 w-[1px] bg-slate-300/60 mx-1" />
 
             {/* Plan Your Trip → Button (Vibrant Blue Pill) */}
             <button
@@ -310,7 +310,7 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
       {/* ========================================================= */}
       {/* 2. SMALL SCREEN / MOBILE USERS: CLEAN WHITE TOP HEADER    */}
       {/* ========================================================= */}
-      <header className="md:hidden fixed top-0 left-0 right-0 z-40 px-4 py-2.5 bg-white/95 backdrop-blur-xl border-b border-slate-200 flex items-center justify-between text-slate-900 shadow-sm">
+      <header className="md:hidden fixed top-0 left-0 right-0 z-40 px-4 py-2.5 bg-white/30 backdrop-blur-xl border-b border-white/30 flex items-center justify-between text-slate-900 shadow-sm">
         {/* Brand Logo - Crisp on white */}
         <Link href="/" className="flex items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -325,7 +325,7 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
         <div className="flex items-center gap-2">
           <button
             onClick={() => setSearchModalOpen(true)}
-            className="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center"
+            className="w-8 h-8 rounded-full bg-white/40 text-slate-800 border border-white/40 flex items-center justify-center"
             title="Search"
           >
             <Search className="w-3.5 h-3.5" />
@@ -333,7 +333,7 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
 
           <button
             onClick={() => setWishlistModalOpen(true)}
-            className="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center relative"
+            className="w-8 h-8 rounded-full bg-white/40 text-slate-800 border border-white/40 flex items-center justify-center relative"
             title="Wishlist"
           >
             <Heart className="w-3.5 h-3.5" />
@@ -359,7 +359,7 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
       {/* 2B. SMALL SCREEN / MOBILE USERS: FLOATING BOTTOM NAVBAR   */}
       {/* ========================================================= */}
       <nav className="md:hidden fixed bottom-4 left-4 right-4 max-w-sm mx-auto z-50 pointer-events-auto">
-        <div className="bg-white/95 backdrop-blur-2xl border border-slate-200/90 rounded-full px-3 py-2 shadow-2xl flex items-center justify-around text-slate-600">
+        <div className="bg-white/35 backdrop-blur-2xl border border-white/40 rounded-full px-3 py-2 shadow-2xl flex items-center justify-around text-slate-700">
           {/* 1. Home */}
           <Link
             href="/"

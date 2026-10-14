@@ -184,16 +184,21 @@ export default function FloatingActions() {
         {/* Spirit AI Guide Floating Trigger */}
         <button
           onClick={() => setShowChatbot(prev => !prev)}
-          className="w-14 h-14 rounded-full text-white shadow-xl hover:shadow-2xl flex items-center justify-center transition-all duration-300 transform hover:scale-105 relative bg-gradient-to-r from-[#0066FF] to-[#0787E8]"
+          className="w-14 h-14 rounded-full bg-white p-2.5 text-slate-800 shadow-xl hover:shadow-2xl flex items-center justify-center transition-all duration-300 transform hover:scale-105 active:scale-95 relative border-2 border-[#0066FF]"
           title="Open Spirit AI Assistant"
         >
           {showChatbot ? (
-            <X className="w-7 h-7 text-white" />
+            <X className="w-6 h-6 text-slate-800" />
           ) : (
-            <div className="relative flex items-center justify-center">
-              <Bot className="w-7 h-7 text-white" />
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#FF9D42] border-2 border-white rounded-full animate-ping" />
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#FF9D42] border-2 border-white rounded-full" />
+            <div className="relative w-full h-full flex items-center justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src="/assets/img/logohead.png" 
+                alt="Spirit Assistant" 
+                className="w-full h-full object-contain"
+              />
+              <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-[#FF9D42] border-2 border-white rounded-full animate-ping" />
+              <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-[#FF9D42] border-2 border-white rounded-full" />
             </div>
           )}
         </button>
@@ -205,8 +210,13 @@ export default function FloatingActions() {
           {/* Chat Header: Deep Navy */}
           <div className="p-4 flex items-center justify-between text-white bg-[#0B1B3D]">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                <Bot className="w-6 h-6 text-[#38BDF8]" />
+              <div className="w-10 h-10 rounded-xl bg-white p-1.5 border border-white/30 flex items-center justify-center shadow-sm flex-shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src="/assets/img/logohead.png" 
+                  alt="Spirit AI Guide" 
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
@@ -234,8 +244,13 @@ export default function FloatingActions() {
                 className={`flex gap-2.5 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {msg.sender === 'bot' && (
-                  <div className="w-7 h-7 rounded-full bg-[#0B1B3D] flex items-center justify-center text-[#38BDF8] flex-shrink-0 mt-0.5">
-                    <Sparkles className="w-3.5 h-3.5" />
+                  <div className="w-7 h-7 rounded-full bg-white p-1 border border-slate-200 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img 
+                      src="/assets/img/logohead.png" 
+                      alt="Spirit Bot" 
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 )}
                 <div
@@ -255,8 +270,13 @@ export default function FloatingActions() {
 
             {isTyping && (
               <div className="flex gap-2 items-center text-slate-500">
-                <div className="w-7 h-7 rounded-full bg-[#0B1B3D] flex items-center justify-center text-[#38BDF8] flex-shrink-0">
-                  <Sparkles className="w-3.5 h-3.5 animate-spin" />
+                <div className="w-7 h-7 rounded-full bg-white p-1 border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img 
+                    src="/assets/img/logohead.png" 
+                    alt="Spirit Bot" 
+                    className="w-full h-full object-contain animate-pulse"
+                  />
                 </div>
                 <div className="bg-white px-3 py-2 rounded-2xl shadow-sm border border-slate-200 flex items-center gap-1">
                   <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" />
