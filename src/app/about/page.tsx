@@ -12,37 +12,6 @@ import {
 import AboutSection from '@/components/AboutSection';
 import { FALLBACK_STATS } from '@/data/fallbackData';
 
-const TEAM_LEADERS = [
-  {
-    name: 'Vikramaditya Rao',
-    role: 'Lead Tour Captain & Founder',
-    bio: 'Over 8 years guiding group expeditions across South India, Western Ghats, and the Himalayas. Passionate about music nights and authentic local experiences.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
-    speciality: 'Western Ghats Treks & Group Dynamics',
-  },
-  {
-    name: 'Ananya Sharma',
-    role: 'Senior Trip Coordinator',
-    bio: 'Specialized in beach backpacking, heritage circuits, and women-friendly travel expeditions with seamless coordination from Hyderabad and Bangalore.',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
-    speciality: 'Gokarna, Hampi & Kerala Backwaters',
-  },
-  {
-    name: 'Karthik Nambiar',
-    role: 'Logistics & Safety Director',
-    bio: 'Certified wilderness first-responder overseeing resort tie-ups, sanitized transportation fleet, campfire arrangements, and safety protocols.',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80',
-    speciality: 'Fleet Logistics & Emergency Care',
-  },
-  {
-    name: 'Rohan Deshmukh',
-    role: 'Adventure Activities Specialist',
-    bio: 'Licensed white water rafting guide in Dandeli and paragliding coordinator in Himachal. Ensures 100% adrenaline rush with certified safety gears.',
-    image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=600&q=80',
-    speciality: 'Kali River Rafting & High Treks',
-  },
-];
-
 export default function AboutPage() {
   return (
     <div className="bg-white min-h-screen">
@@ -76,64 +45,6 @@ export default function AboutPage() {
       {/* Embedded Main About Section */}
       <AboutSection stats={FALLBACK_STATS} />
 
-      {/* Team Leaders Section */}
-      <section id="guides" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-[#0787E8] mb-3">
-              <Award className="w-3.5 h-3.5 text-[#0787E8]" />
-              <span>Certified Travel Leadership</span>
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-[#0B1B3D] tracking-tight">
-              Meet Our Trip Captains
-            </h2>
-            <p className="mt-3 text-base text-slate-600">
-              Every Spirit Adventures trip is accompanied by verified trip coordinators and certified local experts who ensure your journey is safe, joyful, and seamless.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {TEAM_LEADERS.map((g, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="rounded-2xl overflow-hidden bg-slate-50 border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow flex flex-col"
-              >
-                <div className="h-64 overflow-hidden relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={g.image}
-                    alt={g.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B1B3D]/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 text-white">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] block">
-                      Trip Captain
-                    </span>
-                    <h3 className="text-lg font-bold text-white leading-snug">{g.name}</h3>
-                  </div>
-                </div>
-
-                <div className="p-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <span className="text-xs font-bold text-[#0787E8] block mb-2">{g.role}</span>
-                    <p className="text-xs text-slate-600 leading-relaxed mb-4">{g.bio}</p>
-                  </div>
-                  <div className="pt-3 border-t border-slate-200 text-[11px] text-[#0B1B3D]">
-                    <span className="font-bold text-slate-500 block">Speciality:</span>
-                    <span className="font-semibold text-slate-800">{g.speciality}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Trust & Safety Section: Deep Navy */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0B1B3D] text-white">
         <div className="max-w-7xl mx-auto">
@@ -165,36 +76,63 @@ export default function AboutPage() {
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-[#38BDF8] flex-shrink-0 mt-0.5" />
                   <span className="text-xs sm:text-sm text-slate-200">
-                    <strong>24/7 Dedicated Trip Coordinator:</strong> A friendly, professional tour lead travels with the group to handle entries, schedules, campfires, and music.
+                    <strong>100% Women & Solo-Traveler Friendly:</strong> Zero awkwardness, transparent safety checks, and inclusive campfire vibes for everyone.
                   </span>
                 </div>
               </div>
+
+              <div className="mt-8 flex items-center gap-4">
+                <Link
+                  href="/packages"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white transition-all shadow-lg bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb]"
+                >
+                  <span>Explore Tour Packages</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white transition-all bg-white/10 hover:bg-white/20 border border-white/20"
+                >
+                  <span>Get in Touch</span>
+                </Link>
+              </div>
             </div>
 
-            <div className="lg:col-span-6">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 text-white">
-                <h3 className="text-xl font-bold mb-4">Plan a Custom Group Tour</h3>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
-                  Want a private bus for your college batch, family get-together, or corporate retreat? We organize fully customized weekend and holiday itineraries.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Link
-                    href="/customize"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-white transition-all shadow-md bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb]"
-                  >
-                    <span>Customize Your Trip</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-
-                  <a
-                    href="https://wa.me/919666567551"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-white transition-all shadow-md"
-                    style={{ backgroundColor: '#25D366' }}
-                  >
-                    <span>WhatsApp Support</span>
-                  </a>
+            <div className="lg:col-span-6 grid grid-cols-2 gap-4">
+              <div className="space-y-4">
+                <div className="rounded-2xl overflow-hidden shadow-lg h-48 sm:h-64">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80"
+                    alt="Beach Campfire"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="rounded-2xl overflow-hidden shadow-lg h-36 sm:h-44">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+                    alt="Western Ghats Trek"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              </div>
+              <div className="space-y-4 pt-6">
+                <div className="rounded-2xl overflow-hidden shadow-lg h-36 sm:h-44">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80"
+                    alt="Hampi Stone Chariot"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="rounded-2xl overflow-hidden shadow-lg h-48 sm:h-64">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://images.unsplash.com/photo-1528543606781-2f6e6857f318?auto=format&fit=crop&w=800&q=80"
+                    alt="Waterfall Expedition"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
               </div>
             </div>

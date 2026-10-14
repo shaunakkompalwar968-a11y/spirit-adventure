@@ -21,7 +21,7 @@ import {
   ArrowRight,
   IndianRupee
 } from 'lucide-react';
-import { submitContact } from '@/lib/api';
+import { submitCustomTour, submitContact } from '@/lib/api';
 
 const DESTINATIONS_OPTIONS = [
   'Coorg',
@@ -144,13 +144,24 @@ export default function CustomizeTourPage() {
     setIsSubmitting(true);
 
     try {
-      await submitContact({
+      const allDests = otherDestination.trim() 
+        ? [...selectedDestinations, otherDestination.trim()]
+        : selectedDestinations;
+
+      await submitCustomTour({
         name: fullName,
         email: email,
         phone: phone,
-        subject: `Custom Tour Request: ${selectedDestinations.join(', ')} from ${startingCity}`,
-        package_interest: selectedDestinations.join(', '),
-        message: `Custom Trip Details:\n- Destinations: ${selectedDestinations.join(', ')} ${otherDestination ? `(+ ${otherDestination})` : ''}\n- Starting City: ${startingCity}\n- Travel Date: ${travelDate}\n- Duration: ${duration}\n- Group: ${adults} Adults (${groupType})\n- Stay: ${stayPreference}\n- Vehicle: ${transportPreference}\n- Budget: ${budgetTier}\n- Notes: ${specialRequests}`
+        destinations: allDests,
+        starting_city: startingCity,
+        travel_date: travelDate,
+        duration: duration,
+        adults: adults,
+        group_type: groupType,
+        stay_preference: stayPreference,
+        transport_preference: transportPreference,
+        budget_tier: budgetTier,
+        special_requests: specialRequests
       });
     } catch {
       console.log('Submitted custom request via fallback');

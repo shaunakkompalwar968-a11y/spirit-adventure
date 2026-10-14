@@ -79,6 +79,7 @@ type AdminTab =
   | 'dashboard' 
   | 'packages' 
   | 'bookings' 
+  | 'customize_tours'
   | 'clients' 
   | 'employees' 
   | 'analytics' 
@@ -89,9 +90,9 @@ type AdminTab =
 export default function AdminPage() {
   // Authentication State
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [authChecking, setAuthChecking] = useState<boolean>(true);
-  const [loginUsername, setLoginUsername] = useState<string>('spirit_adventure');
-  const [loginPassword, setLoginPassword] = useState<string>('spirit@12');
+  const [authChecking, setAuthChecking] = useState<boolean>(false);
+  const [loginUsername, setLoginUsername] = useState<string>('');
+  const [loginPassword, setLoginPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string>('');
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
@@ -122,6 +123,7 @@ export default function AdminPage() {
   
   // Enquiries filter & modal
   const [enquiryStatusFilter, setEnquiryStatusFilter] = useState<string>('all');
+  const [customTourStatusFilter, setCustomTourStatusFilter] = useState<string>('all');
   const [selectedEnquiry, setSelectedEnquiry] = useState<any | null>(null);
   const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
 
@@ -169,12 +171,9 @@ export default function AdminPage() {
     upcoming_dates_raw: 'Every Weekend (Fri - Sun)\nUpcoming Public Holidays'
   });
 
-  // Check login session on mount
+  // Always require login credentials on every page visit or reload
   useEffect(() => {
-    const token = localStorage.getItem('spirit_adventure_admin_token');
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    setIsAuthenticated(false);
     setAuthChecking(false);
   }, []);
 
@@ -187,18 +186,16 @@ export default function AdminPage() {
     try {
       // Validate credentials against backend or direct match
       if (loginUsername.trim() === 'spirit_adventure' && loginPassword.trim() === 'spirit@12') {
-        localStorage.setItem('spirit_adventure_admin_token', 'spirit_adventure_verified_admin_session');
         setIsAuthenticated(true);
         loadData();
       } else {
         // Attempt backend verification
         await adminLogin(loginUsername.trim(), loginPassword.trim());
-        localStorage.setItem('spirit_adventure_admin_token', 'spirit_adventure_verified_admin_session');
         setIsAuthenticated(true);
         loadData();
       }
     } catch {
-      setLoginError('Invalid credentials. Username is "spirit_adventure" and password is "spirit@12"');
+      setLoginError('Invalid username or password. Please try again.');
     } finally {
       setIsLoggingIn(false);
     }
@@ -207,7 +204,9 @@ export default function AdminPage() {
   // Handle Logout
   const handleLogout = () => {
     localStorage.removeItem('spirit_adventure_admin_token');
+    sessionStorage.removeItem('spirit_adventure_admin_token');
     setIsAuthenticated(false);
+    setLoginUsername('');
     setLoginPassword('');
   };
 
@@ -238,7 +237,12 @@ export default function AdminPage() {
       if (eList) {
         if (enquiries.length > 0 && eList.length > enquiries.length) {
           const newest = eList[0];
-          setToastNotification(`📩 New Real-Time Enquiry: ${newest.name} sent "${newest.subject}"`);
+          const isCustom = (newest.source || '').toLowerCase().includes('custom') || (newest.subject || '').toLowerCase().includes('custom');
+          if (isCustom) {
+            setToastNotification(`✨ New Real-Time Custom Tour Request from ${newest.name} (${newest.destination_preference || 'Custom Circuit'})!`);
+          } else {
+            setToastNotification(`📩 New Real-Time Enquiry: ${newest.name} sent "${newest.subject}"`);
+          }
         }
         setEnquiries(eList);
       }
@@ -526,6 +530,36 @@ export default function AdminPage() {
     });
   }, [enquiries, enquiryStatusFilter, globalSearch]);
 
+  // Real-Time Custom Tour Requests
+  const customTourRequests = useMemo(() => {
+    return enquiries.filter(enq => {
+      const src = (enq.source || '').toLowerCase();
+      const subj = (enq.subject || '').toLowerCase();
+      const pref = (enq.destination_preference || '').toLowerCase();
+      return src.includes('custom') || subj.includes('custom') || pref.includes('custom');
+    });
+  }, [enquiries]);
+
+  // Filtered Custom Tour Requests
+  const filteredCustomTourRequests = useMemo(() => {
+    return customTourRequests.filter(enq => {
+      const matchesStatus = customTourStatusFilter === 'all' || enq.status.toLowerCase() === customTourStatusFilter.toLowerCase();
+      const q = globalSearch.toLowerCase().trim();
+      const matchesSearch = !q ||
+        enq.name?.toLowerCase().includes(q) ||
+        enq.email?.toLowerCase().includes(q) ||
+        enq.phone?.toLowerCase().includes(q) ||
+        enq.subject?.toLowerCase().includes(q) ||
+        enq.destination_preference?.toLowerCase().includes(q) ||
+        enq.message?.toLowerCase().includes(q);
+      return matchesStatus && matchesSearch;
+    });
+  }, [customTourRequests, customTourStatusFilter, globalSearch]);
+
+  const newCustomToursCount = useMemo(() => {
+    return customTourRequests.filter(enq => enq.status === 'new').length;
+  }, [customTourRequests]);
+
   // KPI Metrics Data (Strictly Genuine)
   const kpis = dashboardData?.kpis || {
     total_bookings: bookings.length,
@@ -652,7 +686,7 @@ export default function AdminPage() {
                   required
                   value={loginUsername}
                   onChange={(e) => setLoginUsername(e.target.value)}
-                  placeholder="spirit_adventure"
+                  placeholder="Enter admin username"
                   className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0066FF] focus:bg-white transition-all"
                 />
               </div>
@@ -668,7 +702,7 @@ export default function AdminPage() {
                   required
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
-                  placeholder="spirit@12"
+                  placeholder="••••••••"
                   className="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0066FF] focus:bg-white transition-all"
                 />
                 <button
@@ -679,12 +713,6 @@ export default function AdminPage() {
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
-            </div>
-
-            {/* Hint Notice */}
-            <div className="p-2.5 rounded-xl bg-blue-50/70 border border-blue-200/80 text-[11px] text-[#0066FF] font-medium flex items-center justify-between">
-              <span>Username: <strong className="font-bold">spirit_adventure</strong></span>
-              <span>Password: <strong className="font-bold">spirit@12</strong></span>
             </div>
 
             {/* Submit Button */}
@@ -746,11 +774,12 @@ export default function AdminPage() {
               { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
               { id: 'packages', label: 'Tour Packages', icon: MapPin },
               { id: 'bookings', label: 'Bookings', icon: CalendarCheck, badge: actionsRequired.pending_bookings },
+              { id: 'customize_tours', label: 'Customize Tours', icon: Sparkles, badge: newCustomToursCount },
               { id: 'clients', label: 'Clients & Enquiries', icon: Users, badge: actionsRequired.new_enquiries },
               { id: 'employees', label: 'Employees', icon: UserCog },
               { id: 'analytics', label: 'Booking Analytics', icon: BarChart3 },
               { id: 'reports', label: 'Reports', icon: FileText },
-              { id: 'notifications', label: 'Notifications', icon: Bell, badge: actionsRequired.pending_bookings + actionsRequired.new_enquiries },
+              { id: 'notifications', label: 'Notifications', icon: Bell, badge: actionsRequired.pending_bookings + actionsRequired.new_enquiries + newCustomToursCount },
               { id: 'settings', label: 'Settings', icon: Settings },
             ].map(item => {
               const Icon = item.icon;
@@ -1086,6 +1115,32 @@ export default function AdminPage() {
                         <p className="text-[11px] font-semibold text-slate-600">Follow-up Due</p>
                         <h4 className="text-xl font-black text-slate-900 mt-0.5">{actionsRequired.follow_ups_due}</h4>
                         <p className="text-[10px] text-slate-400 mt-0.5">today / this week</p>
+                      </div>
+                    </div>
+
+                    {/* 5. Real-Time Customize Tour Requests */}
+                    <div 
+                      onClick={() => { setActiveTab('customize_tours'); setCustomTourStatusFilter('all'); }}
+                      className="col-span-2 p-3.5 rounded-2xl bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-sky-500/10 border border-blue-200 hover:border-blue-400 hover:bg-blue-50/60 transition-all cursor-pointer group flex items-center justify-between"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-[#0066FF] text-white flex items-center justify-center shadow-xs">
+                          <Sparkles className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold text-slate-900">Customize Tour Requests</span>
+                            {newCustomToursCount > 0 && (
+                              <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-600 text-white animate-pulse">
+                                {newCustomToursCount} New
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[10px] text-slate-500">{customTourRequests.length} total real-time itinerary requests</p>
+                        </div>
+                      </div>
+                      <div className="w-7 h-7 rounded-full bg-white text-blue-600 shadow-xs flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </div>
                     </div>
                   </div>
@@ -1444,6 +1499,189 @@ export default function AdminPage() {
                   </table>
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* ============================================================== */}
+          {/* VIEW: CUSTOMIZE TOURS (REAL-TIME ENTRIES)                      */}
+          {/* ============================================================== */}
+          {activeTab === 'customize_tours' && (
+            <div className="space-y-6">
+              {/* Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="p-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs">
+                      <Sparkles className="w-5 h-5" />
+                    </span>
+                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">Real-Time Customize Tour Requests</h2>
+                  </div>
+                  <p className="text-xs text-slate-500 font-medium mt-1">Live customer itinerary requests streaming directly from the interactive custom trip planner.</p>
+                </div>
+
+                {/* Filter Tabs */}
+                <div className="flex items-center gap-1.5 bg-white border border-slate-200 p-1 rounded-2xl shadow-xs">
+                  {['all', 'new', 'in_progress', 'follow_up', 'converted'].map(st => (
+                    <button
+                      key={st}
+                      onClick={() => setCustomTourStatusFilter(st)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition-all ${
+                        customTourStatusFilter === st
+                          ? 'bg-[#0066FF] text-white shadow-xs'
+                          : 'text-slate-600 hover:text-slate-900'
+                      }`}
+                    >
+                      {st.replace('_', ' ')}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* KPI Metrics row for Customize Tours */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
+                  <p className="text-[11px] font-semibold text-slate-500">Total Custom Requests</p>
+                  <h4 className="text-2xl font-black text-slate-900 mt-1">{customTourRequests.length}</h4>
+                  <p className="text-[10px] text-blue-600 font-bold mt-1">● Real-time synced</p>
+                </div>
+                <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
+                  <p className="text-[11px] font-semibold text-slate-500">New / Uncontacted</p>
+                  <h4 className="text-2xl font-black text-emerald-600 mt-1">{customTourRequests.filter(e => e.status === 'new').length}</h4>
+                  <p className="text-[10px] text-emerald-600 font-bold mt-1">Requires coordinator contact</p>
+                </div>
+                <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
+                  <p className="text-[11px] font-semibold text-slate-500">In Discussion / Follow-up</p>
+                  <h4 className="text-2xl font-black text-amber-600 mt-1">{customTourRequests.filter(e => e.status === 'in_progress' || e.status === 'follow_up').length}</h4>
+                  <p className="text-[10px] text-slate-400 font-medium mt-1">Quotation under review</p>
+                </div>
+                <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
+                  <p className="text-[11px] font-semibold text-slate-500">Converted Bookings</p>
+                  <h4 className="text-2xl font-black text-indigo-600 mt-1">{customTourRequests.filter(e => e.status === 'converted').length}</h4>
+                  <p className="text-[10px] text-indigo-600 font-bold mt-1">Successful reservations</p>
+                </div>
+              </div>
+
+              {/* Cards Grid */}
+              {filteredCustomTourRequests.length === 0 ? (
+                <div className="bg-white rounded-3xl p-12 text-center text-slate-400 border border-slate-200">
+                  <Sparkles className="w-12 h-12 mx-auto text-blue-300 mb-3 animate-pulse" />
+                  <p className="font-bold text-slate-700 text-base">No customize tour requests found.</p>
+                  <p className="text-xs text-slate-400 mt-1 max-w-md mx-auto">When clients customize a trip on the website (/customize), their real-time requirements stream instantly into this dashboard.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                  {filteredCustomTourRequests.map(enq => {
+                    const cleanPhone = (enq.phone || '').replace(/[^0-9]/g, '');
+                    const waPhone = cleanPhone.length === 10 ? `91${cleanPhone}` : cleanPhone;
+                    const waText = encodeURIComponent(`Hi ${enq.name}, Greetings from Spirit Adventures! We received your customized trip request for ${enq.destination_preference || 'your holiday'}. Let's finalize your itinerary!`);
+                    
+                    return (
+                      <div key={enq.id} className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group">
+                        <div>
+                          {/* Card Top Badges */}
+                          <div className="flex items-center justify-between gap-2 mb-3">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold bg-gradient-to-r from-blue-50 to-indigo-50 text-[#0066FF] border border-blue-200">
+                              <Sparkles className="w-3 h-3 text-blue-600" />
+                              <span>Custom Trip Planner</span>
+                            </span>
+
+                            <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold capitalize ${
+                              enq.status === 'new'
+                                ? 'bg-emerald-100 text-emerald-800 animate-pulse'
+                                : enq.status === 'converted'
+                                ? 'bg-indigo-100 text-indigo-800'
+                                : 'bg-amber-100 text-amber-800'
+                            }`}>
+                              {enq.status.replace('_', ' ')}
+                            </span>
+                          </div>
+
+                          {/* Client Name & Contact */}
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <h3 className="font-extrabold text-slate-900 text-base group-hover:text-[#0066FF] transition-colors">{enq.name}</h3>
+                              <p className="text-xs text-slate-500 font-medium mt-0.5">{enq.phone || 'No phone'} • {enq.email}</p>
+                            </div>
+                            <span className="text-[10px] text-slate-400 font-semibold">{enq.created_at}</span>
+                          </div>
+
+                          {/* Key Specs Pills */}
+                          <div className="mt-4 grid grid-cols-2 gap-2 text-[11px]">
+                            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                              <span className="text-slate-400 block text-[10px] uppercase font-bold">Destination</span>
+                              <span className="font-bold text-slate-800 line-clamp-1">{enq.destination_preference || 'Custom Circuit'}</span>
+                            </div>
+                            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                              <span className="text-slate-400 block text-[10px] uppercase font-bold">Travel Date</span>
+                              <span className="font-bold text-slate-800">{enq.travel_date || 'Flexible'}</span>
+                            </div>
+                            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                              <span className="text-slate-400 block text-[10px] uppercase font-bold">Group / Duration</span>
+                              <span className="font-bold text-slate-800">{enq.travelers_count} People • {enq.duration_days} Days</span>
+                            </div>
+                            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                              <span className="text-slate-400 block text-[10px] uppercase font-bold">Budget Tier</span>
+                              <span className="font-bold text-emerald-700">{enq.budget || 'Standard'}</span>
+                            </div>
+                          </div>
+
+                          {/* Detailed Request Message */}
+                          <div className="mt-3.5 p-3 rounded-2xl bg-slate-50/80 border border-slate-100">
+                            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Trip Specifications</p>
+                            <p className="text-xs text-slate-700 whitespace-pre-line leading-relaxed max-h-36 overflow-y-auto pr-1">
+                              {enq.message}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Card Bottom Actions */}
+                        <div className="mt-5 pt-4 border-t border-slate-100 space-y-3">
+                          <div className="flex items-center justify-between text-xs text-slate-500">
+                            <div className="flex items-center gap-1.5">
+                              <UserCheck className="w-3.5 h-3.5 text-blue-600" />
+                              <span className="font-semibold text-slate-700">{enq.assigned_employee_name}</span>
+                            </div>
+                            {enq.notes && (
+                              <span className="text-[10px] text-amber-600 font-semibold truncate max-w-[120px]" title={enq.notes}>
+                                Note: {enq.notes}
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            {waPhone && (
+                              <a
+                                href={`https://wa.me/${waPhone}?text=${waText}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex-1 py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors"
+                                title="Chat on WhatsApp"
+                              >
+                                <span>WhatsApp</span>
+                              </a>
+                            )}
+                            {enq.phone && (
+                              <a
+                                href={`tel:${enq.phone}`}
+                                className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                                title="Call Client"
+                              >
+                                <Phone className="w-4 h-4" />
+                              </a>
+                            )}
+                            <button
+                              onClick={() => { setSelectedEnquiry(enq); setEnquiryModalOpen(true); }}
+                              className="flex-1 py-2 px-3 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors text-center"
+                            >
+                              Manage / Convert
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           )}
 

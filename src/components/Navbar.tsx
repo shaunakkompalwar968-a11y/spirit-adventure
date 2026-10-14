@@ -9,7 +9,6 @@ import {
   MapPin, 
   Camera,
   Search, 
-  Heart, 
   ArrowRight, 
   ChevronDown, 
   Home, 
@@ -44,11 +43,6 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
   // Search Modal state
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-
-  // Wishlist state
-  const [wishlistModalOpen, setWishlistModalOpen] = useState(false);
-  const [wishlist, setWishlist] = useState<string[]>(['coorg', 'goa']);
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 30);
@@ -65,12 +59,6 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
         p.tagline.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : featuredPackages.slice(0, 4);
-
-  const toggleWishlist = (slug: string) => {
-    setWishlist(prev => 
-      prev.includes(slug) ? prev.filter(s => s !== slug) : [...prev, slug]
-    );
-  };
 
   return (
     <>
@@ -212,13 +200,6 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
                       Our Story & Agency
                     </Link>
                     <Link
-                      href="/about#guides"
-                      onClick={() => setAboutDropdownOpen(false)}
-                      className="block p-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-blue-50/80 hover:text-[#0066FF] transition-colors"
-                    >
-                      Trip Captains & Guides
-                    </Link>
-                    <Link
                       href="/about"
                       onClick={() => setAboutDropdownOpen(false)}
                       className="block p-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-blue-50/80 hover:text-[#0066FF] transition-colors"
@@ -278,20 +259,6 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
               <Search className="w-4 h-4" />
             </button>
 
-            {/* Wishlist Icon */}
-            <button
-              onClick={() => setWishlistModalOpen(true)}
-              className="w-9 h-9 rounded-full bg-white/40 hover:bg-white/70 text-slate-800 hover:text-[#0787E8] flex items-center justify-center transition-colors border border-white/50 relative shadow-xs"
-              title="View Saved Trips"
-            >
-              <Heart className="w-4 h-4" />
-              {wishlist.length > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#0787E8] text-white font-black text-[9px] flex items-center justify-center shadow-sm">
-                  {wishlist.length}
-                </span>
-              )}
-            </button>
-
             {/* Vertical Divider */}
             <div className="h-5 w-[1px] bg-slate-300/60 mx-1" />
 
@@ -321,7 +288,7 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
           />
         </Link>
 
-        {/* Right Action Icons: Search, Heart, Book Now */}
+        {/* Right Action Icons: Search, Book Now */}
         <div className="flex items-center gap-2">
           <button
             onClick={() => setSearchModalOpen(true)}
@@ -329,19 +296,6 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
             title="Search"
           >
             <Search className="w-3.5 h-3.5" />
-          </button>
-
-          <button
-            onClick={() => setWishlistModalOpen(true)}
-            className="w-8 h-8 rounded-full bg-white/40 text-slate-800 border border-white/40 flex items-center justify-center relative"
-            title="Wishlist"
-          >
-            <Heart className="w-3.5 h-3.5" />
-            {wishlist.length > 0 && (
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-[#0787E8] text-white font-bold text-[8px] flex items-center justify-center">
-                {wishlist.length}
-              </span>
-            )}
           </button>
 
           {/* Book Now Button */}
@@ -508,74 +462,7 @@ export default function Navbar({ featuredPackages = FALLBACK_PACKAGES }: NavbarP
         )}
       </AnimatePresence>
 
-      {/* ========================================================= */}
-      {/* 4. INTERACTIVE WISHLIST DRAWER                            */}
-      {/* ========================================================= */}
-      <AnimatePresence>
-        {wishlistModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-6 text-slate-900 shadow-2xl relative"
-            >
-              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-                <div className="flex items-center gap-2">
-                  <Heart className="w-5 h-5 text-[#0787E8] fill-[#0787E8]" />
-                  <h3 className="font-bold text-sm text-slate-900">Your Saved Expeditions ({wishlist.length})</h3>
-                </div>
-                <button
-                  onClick={() => setWishlistModalOpen(false)}
-                  className="p-1 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
 
-              <div className="mt-4 space-y-3 max-h-80 overflow-y-auto">
-                {featuredPackages
-                  .filter(p => wishlist.includes(p.slug))
-                  .map(pkg => (
-                    <div key={pkg.id} className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between">
-                      <div>
-                        <h4 className="text-xs font-bold text-slate-800">{pkg.title}</h4>
-                        <span className="text-[11px] text-[#0787E8] font-bold">₹{(pkg.discount_price ?? pkg.price).toLocaleString()}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Link
-                          href={`/packages/${pkg.slug}`}
-                          onClick={() => setWishlistModalOpen(false)}
-                          className="px-3 py-1 rounded-full bg-[#0787E8] text-white font-bold text-[10px] hover:bg-[#056dbb]"
-                        >
-                          View
-                        </Link>
-                        <button
-                          onClick={() => toggleWishlist(pkg.slug)}
-                          className="p-1 text-slate-400 hover:text-red-500"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-
-              <div className="mt-5 pt-3 border-t border-slate-100 text-center">
-                <button
-                  onClick={() => {
-                    setWishlistModalOpen(false);
-                    setBookingModalOpen(true);
-                  }}
-                  className="w-full py-2.5 rounded-full text-xs font-bold text-white shadow-md bg-gradient-to-r from-[#0066FF] to-[#0787E8] hover:from-[#0052cc] hover:to-[#056dbb]"
-                >
-                  Book Saved Expeditions Now
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
 
       {/* Booking Modal */}
       <BookingModal

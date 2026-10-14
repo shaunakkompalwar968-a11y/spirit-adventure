@@ -16,7 +16,9 @@ import {
   FALLBACK_STATS 
 } from '@/data/fallbackData';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+const API_BASE = typeof window !== 'undefined'
+  ? '/api'
+  : (process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api');
 
 export async function fetchPackages(params?: {
   category?: string;
@@ -217,6 +219,67 @@ export async function submitContact(payload: ContactPayload): Promise<{ status: 
   return {
     status: 'success',
     message: `Thank you, ${payload.name}! Your message has been received. Our mountain expedition team will respond promptly.`
+  };
+}
+
+export interface CustomTourPayload {
+  name: string;
+  email: string;
+  phone: string;
+  destinations: string[];
+  starting_city: string;
+  travel_date: string;
+  duration: string;
+  adults: number;
+  group_type: string;
+  stay_preference: string;
+  transport_preference: string;
+  budget_tier: string;
+  special_requests?: string;
+}
+
+export async function submitCustomTour(payload: CustomTourPayload): Promise<{ status: string; message: string; enquiry_id?: number }> {
+  try {
+    const res = await fetch(`${API_BASE}/customize-tour`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch (err) {
+    console.warn('Direct /customize-tour call failed, falling back to /contact:', err);
+  }
+
+  try {
+    const destinationsStr = payload.destinations.join(', ');
+    const res = await fetch(`${API_BASE}/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: payload.name,
+        email: payload.email,
+        phone: payload.phone,
+        subject: `Custom Tour Request: ${destinationsStr} from ${payload.starting_city}`,
+        package_interest: destinationsStr,
+        travel_date: payload.travel_date,
+        duration_days: parseInt(payload.duration) || 3,
+        travelers_count: payload.adults,
+        budget: payload.budget_tier,
+        message: `Custom Trip Details:\n- Destinations: ${destinationsStr}\n- Starting City: ${payload.starting_city}\n- Travel Date: ${payload.travel_date}\n- Duration: ${payload.duration}\n- Group: ${payload.adults} Travelers (${payload.group_type})\n- Stay: ${payload.stay_preference}\n- Transport: ${payload.transport_preference}\n- Budget: ${payload.budget_tier}\n- Notes: ${payload.special_requests || 'None'}`
+      })
+    });
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch {
+    // Offline simulation
+  }
+
+  return {
+    status: 'success',
+    message: `Thank you, ${payload.name}! Your customized itinerary request has been submitted.`
   };
 }
 
