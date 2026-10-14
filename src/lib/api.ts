@@ -126,6 +126,40 @@ export async function fetchTestimonials(): Promise<Testimonial[]> {
   }
 }
 
+export interface GoogleReview {
+  id?: string;
+  author_name: string;
+  author_photo_url?: string;
+  rating: number;
+  relative_time_description: string;
+  text: string;
+  author_url?: string;
+  location?: string;
+  verified?: boolean;
+  google_maps_url?: string;
+}
+
+export interface GoogleReviewsResponse {
+  place_name: string;
+  place_url: string;
+  rating: number;
+  user_ratings_total: number;
+  source: string;
+  reviews: GoogleReview[];
+}
+
+export async function fetchGoogleReviews(): Promise<GoogleReviewsResponse | null> {
+  try {
+    const res = await fetch(`${API_BASE}/google-reviews`, {
+      cache: 'no-store'
+    });
+    if (res.ok) return await res.json();
+  } catch (err) {
+    console.error('Failed to fetch Google reviews:', err);
+  }
+  return null;
+}
+
 export async function fetchAgencyStats(): Promise<AgencyStats> {
   try {
     const res = await fetch(`${API_BASE}/stats`, {
